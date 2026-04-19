@@ -56,7 +56,7 @@
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
 
-            /* ✅ FONT PG/PRAGMATIC DIUBAH JADI LEBIH RAPI */
+            /* FONT GAME */
             .game-text {
                 font-family: 'Arial', sans-serif;
                 font-size: 13px;
@@ -213,7 +213,10 @@ CERIA 081111111111"></textarea>
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let rowData = [];
-                for(let j = 0; j < table.rows[i].cells.length; j++) { rowData.push(table.rows[i].cells[j].innerText); }
+                for(let j = 0; j < table.rows[i].cells.length; j++) { 
+                    // Ambil text content saja, hindari mengambil tag HTML
+                    rowData.push(table.rows[i].cells[j].textContent.trim()); 
+                }
                 data.push(rowData);
             }
             localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
@@ -244,16 +247,16 @@ CERIA 081111111111"></textarea>
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
                     newRow.innerHTML = barisTemplate;
-                    newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
-                    newRow.cells[1].textContent = rowData[1] || 'PENDING';
-                    let isiDb = rowData[2] || "";
-                    let parts = isiDb.split('\n');
+                    
+                    // Isi data dengan aman
+                    if(rowData[0]) newRow.cells[0].textContent = rowData[0];
+                    if(rowData[1]) newRow.cells[1].textContent = rowData[1];
+                    
+                    // Isi kolom Database (Nama & Nomor)
                     let spans = newRow.cells[2].querySelectorAll('span');
-                    if(parts.length >= 2) { spans[0].textContent = parts[0].trim(); spans[1].textContent = parts[1].trim(); }
-                    else { spans[0].textContent = isiDb.trim(); }
-                });
-            } else { for(let i=0; i<3; i++) tambahBaris(); }
-        }
-        window.onload = loadData;
-                        </script>
-                        
+                    if(rowData[2]) spans[0].textContent = rowData[2];
+                    if(rowData[3]) spans[1].textContent = rowData[3];
+                    
+                    // Isi kolom Keterangan & Reward
+                    if(rowData[4]) newRow.cells
+        
