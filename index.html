@@ -42,7 +42,17 @@
             .col-desc { width: 24%; }
             .col-reward { width: 20%; }
             td, th { vertical-align: top !important; overflow: hidden !important; word-wrap: break-word !important; }
-            .status-badge { background-color: #fef3c7 !important; color: #d97706 !important; border-radius: 9999px !important; padding: 4px 10px !important; font-size: 0.75rem !important; font-weight: 500 !important; display: inline-block !important; }
+            
+            /* ✅ STYLE BADGE KUNING */
+            .status-badge { 
+                background-color: #fef3c7 !important; 
+                color: #d97706 !important; 
+                border-radius: 9999px !important; 
+                padding: 4px 10px !important; 
+                font-size: 0.75rem !important; 
+                font-weight: 500 !important; 
+                display: inline-block !important; 
+            }
             
             /* POPUP */
             .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -56,7 +66,7 @@
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
 
-            /* ✅ FONT PG/PRAGMATIC DIUBAH JADI LEBIH RAPI */
+            /* FONT GAME */
             .game-text {
                 font-family: 'Arial', sans-serif;
                 font-size: 13px;
@@ -208,13 +218,21 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
+        // ✅ PERBAIKAN: Simpan isi HTML biar class dan warnanya gak ilang
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
-                let rowData = [];
-                for(let j = 0; j < table.rows[i].cells.length; j++) { rowData.push(table.rows[i].cells[j].innerText); }
-                data.push(rowData);
+                let row = table.rows[i];
+                let objData = {
+                    game: row.cells[0].innerHTML,
+                    status: row.cells[1].innerHTML, // Simpan HTML biar class status-badge tetap ada
+                    nama: row.cells[2].querySelector('.data-nama').textContent.trim(),
+                    nomor: row.cells[2].querySelector('.data-nomor').textContent.trim(),
+                    keterangan: Array.from(row.cells[3].querySelectorAll('span')).map(s => s.outerHTML).join('|'),
+                    reward: row.cells[4].innerHTML
+                };
+                data.push(objData);
             }
             localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
             alert('✅ Data BERHASIL disimpan!');
@@ -234,25 +252,11 @@ CERIA 081111111111"></textarea>
         }
         function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
+        // ✅ PERBAIKAN: Load HTML kembali biar tampilannya sama persis
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
                 let data = JSON.parse(savedData);
                 let tbody = document.getElementById('tableBody');
-                tbody.innerHTML = '';
-                data.forEach(rowData => {
-                    let newRow = tbody.insertRow();
-                    newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    newRow.innerHTML = barisTemplate;
-                    newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
-                    newRow.cells[1].textContent = rowData[1] || 'PENDING';
-                    let isiDb = rowData[2] || "";
-                    let parts = isiDb.split('\n');
-                    let spans = newRow.cells[2].querySelectorAll('span');
-                    if(parts.length >= 2) { spans[0].textContent = parts[0].trim(); spans[1].textContent = parts[1].trim(); }
-                    else { spans[0].textContent = isiDb.trim(); }
-                });
-            } else { for(let i=0; i<3; i++) tambahBaris(); }
-        }
-        window.onload = loadData;
-                                         </script>
+                tbody.innerHTML
+        
