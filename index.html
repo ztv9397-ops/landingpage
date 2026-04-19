@@ -56,7 +56,7 @@
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
 
-            /* FONT GAME - CUMA INI YANG DIUBAH */
+            /* FONT GAME */
             .game-text {
                 font-family: 'Arial', sans-serif;
                 font-size: 13px;
@@ -211,12 +211,17 @@ CERIA 081111111111"></textarea>
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
-            for(let i = 0; i < table.rows.length; i++) {
-                let rowData = [];
-                for(let j = 0; j < table.rows[i].cells.length; j++) {
-                    rowData.push(table.rows[i].cells[j].textContent.trim());
-                }
-                data.push(rowData);
+            for(let i = 1; i < table.rows.length; i++) {
+                let row = table.rows[i];
+                let objData = {
+                    game: row.cells[0].textContent.trim(),
+                    status: row.cells[1].textContent.trim(),
+                    nama: row.cells[2].querySelector('.data-nama').textContent.trim(),
+                    nomor: row.cells[2].querySelector('.data-nomor').textContent.trim(),
+                    keterangan: Array.from(row.cells[3].querySelectorAll('span')).map(s => s.textContent.trim()).join('|'),
+                    reward: row.cells[4].textContent.trim()
+                };
+                data.push(objData);
             }
             localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
             alert('✅ Data BERHASIL disimpan!');
@@ -242,22 +247,10 @@ CERIA 081111111111"></textarea>
                 let data = JSON.parse(savedData);
                 let tbody = document.getElementById('tableBody');
                 tbody.innerHTML = '';
-                data.forEach((rowData, index) => {
-                    if(index === 0) return;
+                data.forEach((item) => {
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
                     newRow.innerHTML = barisTemplate;
                     
-                    // Isi data dengan benar
-                    if(rowData[0]) newRow.cells[0].querySelector('.game-text').textContent = rowData[0];
-                    if(rowData[1]) newRow.cells[1].textContent = rowData[1];
-                    
-                    let spans = newRow.cells[2].querySelectorAll('span');
-                    if(rowData[2]) spans[0].textContent = rowData[2];
-                    if(rowData[3]) spans[1].textContent = rowData[3];
-                    
-                    if(rowData[4]) {
-                        let listItems = newRow.cells[4].querySelectorAll('span');
-                        let parts = rowData[4].split(', ');
-                        for
-    
+                    newRow.cells[0].querySelector('.game-text').textContent = item.game || '
+                        
