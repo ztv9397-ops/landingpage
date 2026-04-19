@@ -232,7 +232,7 @@
                 if(tableBody.lastElementChild) {
                     tableBody.removeChild(tableBody.lastElementChild);
                 } else {
-                    alert('Tidak ada baris yang bisa dihapus!');
+                    alert('❌ Tidak ada baris yang bisa dihapus!');
                 }
             });
 
@@ -245,5 +245,11 @@
 
             // --- 4. TOMBOL SAVE ---
             document.getElementById('btnSave').addEventListener('click', function() {
-                // Simulasi
+                // Simulasi proses simpan
+                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    alert('✅ Data berhasil disimpan!');
+                    this.innerHTML = '<i class
         
