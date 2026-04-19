@@ -81,10 +81,9 @@
 
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <table class="w-full border-collapse">
+            <table id="dataTable" class="w-full border-collapse">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <!-- Judul kolom sekarang bisa diedit -->
                         <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">GAME</th>
                         <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">STATUS</th>
                         <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">DATABASE</th>
@@ -158,6 +157,46 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Tombol Tambah Baris -->
+        <div class="mt-4">
+            <button onclick="tambahBaris()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
+                <i class="fa-solid fa-plus mr-2"></i> Tambah Baris
+            </button>
+        </div>
     </main>
+
+    <script>
+        function tambahBaris() {
+            // Ambil tabel dan body tabel
+            var table = document.getElementById("dataTable");
+            var tbody = table.getElementsByTagName('tbody')[0];
+
+            // Buat baris baru
+            var newRow = tbody.insertRow();
+            newRow.className = "border-b hover:bg-gray-50 transition-colors";
+
+            // Isi kolom-kolom baru dengan struktur yang sama
+            newRow.innerHTML = `
+                <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+                <td class="p-4">
+                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+                </td>
+                <td class="p-4" contenteditable="true"></td>
+                <td class="p-4">
+                    <ul class="space-y-1 text-sm text-gray-600">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                    </ul>
+                </td>
+                <td class="p-4">
+                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                        CLAIM NOW
+                    </button>
+                </td>
+            `;
+        }
+    </script>
 </body>
 </html>
