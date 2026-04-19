@@ -51,6 +51,23 @@
             .data-nomor {
                 @apply text-gray-600 text-sm block mt-1;
             }
+
+            /* ✅ TAMBAHAN INI: Agar lebar kolom TETAP */
+            .fixed-col {
+                table-layout: fixed;
+                width: 100%;
+            }
+            .col-game { width: 18%; }
+            .col-status { width: 12%; }
+            .col-db { width: 25%; }
+            .col-desc { width: 25%; }
+            .col-reward { width: 20%; }
+
+            /* Agar teks panjang tidak merusak tampilan */
+            td, th {
+                white-space: normal;
+                word-wrap: break-word;
+            }
         }
     </style>
 </head>
@@ -104,14 +121,16 @@ CERIA 081111111111"></textarea>
 
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <table id="dataTable" class="w-full border-collapse">
+            <!-- ✅ TAMBAH CLASS fixed-col -->
+            <table id="dataTable" class="w-full border-collapse fixed-col">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">GAME</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">STATUS</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">DATABASE</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">KETERANGAN</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">REWARD</th>
+                        <!-- ✅ TAMBAH CLASS LEBAR -->
+                        <th class="p-4 border-b font-semibold text-gray-700 col-game" contenteditable="true">GAME</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-status" contenteditable="true">STATUS</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-db" contenteditable="true">DATABASE</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-desc" contenteditable="true">KETERANGAN</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -137,22 +156,22 @@ CERIA 081111111111"></textarea>
     <script>
         // Template baris baru
         const barisTemplate = `
-            <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-            <td class="p-4">
+            <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4 col-status">
                 <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
-            <td class="p-4">
+            <td class="p-4 col-db">
                 <span class="data-nama" contenteditable="true"></span>
                 <span class="data-nomor" contenteditable="true"></span>
             </td>
-            <td class="p-4">
+            <td class="p-4 col-desc">
                 <ul class="space-y-1 text-sm text-gray-600">
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
                 </ul>
             </td>
-            <td class="p-4">
+            <td class="p-4 col-reward">
                 <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
@@ -228,7 +247,7 @@ CERIA 081111111111"></textarea>
             }
         }
 
-        // ✅ PERBAIKAN: Hapus warna highlight, hanya filter tampilan
+        // Fungsi Search tanpa highlight
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
