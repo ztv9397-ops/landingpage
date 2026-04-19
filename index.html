@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Jackpot Pejuang Kasino</title>
+    <title>Database Reward Pejuang Kasino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -83,7 +83,7 @@
                     <a href="#" class="nav-link">Home</a>
                     <a href="#" class="nav-link">Games</a>
                     <a href="#" class="nav-link">Promotions</a>
-                    <a href="#" class="nav-link active">Jackpot Database</a>
+                    <a href="#" class="nav-link active">Reward Database</a>
                 </nav>
                 <button class="md:hidden text-gray-700">
                     <i class="fa-solid fa-bars text-xl"></i>
@@ -93,7 +93,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE JACKPOT PEJUANG KASINO</h1>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
 
         <!-- 🔍 SEARCH -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
@@ -127,7 +127,7 @@ CERIA 081111111111"></textarea>
                         <th class="p-4 border-b font-semibold text-gray-700 col-status" contenteditable="true">STATUS</th>
                         <th class="p-4 border-b font-semibold text-gray-700 col-db" contenteditable="true">DATABASE</th>
                         <th class="p-4 border-b font-semibold text-gray-700 col-desc" contenteditable="true">KETERANGAN</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">JACKPOT</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -151,12 +151,12 @@ CERIA 081111111111"></textarea>
     </main>
 
     <script>
-        // ✅ TEMPLATE DENGAN STYLE LANGSUNG DI DALAMNYA
+        // TEMPLATE BARIS
         const barisTemplate = `
             <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
             <td class="p-4 col-status">
-                <!-- ✅ STYLE DI TULIS LANGSUNG DISINI -->
-                <span style="background-color: #fef3c7; color: #d97706; border-radius: 9999px; padding: 4px 10px; font-size: 0.75rem; font-weight: 500; display: inline-block;" contenteditable="true">PENDING</span>
+                <!-- ✅ HANYA BAGIAN INI SAYA UBAH -->
+                <span style="background: #fef3c7; color: #d97706; border-radius: 9999px; padding: 2px 8px; font-size: 0.75rem; display: inline-block;" contenteditable="true">PENDING</span>
             </td>
             <td class="p-4 col-db">
                 <span class="data-nama" contenteditable="true"></span>
