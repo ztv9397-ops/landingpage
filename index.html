@@ -52,37 +52,23 @@
                 @apply text-gray-600 text-sm block mt-1;
             }
 
-            /* ✅ KUNCI TABEL AGAR KAKU DAN RAPI */
-            .table-fixed {
+            /* ✅ KUNCI TABEL AGAR KAKU DAN TIDAK BERGERAK */
+            .fixed-table {
                 table-layout: fixed !important;
                 width: 100% !important;
             }
-            
-            /* Ukuran Kolom */
-            .th-1, .td-1 { width: 16%; }
-            .th-2, .td-2 { width: 12%; }
-            .th-3, .td-3 { width: 24%; }
-            .th-4, .td-4 { width: 28%; }
-            .th-5, .td-5 { width: 20%; }
 
-            /* Agar isi tidak berantakan */
-            th, td {
+            /* TETAPKAN LEBAR KOLOM */
+            .col-game { width: 18%; }
+            .col-status { width: 14%; }
+            .col-db { width: 24%; }
+            .col-desc { width: 24%; }
+            .col-reward { width: 20%; }
+
+            /* AGAR TULISAN TIDAK MERUSAK TAMPILAN */
+            td, th {
                 vertical-align: top !important;
                 overflow: hidden !important;
-                word-wrap: break-word !important;
-            }
-
-            /* ✅ STYLE KHUSUS KOLOM GAME & STATUS AGAR RAPI */
-            .td-1 {
-                font-size: 0.75rem !important; /* Ukuran huruf lebih kecil */
-                line-height: 1.2 !important;  /* Jarak baris rapat */
-                font-weight: 500 !important;
-            }
-            
-            .td-2 span {
-                font-size: 0.75rem !important; /* Ukuran status lebih kecil */
-                padding: 2px 6px !important;  /* Padding lebih kecil */
-                line-height: 1.2 !important;
             }
         }
     </style>
@@ -110,7 +96,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG ASIA</h1>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
 
         <!-- 🔍 SEARCH -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
@@ -137,14 +123,14 @@ CERIA 081111111111"></textarea>
 
         <!-- TABEL -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <table id="dataTable" class="w-full border-collapse table-fixed">
+            <table id="dataTable" class="w-full border-collapse fixed-table">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="p-4 border-b font-semibold text-gray-700 th-1" contenteditable="true">GAME</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 th-2" contenteditable="true">STATUS</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 th-3" contenteditable="true">DATABASE</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 th-4" contenteditable="true">KETERANGAN</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 th-5" contenteditable="true">REWARD</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-game" contenteditable="true">GAME</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-status" contenteditable="true">STATUS</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-db" contenteditable="true">DATABASE</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-desc" contenteditable="true">KETERANGAN</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -168,24 +154,24 @@ CERIA 081111111111"></textarea>
     </main>
 
     <script>
-        // Template dengan class yang tepat
+        // Template baris
         const barisTemplate = `
-            <td class="p-4 td-1" contenteditable="true">PG/PRAGMATIC</td>
-            <td class="p-4 td-2">
-                <span class="rounded-full bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+            <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4 col-status">
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
-            <td class="p-4 td-3">
+            <td class="p-4 col-db">
                 <span class="data-nama" contenteditable="true"></span>
                 <span class="data-nomor" contenteditable="true"></span>
             </td>
-            <td class="p-4 td-4">
+            <td class="p-4 col-desc">
                 <ul class="space-y-1 text-sm text-gray-600">
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
                 </ul>
             </td>
-            <td class="p-4 td-5">
+            <td class="p-4 col-reward">
                 <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
