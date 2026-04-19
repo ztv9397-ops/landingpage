@@ -44,7 +44,7 @@
             td, th { vertical-align: top !important; overflow: hidden !important; word-wrap: break-word !important; }
             .status-badge { background-color: #fef3c7 !important; color: #d97706 !important; border-radius: 9999px !important; padding: 4px 10px !important; font-size: 0.75rem !important; font-weight: 500 !important; display: inline-block !important; }
             
-            /* ✅ POPUP WARNA PUTIH SAMA PERSIS WEB */
+            /* ✅ STYLE POPUP PUTIH */
             .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
             .popup-overlay.active { opacity: 1; visibility: visible; }
             .popup-box { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 28px; max-width: 380px; width: 90%; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.07); transform: scale(0.95); transition: transform 0.3s ease; }
@@ -55,6 +55,16 @@
             .popup-btn { background: #2563EB; color: white; border: none; padding: 10px 28px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: background 0.2s; font-size: 14px; }
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
+
+            /* ✅ STYLE BARU UNTUK PG/PRAGMATIC */
+            .game-text {
+                font-family: 'Inter', sans-serif;
+                font-size: 13px !important;
+                font-weight: 600 !important;
+                color: #1F2937 !important;
+                letter-spacing: 0.2px;
+                line-height: 1.4;
+            }
         }
     </style>
 </head>
@@ -147,7 +157,10 @@ CERIA 081111111111"></textarea>
 
     <script>
         const barisTemplate = `
-            <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4 col-game" contenteditable="true">
+                <!-- ✅ TAMBAH CLASS game-text DISINI -->
+                <div class="game-text">PG/PRAGMATIC</div>
+            </td>
             <td class="p-4 col-status">
                 <span class="status-badge" contenteditable="true">PENDING</span>
             </td>
@@ -242,9 +255,5 @@ CERIA 081111111111"></textarea>
                     if(parts.length >= 2) { spans[0].textContent = parts[0].trim(); spans[1].textContent = parts[1].trim(); }
                     else { spans[0].textContent = isiDb.trim(); }
                 });
-            } else { for(let i=0; i<3; i++) tambahBaris(); }
-        }
-        window.onload = loadData;
-    </script>
-</body>
-</html>
+
+        
