@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Jackpot Pejuang Kasino</title>
+    <title>Database Reward Pejuang Kasino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -11,10 +11,11 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0D47A1',
-                        secondary: '#F8FAFC',
-                        neutral: '#94A3B8',
-                        dark: '#1E293B',
+                        primary: '#0F172A',
+                        secondary: '#1E293B',
+                        accent: '#2563EB',
+                        pending: '#FBBF24',
+                        success: '#10B981',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -28,227 +29,135 @@
             .content-auto {
                 content-visibility: auto;
             }
-            .shadow-card {
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            .nav-link {
+                @apply px-4 py-2 hover:text-accent transition-colors duration-200;
             }
+            .nav-link.active {
+                @apply text-accent border-b-2 border-accent;
+            }
+            /* Style untuk elemen yang bisa diedit */
             [contenteditable="true"] {
-                outline: none;
-                cursor: text;
+                @apply cursor-text rounded transition-all duration-150;
             }
-            [contenteditable="true"]:hover {
-                background-color: #f1f5f9;
-                border-radius: 4px;
+            [contenteditable="true"]:focus {
+                @apply outline-none ring-2 ring-accent/50 bg-white;
+            }
+            th[contenteditable="true"] {
+                @apply font-semibold;
             }
         }
     </style>
 </head>
-<body class="bg-white text-slate-800 min-h-screen font-sans">
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-crown text-primary text-xl"></i>
-                <h1 class="text-xl font-bold text-dark">PEJUANG KASINO</h1>
-                <div class="relative ml-2">
-                    <input type="text" value="274" class="bg-white border border-slate-300 rounded px-3 py-1.5 text-sm w-24 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<body class="bg-gray-50 font-sans">
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <i class="fa-solid fa-crown text-accent text-xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary">PEJUANG KASINO</span>
                 </div>
+
+                <!-- Navigation Menu -->
+                <nav class="hidden md:flex space-x-2">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Games</a>
+                    <a href="#" class="nav-link">Promotions</a>
+                    <a href="#" class="nav-link active">Reward Database</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
             </div>
-            <nav class="hidden md:flex items-center gap-6">
-                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Home</a>
-                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Games</a>
-                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Promotions</a>
-                <a href="#" class="text-primary font-medium">Jackpot Database</a>
-            </nav>
-            <button class="md:hidden text-2xl text-slate-600">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-bold text-dark mb-6">DATABASE JACKPOT PEJUANG KASINO</h2>
+        <!-- Page Title -->
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-8">DATABASE REWARD PEJUANG KASINO</h1>
 
         <!-- Table Container -->
-        <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-card">
-            <div class="overflow-x-auto">
-                <table id="dataTable" class="w-full">
-                    <thead>
-                        <tr class="bg-secondary">
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">GAME</th>
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">STATUS</th>
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">DATABASE</th>
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">KETERANGAN</th>
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">JACKPOT</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody" class="divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-4 py-4" contenteditable="true">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4">
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800" contenteditable="true">PENDING</span>
-                            </td>
-                            <td class="px-4 py-4">
-                                <div class="font-medium" contenteditable="true">Sokhiwanolo Telaumbanua</div>
-                                <div class="text-sm text-slate-500" contenteditable="true">6282272276547</div>
-                            </td>
-                            <td class="px-4 py-4">
-                                <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah di undang</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">sudah di baca</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah membalas</span></li>
-                                </ul>
-                            </td>
-                            <td class="px-4 py-4">
-                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
-                                    CLAIM NOW
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-4 py-4" contenteditable="true">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4">
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800" contenteditable="true">PENDING</span>
-                            </td>
-                            <td class="px-4 py-4">
-                                <div class="font-medium" contenteditable="true">Samy</div>
-                                <div class="text-sm text-slate-500" contenteditable="true">6283876422762</div>
-                            </td>
-                            <td class="px-4 py-4">
-                                <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah di undang</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">sudah di baca</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah membalas</span></li>
-                                </ul>
-                            </td>
-                            <td class="px-4 py-4">
-                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
-                                    CLAIM NOW
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-4 py-4" contenteditable="true">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4">
-                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800" contenteditable="true">PENDING</span>
-                            </td>
-                            <td class="px-4 py-4">
-                                <div class="font-medium" contenteditable="true">Patria widanti</div>
-                                <div class="text-sm text-slate-500" contenteditable="true">6285272271651</div>
-                            </td>
-                            <td class="px-4 py-4">
-                                <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah di undang</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">sudah di baca</span></li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah membalas</span></li>
-                                </ul>
-                            </td>
-                            <td class="px-4 py-4">
-                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
-                                    CLAIM NOW
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="overflow-x-auto bg-white rounded-lg shadow">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 text-left">
+                        <!-- Judul kolom sekarang bisa diedit -->
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">GAME</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">STATUS</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">DATABASE</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">KETERANGAN</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">REWARD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Row 1 -->
+                    <tr class="border-b hover:bg-gray-50 transition-colors">
+                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+                        </td>
+                        <td class="p-4" contenteditable="true"></td>
+                        <td class="p-4">
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                            </ul>
+                        </td>
+                        <td class="p-4">
+                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                                CLAIM NOW
+                            </button>
+                        </td>
+                    </tr>
 
-            <!-- Pagination -->
-            <div class="px-4 py-3 border-t border-slate-200 flex items-center justify-center gap-2">
-                <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-white">1</button>
-                <button class="w-8 h-8 flex items-center justify-center rounded bg-slate-100 hover:bg-slate-200 transition-colors text-slate-700">2</button>
-                <button class="px-3 py-1 rounded bg-slate-100 hover:bg-slate-200 transition-colors text-slate-700">Next</button>
-            </div>
+                    <!-- Row 2 -->
+                    <tr class="border-b hover:bg-gray-50 transition-colors">
+                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+                        </td>
+                        <td class="p-4" contenteditable="true"></td>
+                        <td class="p-4">
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                            </ul>
+                        </td>
+                        <td class="p-4">
+                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                                CLAIM NOW
+                            </button>
+                        </td>
+                    </tr>
 
-            <!-- Action Buttons -->
-            <div class="px-4 py-4 border-t border-slate-200 flex flex-wrap gap-3">
-                <button id="btnTambah" class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-plus"></i> Tambah Baris
-                </button>
-                <button id="btnHapus" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-trash"></i> Hapus Baris
-                </button>
-                <button id="btnHapusSemua" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-trash-can"></i> Hapus Semua
-                </button>
-                <button id="btnSave" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-save"></i> Save
-                </button>
-                <button id="btnImport" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-file-import"></i> Import CSV
-                </button>
-                <button id="btnInputBanyak" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-keyboard"></i> Masukkan Nomor Banyak
-                </button>
-            </div>
+                    <!-- Row 3 -->
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+                        </td>
+                        <td class="p-4" contenteditable="true"></td>
+                        <td class="p-4">
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                            </ul>
+                        </td>
+                        <td class="p-4">
+                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                                CLAIM NOW
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
-
-    <footer class="mt-auto py-6 border-t border-slate-200 text-center text-slate-500 text-sm">
-        <div class="container mx-auto px-4">
-            <p>&copy; 2024 Pejuang Kasino. All rights reserved.</p>
-            <div class="mt-2 space-x-4">
-                <a href="#" class="hover:text-slate-700 transition-colors">Privacy Policy</a>
-                <span>|</span>
-                <a href="#" class="hover:text-slate-700 transition-colors">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // TUNGGU HALAMAN LOAD DULU BARU JALAN SCRIPTNYA
-        window.onload = function() {
-            const tableBody = document.getElementById('tableBody');
-            
-            // --- 1. TOMBOL TAMBAH BARIS ---
-            document.getElementById('btnTambah').onclick = function() {
-                const newRow = document.createElement('tr');
-                newRow.className = 'hover:bg-slate-50 transition-colors';
-                newRow.innerHTML = `
-                    <td class="px-4 py-4" contenteditable="true">PG/PRAGMATIC</td>
-                    <td class="px-4 py-4">
-                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800" contenteditable="true">PENDING</span>
-                    </td>
-                    <td class="px-4 py-4">
-                        <div class="font-medium" contenteditable="true">Nama Baru</div>
-                        <div class="text-sm text-slate-500" contenteditable="true">08xxxxxxxxxx</div>
-                    </td>
-                    <td class="px-4 py-4">
-                        <ul class="space-y-1 text-sm">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah di undang</span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">sudah di baca</span></li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> <span contenteditable="true">telah membalas</span></li>
-                        </ul>
-                    </td>
-                    <td class="px-4 py-4">
-                        <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
-                            CLAIM NOW
-                        </button>
-                    </td>
-                `;
-                tableBody.appendChild(newRow);
-                console.log("Baris ditambahkan!");
-            }
-
-            // --- 2. TOMBOL HAPUS BARIS ---
-            document.getElementById('btnHapus').onclick = function() {
-                if(tableBody.lastElementChild) {
-                    tableBody.removeChild(tableBody.lastElementChild);
-                } else {
-                    alert('❌ Tidak ada baris yang bisa dihapus!');
-                }
-            }
-
-            // --- 3. TOMBOL HAPUS SEMUA ---
-            document.getElementById('btnHapusSemua').onclick = function() {
-                if(confirm('⚠️ Yakin ingin menghapus SEMUA data?')) {
-                    tableBody.innerHTML = '';
-                }
-            }
-
-            // --- 4. TOMBOL SAVE ---
-            document.getElementById('btnSave').onclick = function() {
-                alert('✅ Data berhasil disimpan!');
-            }
-
-
-            
+</body>
+</html>
