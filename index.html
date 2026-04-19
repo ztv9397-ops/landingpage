@@ -195,11 +195,12 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // TUNGGU HALAMAN LOAD DULU BARU JALAN SCRIPTNYA
+        window.onload = function() {
             const tableBody = document.getElementById('tableBody');
             
             // --- 1. TOMBOL TAMBAH BARIS ---
-            document.getElementById('btnTambah').addEventListener('click', function() {
+            document.getElementById('btnTambah').onclick = function() {
                 const newRow = document.createElement('tr');
                 newRow.className = 'hover:bg-slate-50 transition-colors';
                 newRow.innerHTML = `
@@ -225,31 +226,29 @@
                     </td>
                 `;
                 tableBody.appendChild(newRow);
-            });
+                console.log("Baris ditambahkan!");
+            }
 
             // --- 2. TOMBOL HAPUS BARIS ---
-            document.getElementById('btnHapus').addEventListener('click', function() {
+            document.getElementById('btnHapus').onclick = function() {
                 if(tableBody.lastElementChild) {
                     tableBody.removeChild(tableBody.lastElementChild);
                 } else {
                     alert('❌ Tidak ada baris yang bisa dihapus!');
                 }
-            });
+            }
 
             // --- 3. TOMBOL HAPUS SEMUA ---
-            document.getElementById('btnHapusSemua').addEventListener('click', function() {
-                if(confirm('⚠️ Yakin ingin menghapus SEMUA data? Tindakan ini tidak bisa dibatalkan.')) {
+            document.getElementById('btnHapusSemua').onclick = function() {
+                if(confirm('⚠️ Yakin ingin menghapus SEMUA data?')) {
                     tableBody.innerHTML = '';
                 }
-            });
+            }
 
             // --- 4. TOMBOL SAVE ---
-            document.getElementById('btnSave').addEventListener('click', function() {
-                // Simulasi proses simpan
-                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
-                this.disabled = true;
-                
-                setTimeout(() => {
-                    alert('✅ Data berhasil disimpan!');
-                    this.innerHTML = '<i class
-        
+            document.getElementById('btnSave').onclick = function() {
+                alert('✅ Data berhasil disimpan!');
+            }
+
+
+            
