@@ -52,25 +52,38 @@
                 @apply text-gray-600 text-sm block mt-1;
             }
 
-            /* ✅ CARA PALING AMAN KUNCI KOLOM */
+            /* ✅ KUNCI TABEL AGAR KAKU DAN RAPI */
             .table-fixed {
-                table-layout: fixed;
-                width: 100%;
+                table-layout: fixed !important;
+                width: 100% !important;
             }
             
-            /* Kunci lebar header */
-            .th-1 { width: 16%; }
-            .th-2 { width: 12%; }
-            .th-3 { width: 24%; }
-            .th-4 { width: 28%; }
-            .th-5 { width: 20%; }
+            /* Ukuran Kolom */
+            .th-1, .td-1 { width: 16%; }
+            .th-2, .td-2 { width: 12%; }
+            .th-3, .td-3 { width: 24%; }
+            .th-4, .td-4 { width: 28%; }
+            .th-5, .td-5 { width: 20%; }
 
-            /* Kunci lebar isi tabel */
-            .td-1 { width: 16%; }
-            .td-2 { width: 12%; }
-            .td-3 { width: 24%; }
-            .td-4 { width: 28%; }
-            .td-5 { width: 20%; }
+            /* Agar isi tidak berantakan */
+            th, td {
+                vertical-align: top !important;
+                overflow: hidden !important;
+                word-wrap: break-word !important;
+            }
+
+            /* ✅ STYLE KHUSUS KOLOM GAME & STATUS AGAR RAPI */
+            .td-1 {
+                font-size: 0.75rem !important; /* Ukuran huruf lebih kecil */
+                line-height: 1.2 !important;  /* Jarak baris rapat */
+                font-weight: 500 !important;
+            }
+            
+            .td-2 span {
+                font-size: 0.75rem !important; /* Ukuran status lebih kecil */
+                padding: 2px 6px !important;  /* Padding lebih kecil */
+                line-height: 1.2 !important;
+            }
         }
     </style>
 </head>
@@ -97,7 +110,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG ASIA</h1>
 
         <!-- 🔍 SEARCH -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
@@ -124,11 +137,9 @@ CERIA 081111111111"></textarea>
 
         <!-- TABEL -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <!-- ✅ TAMBAH CLASS table-fixed -->
             <table id="dataTable" class="w-full border-collapse table-fixed">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <!-- ✅ TAMBAH CLASS TH -->
                         <th class="p-4 border-b font-semibold text-gray-700 th-1" contenteditable="true">GAME</th>
                         <th class="p-4 border-b font-semibold text-gray-700 th-2" contenteditable="true">STATUS</th>
                         <th class="p-4 border-b font-semibold text-gray-700 th-3" contenteditable="true">DATABASE</th>
@@ -157,11 +168,11 @@ CERIA 081111111111"></textarea>
     </main>
 
     <script>
-        // ✅ TEMPLATE BARIS DENGAN CLASS TD YANG DIKUNCI
+        // Template dengan class yang tepat
         const barisTemplate = `
             <td class="p-4 td-1" contenteditable="true">PG/PRAGMATIC</td>
             <td class="p-4 td-2">
-                <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+                <span class="rounded-full bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
             <td class="p-4 td-3">
                 <span class="data-nama" contenteditable="true"></span>
