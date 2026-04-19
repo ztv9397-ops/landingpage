@@ -154,7 +154,6 @@ CERIA 081111111111"></textarea>
     </div>
 
     <script>
-        // Template baris
         const barisTemplate = `
             <td class="p-4 col-game" contenteditable="true">
                 <div class="game-text">PG/PRAGMATIC</div>
@@ -180,18 +179,10 @@ CERIA 081111111111"></textarea>
             </td>
         `;
 
-        // Fungsi Popup
-        function bukaPopup() { 
-            document.getElementById('popupNotif').classList.add('active'); 
-        }
-        function tutupPopup() { 
-            document.getElementById('popupNotif').classList.remove('active'); 
-        }
-        document.getElementById('popupNotif').addEventListener('click', function(e) { 
-            if(e.target === this) tutupPopup(); 
-        });
+        function bukaPopup() { document.getElementById('popupNotif').classList.add('active'); }
+        function tutupPopup() { document.getElementById('popupNotif').classList.remove('active'); }
+        document.getElementById('popupNotif').addEventListener('click', function(e) { if(e.target === this) tutupPopup(); });
 
-        // Tambah Baris
         function tambahBaris() {
             var tbody = document.getElementById('tableBody');
             var newRow = tbody.insertRow();
@@ -200,7 +191,6 @@ CERIA 081111111111"></textarea>
             return newRow;
         }
 
-        // Masukkan Data dari Textarea
         function masukkanNomor() {
             let teks = document.getElementById('inputNomor').value;
             let barisTeks = teks.split(/\n/).filter(item => item.trim() != '');
@@ -218,7 +208,6 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
-        // Simpan Data ke LocalStorage
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
@@ -238,14 +227,8 @@ CERIA 081111111111"></textarea>
             alert('✅ Data BERHASIL disimpan!');
         }
 
-        // Hapus Semua Baris
-        function hapusSemua() { 
-            if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) {
-                document.getElementById('tableBody').innerHTML = "";
-            }
-        }
+        function hapusSemua() { if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) document.getElementById('tableBody').innerHTML = ""; }
 
-        // Cari Data
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
@@ -255,22 +238,25 @@ CERIA 081111111111"></textarea>
                 let td = tr[i].getElementsByTagName("td")[2];
                 if (td) {
                     let txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
+                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
                 }       
             }
         }
-        function clearSearch() { 
-            document.getElementById('searchInput').value = ''; 
-            cariNomor(); 
-        }
+        function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
-        // Load Data saat halaman dibuka
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
-                let data
-        
+                let data = JSON.parse(savedData);
+                let tbody = document.getElementById('tableBody');
+                tbody.innerHTML = '';
+                data.forEach((item) => {
+                    let newRow = tbody.insertRow();
+                    newRow.className = "border-b hover:bg-gray-50 transition-colors";
+                    newRow.innerHTML = barisTemplate;
+                    
+                    newRow.cells[0].querySelector('.game-text').textContent = item.game || 'PG/PRAGMATIC';
+                    newRow.cells[1].textContent = item.status || 'PENDING';
+                    
+                    let spans = newRow.cells
+                    
