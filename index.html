@@ -70,7 +70,7 @@
                             <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">STATUS</th>
                             <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">DATABASE</th>
                             <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">KETERANGAN</th>
-                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">REWARD</th>
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">JACKPOT</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody" class="divide-y divide-slate-100">
@@ -190,29 +190,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             const tableBody = document.getElementById('tableBody');
             
-            // 1. Fungsi Tambah Baris
+            // --- 1. TOMBOL TAMBAH BARIS ---
             document.getElementById('btnTambah').addEventListener('click', function() {
                 const newRow = document.createElement('tr');
                 newRow.className = 'hover:bg-slate-50 transition-colors';
                 newRow.innerHTML = `
                     <td class="px-4 py-4">
-                        <input type="text" placeholder="Game" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
+                        <input type="text" value="PG/PRAGMATIC" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
                     </td>
                     <td class="px-4 py-4">
-                        <select class="border border-slate-300 rounded px-2 py-1 text-sm">
-                            <option>PENDING</option>
-                            <option>SUCCESS</option>
-                            <option>FAILED</option>
-                        </select>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span>
                     </td>
                     <td class="px-4 py-4">
                         <input type="text" placeholder="Nama" class="w-full border border-slate-300 rounded px-2 py-1 text-sm mb-1">
                         <input type="text" placeholder="Nomor" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
                     </td>
                     <td class="px-4 py-4">
-                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> telah di undang</label>
-                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> sudah di baca</label>
-                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> telah membalas</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> di undang</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> di baca</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> membalas</label>
                     </td>
                     <td class="px-4 py-4">
                         <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
@@ -223,52 +219,56 @@
                 tableBody.appendChild(newRow);
             });
 
-            // 2. Fungsi Hapus Baris Terakhir
+            // --- 2. TOMBOL HAPUS BARIS ---
             document.getElementById('btnHapus').addEventListener('click', function() {
-                if(tableBody.lastChild) {
-                    tableBody.removeChild(tableBody.lastChild);
+                if(tableBody.lastElementChild) {
+                    tableBody.removeChild(tableBody.lastElementChild);
                 } else {
                     alert('Tidak ada baris yang bisa dihapus!');
                 }
             });
 
-            // 3. Fungsi Hapus Semua
+            // --- 3. TOMBOL HAPUS SEMUA ---
             document.getElementById('btnHapusSemua').addEventListener('click', function() {
-                if(confirm('Yakin ingin menghapus semua data?')) {
+                if(confirm('⚠️ Yakin ingin menghapus SEMUA data? Tindakan ini tidak bisa dibatalkan.')) {
                     tableBody.innerHTML = '';
                 }
             });
 
-            // 4. Fungsi Save
+            // --- 4. TOMBOL SAVE ---
             document.getElementById('btnSave').addEventListener('click', function() {
-                alert('Data berhasil disimpan! ✅');
-                // Di sini nanti bisa ditambahkan kode untuk kirim data ke server
+                // Simulasi proses simpan
+                this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    alert('✅ Data berhasil disimpan ke database!');
+                    this.innerHTML = '<i class="fa-solid fa-save"></i> Save';
+                    this.disabled = false;
+                }, 800);
             });
 
-            // 5. Fungsi Import CSV
+            // --- 5. TOMBOL IMPORT CSV ---
             document.getElementById('btnImport').addEventListener('click', function() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = '.csv';
-                input.onchange = function(e) {
+                const inputFile = document.createElement('input');
+                inputFile.type = 'file';
+                inputFile.accept = '.csv, .txt';
+                
+                inputFile.onchange = function(e) {
                     const file = e.target.files[0];
                     if(file) {
-                        alert(`File "${file.name}" berhasil diimport!`);
+                        alert(`📂 File "${file.name}" berhasil dipilih dan siap diimport!`);
+                        // Di sini bisa ditambahkan logika baca isi file CSV
                     }
                 }
-                input.click();
+                inputFile.click();
             });
 
-            // 6. Fungsi Masukkan Nomor Banyak
+            // --- 6. TOMBOL MASUKKAN NOMOR BANYAK ---
             document.getElementById('btnInputBanyak').addEventListener('click', function() {
-                const nomor = prompt('Masukkan nomor-nomor yang ingin ditambahkan (pisahkan dengan koma):');
-                if(nomor) {
-                    const listNomor = nomor.split(',');
-                    listNomor.forEach(n => {
-                        const newRow = document.createElement('tr');
-                        newRow.className = 'hover:bg-slate-50 transition-colors';
-                        newRow.innerHTML = `
-                            <td class="px-4 py-4">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4"><span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span></td>
-                            <td class="px-4 py-4
-                                
+                const inputText = prompt('📝 Masukkan nomor-nomor (pisahkan dengan koma atau enter):');
+                
+                if(inputText) {
+                    // Pisahkan nomor berdasarkan koma atau baris baru
+                    const nomorList = inputText.split(/[\n
+        
