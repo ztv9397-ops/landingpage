@@ -11,8 +11,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1E40AF',
-                        secondary: '#F1F5F9',
+                        primary: '#0D47A1',
+                        secondary: '#F8FAFC',
                         neutral: '#94A3B8',
                         dark: '#1E293B',
                     },
@@ -63,7 +63,7 @@
         <!-- Table Container -->
         <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-card">
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table id="dataTable" class="w-full">
                     <thead>
                         <tr class="bg-secondary">
                             <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">GAME</th>
@@ -73,7 +73,7 @@
                             <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">JACKPOT</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody id="tableBody" class="divide-y divide-slate-100">
                         <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-4 py-4">PG/PRAGMATIC</td>
                             <td class="px-4 py-4">
@@ -153,22 +153,22 @@
 
             <!-- Action Buttons -->
             <div class="px-4 py-4 border-t border-slate-200 flex flex-wrap gap-3">
-                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnTambah" class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-plus"></i> Tambah Baris
                 </button>
-                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnHapus" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-trash"></i> Hapus Baris
                 </button>
-                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnHapusSemua" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-trash-can"></i> Hapus Semua
                 </button>
-                <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnSave" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-save"></i> Save
                 </button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnImport" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-file-import"></i> Import CSV
                 </button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                <button id="btnInputBanyak" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-keyboard"></i> Masukkan Nomor Banyak
                 </button>
             </div>
@@ -187,13 +187,88 @@
     </footer>
 
     <script>
-        // Simple JavaScript for interactivity
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Add your functionality here
-                console.log('Button clicked:', this.textContent.trim());
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('tableBody');
+            
+            // 1. Fungsi Tambah Baris
+            document.getElementById('btnTambah').addEventListener('click', function() {
+                const newRow = document.createElement('tr');
+                newRow.className = 'hover:bg-slate-50 transition-colors';
+                newRow.innerHTML = `
+                    <td class="px-4 py-4">
+                        <input type="text" placeholder="Game" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
+                    </td>
+                    <td class="px-4 py-4">
+                        <select class="border border-slate-300 rounded px-2 py-1 text-sm">
+                            <option>PENDING</option>
+                            <option>SUCCESS</option>
+                            <option>FAILED</option>
+                        </select>
+                    </td>
+                    <td class="px-4 py-4">
+                        <input type="text" placeholder="Nama" class="w-full border border-slate-300 rounded px-2 py-1 text-sm mb-1">
+                        <input type="text" placeholder="Nomor" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
+                    </td>
+                    <td class="px-4 py-4">
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> telah di undang</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> sudah di baca</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked> telah membalas</label>
+                    </td>
+                    <td class="px-4 py-4">
+                        <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
+                            CLAIM NOW
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(newRow);
             });
-        });
-    </script>
-</body>
-</html>
+
+            // 2. Fungsi Hapus Baris Terakhir
+            document.getElementById('btnHapus').addEventListener('click', function() {
+                if(tableBody.lastChild) {
+                    tableBody.removeChild(tableBody.lastChild);
+                } else {
+                    alert('Tidak ada baris yang bisa dihapus!');
+                }
+            });
+
+            // 3. Fungsi Hapus Semua
+            document.getElementById('btnHapusSemua').addEventListener('click', function() {
+                if(confirm('Yakin ingin menghapus semua data?')) {
+                    tableBody.innerHTML = '';
+                }
+            });
+
+            // 4. Fungsi Save
+            document.getElementById('btnSave').addEventListener('click', function() {
+                alert('Data berhasil disimpan! ✅');
+                // Di sini nanti bisa ditambahkan kode untuk kirim data ke server
+            });
+
+            // 5. Fungsi Import CSV
+            document.getElementById('btnImport').addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if(file) {
+                        alert(`File "${file.name}" berhasil diimport!`);
+                    }
+                }
+                input.click();
+            });
+
+            // 6. Fungsi Masukkan Nomor Banyak
+            document.getElementById('btnInputBanyak').addEventListener('click', function() {
+                const nomor = prompt('Masukkan nomor-nomor yang ingin ditambahkan (pisahkan dengan koma):');
+                if(nomor) {
+                    const listNomor = nomor.split(',');
+                    listNomor.forEach(n => {
+                        const newRow = document.createElement('tr');
+                        newRow.className = 'hover:bg-slate-50 transition-colors';
+                        newRow.innerHTML = `
+                            <td class="px-4 py-4">PG/PRAGMATIC</td>
+                            <td class="px-4 py-4"><span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span></td>
+                            <td class="px-4 py-4
+                                
