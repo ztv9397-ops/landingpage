@@ -208,15 +208,14 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
-        // ✅ FIX: Simpan innerHTML biar class kuningnya ikut tersimpan
+        // ✅ FIX: Simpan innerHTML biar class dan warnanya ikut ke save
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let rowData = [];
-                // Ambil HTML lengkap biar style-nya gak ilang
                 for(let j = 0; j < table.rows[i].cells.length; j++) { 
-                    rowData.push(table.rows[i].cells[j].innerHTML); 
+                    rowData.push(table.rows[i].cells[j].innerHTML); // Ambil HTML lengkap
                 }
                 data.push(rowData);
             }
@@ -238,6 +237,7 @@ CERIA 081111111111"></textarea>
         }
         function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
+        // ✅ FIX: Load HTML langsung biar tampilan gak berubah
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
@@ -247,15 +247,10 @@ CERIA 081111111111"></textarea>
                 data.forEach(rowData => {
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    // Masukin HTML langsung biar tampilannya sama persis
+                    // Masukin HTML langsung ke setiap cell
                     newRow.innerHTML = `
                         <td class="p-4 col-game" contenteditable="true">${rowData[0]}</td>
                         <td class="p-4 col-status">${rowData[1]}</td>
                         <td class="p-4 col-db">${rowData[2]}</td>
                         <td class="p-4 col-desc">${rowData[3]}</td>
-                        <td class="p-4 col-reward">${rowData[4]}</td>
-                    `;
-                });
-            } else { 
-                for(let i=0; i<3; i++)
         
