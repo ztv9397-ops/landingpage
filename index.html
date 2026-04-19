@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background: #f4f6f9;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background: #111827;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.sidebar a:hover {
+    background: #374151;
+    color: white;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin: 0;
+    color: #555;
+}
+
+.card p {
+    font-size: 24px;
+    margin: 10px 0 0;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #111827;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+/* Button */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Admin</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">User</a>
+    <a href="#">Settings</a>
+    <a href="#">Logout</a>
+</div>
+
+<div class="main">
+    <h1>Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total User</h3>
+            <p id="totalUser">0</p>
+        </div>
+        <div class="card">
+            <h3>Online</h3>
+            <p>12</p>
+        </div>
+        <div class="card">
+            <h3>Revenue</h3>
+            <p>Rp 1.200.000</p>
+        </div>
+    </div>
+
+    <h2>Data User</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+</div>
+
+<script>
+const users = [
+    {nama: "Budi", email: "budi@gmail.com", status: "Aktif"},
+    {nama: "Siti", email: "siti@gmail.com", status: "Nonaktif"},
+    {nama: "Andi", email: "andi@gmail.com", status: "Aktif"}
+];
+
+function loadUsers() {
+    const table = document.getElementById("userTable");
+    table.innerHTML = "";
+    
+    users.forEach((user, index) => {
+        table.innerHTML += `
+            <tr>
+                <td>${user.nama}</td>
+                <td>${user.email}</td>
+                <td>${user.status}</td>
+                <td>
+                    <button class="btn btn-edit" onclick="editUser(${index})">Edit</button>
+                    <button class="btn btn-delete" onclick="deleteUser(${index})">Hapus</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    document.getElementById("totalUser").innerText = users.length;
+}
+
+function deleteUser(index) {
+    if(confirm("Yakin mau hapus user?")) {
+        users.splice(index, 1);
+        loadUsers();
+    }
+}
+
+function editUser(index) {
+    const namaBaru = prompt("Edit nama:", users[index].nama);
+    if(namaBaru) {
+        users[index].nama = namaBaru;
+        loadUsers();
+    }
+}
+
+loadUsers();
+</script>
+
+</body>
+</html>
