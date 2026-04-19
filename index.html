@@ -154,6 +154,7 @@ CERIA 081111111111"></textarea>
     </div>
 
     <script>
+        // Template baris
         const barisTemplate = `
             <td class="p-4 col-game" contenteditable="true">
                 <div class="game-text">PG/PRAGMATIC</div>
@@ -173,16 +174,24 @@ CERIA 081111111111"></textarea>
                 </ul>
             </td>
             <td class="p-4 col-reward">
-                <button onclick="bukaPopup()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                <button onclick="bukaPopup()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors">
                     CLAIM NOW
                 </button>
             </td>
         `;
 
-        function bukaPopup() { document.getElementById('popupNotif').classList.add('active'); }
-        function tutupPopup() { document.getElementById('popupNotif').classList.remove('active'); }
-        document.getElementById('popupNotif').addEventListener('click', function(e) { if(e.target === this) tutupPopup(); });
+        // Fungsi Popup
+        function bukaPopup() { 
+            document.getElementById('popupNotif').classList.add('active'); 
+        }
+        function tutupPopup() { 
+            document.getElementById('popupNotif').classList.remove('active'); 
+        }
+        document.getElementById('popupNotif').addEventListener('click', function(e) { 
+            if(e.target === this) tutupPopup(); 
+        });
 
+        // Tambah Baris
         function tambahBaris() {
             var tbody = document.getElementById('tableBody');
             var newRow = tbody.insertRow();
@@ -191,6 +200,7 @@ CERIA 081111111111"></textarea>
             return newRow;
         }
 
+        // Masukkan Data dari Textarea
         function masukkanNomor() {
             let teks = document.getElementById('inputNomor').value;
             let barisTeks = teks.split(/\n/).filter(item => item.trim() != '');
@@ -208,6 +218,7 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
+        // Simpan Data ke LocalStorage
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
@@ -227,8 +238,14 @@ CERIA 081111111111"></textarea>
             alert('✅ Data BERHASIL disimpan!');
         }
 
-        function hapusSemua() { if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) document.getElementById('tableBody').innerHTML = ""; }
+        // Hapus Semua Baris
+        function hapusSemua() { 
+            if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) {
+                document.getElementById('tableBody').innerHTML = "";
+            }
+        }
 
+        // Cari Data
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
@@ -236,21 +253,24 @@ CERIA 081111111111"></textarea>
             let tr = table.getElementsByTagName("tr");
             for (let i = 1; i < tr.length; i++) {
                 let td = tr[i].getElementsByTagName("td")[2];
-                tr[i].style.display = (td && td.textContent.toUpperCase().indexOf(filter) > -1) ? "" : "none";
+                if (td) {
+                    let txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
             }
         }
-        function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
+        function clearSearch() { 
+            document.getElementById('searchInput').value = ''; 
+            cariNomor(); 
+        }
 
+        // Load Data saat halaman dibuka
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
-                let data = JSON.parse(savedData);
-                let tbody = document.getElementById('tableBody');
-                tbody.innerHTML = '';
-                data.forEach((item) => {
-                    let newRow = tbody.insertRow();
-                    newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    newRow.innerHTML = barisTemplate;
-                    
-                    newRow.cells[0].querySelector('.game-text').textContent = item.game || '
-                        
+                let data
+        
