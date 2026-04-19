@@ -1,567 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Database Jackpot Pejuang Kasino</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-thead th.keterangan {
-    min-width: 200px; /* atau sesuai kebutuhan layar */
-}
-
-td, th {
-    overflow: visible; /* jangan dipotong lagi */
-    text-overflow: clip; /* hilangkan ... */
-}
-
-/* Tambahkan jarak antar baris di kolom keterangan */
-td.keterangan {
-    line-height: 2.0; /* atau 1.5, sesuaikan */
-}
-
-/* Opsional: beri sedikit jarak antara icon ✓ dan teks */
-td.keterangan .check {
-    margin-right: 7px; /* jarak horizontal icon dan teks */
-}
-
-.status{
-font-size:12px;
-padding:4px 8px;
-border-radius:8px;
-font-weight:500;
-width:fit-content;
-}
-
-.status-undang{
-background:#e8f5e9;
-color:#2e7d32;
-border:1px solid #a5d6a7;
-}
-
-.status-baca{
-background:#fff8e1;
-color:#f57f17;
-border:1px solid #ffe082;
-}
-
-.status-balas{
-background:#e3f2fd;
-color:#1565c0;
-border:1px solid #90caf9;
-}
-
-.check{
-display:inline-block;
-
-width:18px;
-height:18px;
-line-height:18px;
-
-text-align:center;
-
-font-size:12px;
-font-weight:bold;
-color:white;
-
-margin-right:6px;
-
-border-radius:4px;
-
-background:linear-gradient(135deg,#22c55e,#06b6d4);
-
-box-shadow:0 1px 3px rgba(0,0,0,0.25);
-
-vertical-align:middle;
-}
-
-/* TABEL FIX HEIGHT OTOMATIS */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: auto; /* biar kolom menyesuaikan isi */
-}
-
-th, td {
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 12px 10px;
-    text-align: left;
-    vertical-align: top; /* baris tinggi mengikuti isi */
-    word-wrap: break-word; /* kata panjang wrap ke baris baru */
-    white-space: normal; /* biar teks wrap otomatis */
-}
-
-/* Semua isi tabel berada di tengah kolom, kecuali kolom keterangan */
-table td:not(.keterangan) {
-    text-align: center;      /* horizontal center */
-    vertical-align: middle;  /* vertical center */
-}
-
-/* Jika ada badge atau elemen lain, tetap menyesuaikan */
-table td .badge {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Kolom keterangan tetap teks block dengan jarak antar baris */
-td.keterangan span.check {
-    margin-bottom: 4px;      /* beri jarak antar ceklis */
-    display: inline-block;   /* supaya margin berfungsi */
-}
-/* ===== BASE STYLE ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat','Inter',sans-serif;}
-html,body{touch-action:manipulation;}
-[contenteditable="true"]{font-size:16px !important;-webkit-text-size-adjust:100%;}
-
-/* ===== BADGE ===== */
-.badge{
-display:inline-flex;
-align-items:center;
-justify-content:center;
-width:110px;
-height:28px;
-border-radius:12px;
-font-size:11px;
-font-weight:600;
-}
-.badge:active{transform: scale(0.95); box-shadow:0 0 12px rgba(0,150,255,0.5);}
-.claimed{background:#3e9b8a;color:#001a17;}
-.claim-now{background:#4a88ff;color:#00142b;}
-.not-taken{background:#b34a4a;color:white;}
-
-/* ===== BODY & FIX BACKGROUND ===== */
-body{
-background:linear-gradient(180deg,#000000 0%,#000c1a 25%,#001a2e 50%,#002b38 75%,#004644 100%);
-color:#e5e5e5;
-letter-spacing:0.3px;
-}
-
-/* ===== HEADER ===== */
-.header{
-background: linear-gradient(90deg,#000000,#001c3d,#004c3c);
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-padding: 14px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:2px solid rgba(255,255,255,0.15);
-z-index: 1000;
-}
-.logo{display:flex;align-items:center;font-size:24px;font-weight:700;color:#9fdcff;}
-.logo span{margin-left:10px;}
-.nav{display:flex;gap:24px;flex-wrap:wrap;}
-.nav a{color:#d4d4d4;text-decoration:none;font-size:13px;font-weight:500;}
-.nav a:hover{color:#ffffff;}
-
-/* ===== CONTAINER ===== */
-.container{
-padding: 100px 20px 40px 20px; 
-}
-.title{font-size:24px;margin-bottom:25px;font-weight:700;color:#9fdcff;cursor:text;}
-
-/* ===== TABLE ===== */
-.table-wrapper{
-background:linear-gradient(180deg,#000000,#001421,#002430,#00383a);
-padding:25px;
-border-radius:8px;
-border:2px solid rgba(255,255,255,0.10);
-overflow-x:auto;
-position:relative;
-}
-table{
-width:100%;
-min-width:750px;
-border-collapse:collapse;
-border:2px solid rgba(255,255,255,0.15);
-}
-
-/* ===== THEAD FIX ===== */
-thead{
-background:linear-gradient(90deg,#001a2e,#004644);
-position: sticky;
-top: 0;
-z-index: 10; /* lebih tinggi dari row agar selalu di atas */
-height: 60px; /* header tabel diperbesar */
-}
-thead th{
-padding:20px 20px; /* padding header lebih besar */
-line-height:1.5;    /* teks tetap rapi */
-font-size:13px;
-font-weight:600;
-text-align:left;
-color:#aee4ff;
-border-bottom:2px solid rgba(255,255,255,0.18);
-border-right:2px solid rgba(255,255,255,0.15);
-}
-thead th:last-child{border-right:none;}
-tbody td{
-padding:16px 20px;
-font-size:13px;
-border-bottom:2px solid rgba(255,255,255,0.12);
-border-right:2px solid rgba(255,255,255,0.12);
-}
-tbody td:last-child{border-right:none;}
-tbody tr{background:rgba(0,0,0,0.35);}
-tbody tr:hover{background:rgba(0,80,80,0.18);}
-
-/* ===== DATABASE CELL ===== */
-.db-name {
-font-weight: 600;
-font-size: 13px; 
-line-height: 1.2;
-}
-.db-number {
-font-size: 15px; 
-margin-top: 2px;
-cursor: pointer;
-color:#4a88ff;
-transition:all 0.15s ease;
-}
-.db-number:active{transform: scale(0.95); box-shadow:0 0 12px rgba(0,150,255,0.5);}
-
-/* ===== PAGINATION & BUTTON ===== */
-.pagination{margin-top:20px;display:flex;justify-content:center;gap:8px;}
-.page-btn{padding:6px 12px;font-size:12px;background:#000000;border:2px solid rgba(255,255,255,0.12);border-radius:6px;cursor:pointer;transition:all 0.15s ease;}
-.page-btn.active{background:#2f7cff;color:white;}
-.page-btn:active{transform: scale(0.95); box-shadow:0 0 12px rgba(0,150,255,0.5);}
-.button-wrapper{margin-top:25px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;}
-button{padding:9px 18px;font-size:12px;font-weight:600;border-radius:6px;border:2px solid rgba(255,255,255,0.10);cursor:pointer;transition:all 0.15s ease;}
-button:active{transform: scale(0.95); box-shadow:0 0 12px rgba(0,150,255,0.5);}
-#addRow{background:#2e74ff;color:white;}
-#saveTable{background:#007c63;color:white;}
-#deleteRow{background:#b23d3d;color:white;}
-#deleteAll{background:#ff4a4a;color:white;}
-
-/* ===== FOOTER ===== */
-.footer{margin-top:35px;padding:18px 40px;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;border-top:2px solid rgba(255,255,255,0.10);color:#bcbcbc;}
-
-/* ===== POPUP & OVERLAY ===== */
-#customPopup, #webNotificationCenter{position:fixed;top:0;left:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.75);z-index:9999;transition:opacity 0.25s ease;}
-#customPopup.show, #webNotificationCenter.show{display:flex;opacity:1;}
-.popupBox, #webNotificationCenter .notifBox{background:linear-gradient(180deg,#000000,#001421,#002430,#00383a);padding:30px 35px;border-radius:8px;border:2px solid rgba(255,255,255,0.12);max-width:420px;text-align:center;color:#d9f4ff;position:relative;}
-.popupIcon{font-size:40px;margin-bottom:12px;}
-.popupText{font-size:14px;margin-bottom:20px;}
-.popupBtn{padding:8px 22px;background:#2f7cff;border:none;border-radius:6px;color:white;font-weight:600;cursor:pointer;transition:all 0.15s ease;}
-.popupBtn:active{transform: scale(0.95);box-shadow:0 0 12px rgba(0,150,255,0.5);}
-#popupCloseX{position:absolute;top:8px;right:8px;background:transparent;color:white;border:none;font-size:18px;font-weight:bold;cursor:pointer;padding:4px 8px;transition:all 0.15s ease;}
-#popupCloseX:active{transform: scale(0.9); box-shadow:0 0 8px rgba(255,255,255,0.5);}
-
-/* ===== MULTI INPUT ===== */
-#webInputOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.25s ease;}
-#webInputOverlay.show{display:flex;opacity:1;}
-#webInputOverlay textarea{width:90%;height:120px;border-radius:8px;padding:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,20,40,0.7);color:#d9f4ff;font-family:'Montserrat',sans-serif;font-size:14px;}
-.web-btn{padding:8px 22px;border-radius:6px;font-weight:600;border:none;cursor:pointer;transition: all 0.15s ease;}
-.web-btn:active{transform: scale(0.95); box-shadow:0 0 12px rgba(0,150,255,0.5);}
-.web-btn.cancel-btn{background:#b23d3d;color:white;}
-.web-btn:not(.cancel-btn){background:#2f7cff;color:white;}
-#webInputOverlay .buttonsWrapper{margin-top:12px;display:flex;gap:12px;justify-content:center;}
-
-/* ===== ANIMASI BADGE ===== */
-@keyframes badgeClick { 0% { transform: scale(1); box-shadow: 0 0 0 rgba(0,150,255,0); } 50% { transform: scale(1.2); box-shadow: 0 0 12px rgba(0,150,255,0.5); } 100% { transform: scale(1); box-shadow: 0 0 0 rgba(0,150,255,0); } }
-.badge.animate-click { animation: badgeClick 0.2s ease-in-out; }
-</style>
-</head>
-<body>
-<!-- ===== BAGIAN 1 ===== -->
-<div class="header">
-<div class="logo">👑 <span>PEJUANG KASINO</span></div>
-<div class="nav">
-<a href="#">Home</a>
-<a href="#">Games</a>
-<a href="#">Promotions</a>
-<a href="#"><b>Jackpot Database</b></a>
-</div>
-</div>
-<div class="container">
-<div class="title" contenteditable="true">DATABASE JACKPOT PEJUANG KASINO</div>
-<div class="table-wrapper">
-<table id="jackpotTable">
-<thead>
-<thead>
-<tr>
-<th contenteditable="true">GAME</th>
-<th contenteditable="true">STATUS</th>
-<th contenteditable="true">DATABASE</th>
-<th contenteditable="true">KETERANGAN</th>
-<th contenteditable="true">REWARD</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td contenteditable="true">PG/PRAGMATIC</td>
-<td contenteditable="true">DONE</td>
-<td class="keterangan">
-<span class="check">✓</span> telah di undang<br>
-<span class="check">✓</span> sudah di baca<br>
-<span class="check">✓</span> telah membalas
-</td>
-<td><span class="badge claim-now">CLAIM NOW</span></td>
-</tr>
-<tr>
-<td contenteditable="true">PG/PRAGMATIC</td>
-<td contenteditable="true">PENDING</td>
-<td>
-<div class="db-name" contenteditable="true">Nama</div>
-<div class="db-number" onclick="window.open('https://wa.me/-','_blank')">-</div>
-</td>
-<td contenteditable="true">VIP</td>
-<td><span class="badge claim-now">CLAIM NOW</span></td>
-</tr>
-</tbody>
-</table>
-<div class="pagination">
-<div class="page-btn active">1</div>
-<div class="page-btn" onclick="switchPage(2)">2</div>
-<div class="page-btn">Next</div>
-</div>
-<div class="button-wrapper">
-<button id="addRow">Tambah Baris</button>
-<button id="deleteRow">Hapus Baris</button>
-<button id="deleteAll">Hapus Semua</button>
-<button id="saveTable">Save</button>
-<button id="importCSV">Import CSV</button>
-<button id="addMultiple">Masukkan Nomor Banyak</button>
-</div>
-</div>
-</div>
-<!-- ===== BAGIAN 2 ===== -->
-<div id="page2" style="display:none;padding:40px 20px;">
-<h2 style="color:#9fdcff;">Halaman 2 (Contoh)</h2>
-<p style="color:#d4d4d4;">Ini bisa diisi konten lain atau tabel berbeda.</p>
-</div>
-<div class="footer">
-<div>© 2024 Pejuang Kasino, All rights reserved.</div>
-<div>Privacy Policy | Terms of Service</div>
-</div>
-
-<!-- ===== POPUP & OVERLAY ===== -->
-<div id="customPopup">
-<div class="popupBox">
-<button class="popupBtn" id="popupCloseX">×</button>
-<div class="popupIcon">⚠</div>
-<div class="popupText">Maaf jackpot tidak dapat di claim karna pengguna belum melakukan deposit.</div>
-<button class="popupBtn" id="popupCloseBtn">Tutup</button>
-</div>
-</div>
-<div id="webNotificationCenter"><div class="notifBox"></div></div>
-<div id="webInputOverlay">
-<div>
-<div style="margin-bottom:12px;">Masukkan nama dan nomor (pisahkan tiap baris):</div>
-<textarea id="multiNumberInput"></textarea>
-<div class="buttonsWrapper">
-<button id="multiNumberSubmit" class="web-btn">Submit</button>
-<button id="multiNumberCancel" class="web-btn cancel-btn">Batal</button>
-</div>
-</div>
-</div>
-
-<!-- ===== JS ASLI ===== -->
-<script>
-// ===== ELEMENT REFERENCES =====
-const table = document.getElementById("jackpotTable");
-const title = document.querySelector(".title");
-const addRowBtn = document.getElementById("addRow");
-const deleteRowBtn = document.getElementById("deleteRow");
-const deleteAllBtn = document.getElementById("deleteAll");
-const saveBtn = document.getElementById("saveTable");
-const importCSVBtn = document.getElementById("importCSV");
-const addMultipleBtn = document.getElementById("addMultiple");
-const overlay = document.getElementById("webInputOverlay");
-const textarea = document.getElementById("multiNumberInput");
-const notifCenter = document.getElementById("webNotificationCenter").querySelector(".notifBox");
-const popup = document.getElementById("customPopup");
-const popupCloseBtn = document.getElementById("popupCloseBtn");
-const popupCloseX = document.getElementById("popupCloseX");
-
-// ===== HELPERS =====
-function showPopup(){ popup.classList.add("show"); }
-function closePopup(){ popup.classList.remove("show"); }
-function showNotificationCenter(msg){ 
-    notifCenter.innerText = msg; 
-    document.getElementById("webNotificationCenter").classList.add("show"); 
-    setTimeout(()=>{document.getElementById("webNotificationCenter").classList.remove("show");},2000); 
-}
-function splitNameNumber(input){ 
-    const number = (input.match(/\d+/g) || []).join(''); 
-    const name = input.replace(/\d+/g,'').trim() || '-'; 
-    return {name, number}; 
-}
-function createDBCellFromRaw(raw){ 
-    const {name, number} = splitNameNumber(raw); 
-    return `<div class="db-name" contenteditable="true">${name}</div><div class="db-number" onclick="window.open('https://wa.me/${number}','_blank')">${number || '-'}</div>`; 
-}
-
-// ===== BADGE TOGGLE =====
-function setupBadgeToggle(){
-    document.querySelectorAll(".badge").forEach(span=>{
-        span.onclick = ()=>{
-            span.classList.add("animate-click");
-            setTimeout(()=>{span.classList.remove("animate-click");},200);
-            const current = span.innerText.trim().toUpperCase();
-            if(current === "CLAIM NOW"){
-                span.dataset.pendingBadge = true;
-                showPopup();
-            } else if(current === "CLAIMED"){
-                span.innerText = "NOT TAKEN";
-                span.className = "badge not-taken";
-            } else if(current === "NOT TAKEN"){
-                span.innerText = "CLAIM NOW";
-                span.className = "badge claim-now";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Jackpot Pejuang Kasino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F343B',
+                        secondary: '#1A535C',
+                        accent: '#4ECDC4',
+                        buttonBlue: '#2563EB',
+                        buttonRed: '#DC2626',
+                        buttonGreen: '#059669',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
             }
-        };
-    });
-}
-
-// ===== ROW OPERATIONS =====
-addRowBtn.addEventListener("click", ()=>{
-    const tbody = table.querySelector("tbody");
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-        <td contenteditable="true">PG/PRAGMATIC</td>
-        <td contenteditable="true">Status</td>
-        <td>${createDBCellFromRaw("-")}</td>
-        <td class="keterangan">
-            <span class="check">✓</span> telah di undang<br>
-            <span class="check">✓</span> sudah di baca<br>
-            <span class="check">✓</span> telah membalas
-        </td>
-        <td><span class="badge claim-now">CLAIM NOW</span></td>`;
-    tbody.appendChild(newRow);
-    setupBadgeToggle();
-});
-
-deleteRowBtn.addEventListener("click", ()=>{
-    const tbody = table.querySelector("tbody");
-    if(tbody.rows.length>0) tbody.deleteRow(tbody.rows.length-1);
-});
-
-deleteAllBtn.addEventListener("click", ()=>{
-    table.querySelector("tbody").innerHTML = "";
-});
-
-// ===== SAVE TABLE =====
-saveBtn.addEventListener("click", ()=>{
-    localStorage.setItem("savedTableData", table.querySelector("tbody").innerHTML);
-    localStorage.setItem("savedTitle", title.innerText);
-    showNotificationCenter("Data berhasil disimpan!");
-});
-
-// ===== IMPORT CSV =====
-importCSVBtn.addEventListener("click", ()=>{
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = ".csv";
-    input.click();
-    input.onchange = ()=>{
-        const file = input.files[0];
-        const reader = new FileReader();
-        reader.onload = e=>{
-            e.target.result.split(/\r\n|\n/).forEach(line=>{
-                if(!line.trim()) return;
-                const tbody = table.querySelector("tbody");
-                const newRow = document.createElement("tr");
-                newRow.innerHTML = `
-                    <td contenteditable="true">PG/PRAGMATIC</td>
-                    <td contenteditable="true">PENDING</td>
-                    <td>${createDBCellFromRaw(line.trim())}</td>
-                    <td class="keterangan">
-                        <span class="check">✓</span> telah di undang<br>
-                        <span class="check">✓</span> sudah di baca<br>
-                        <span class="check">✓</span> telah membalas
-                    </td>
-                    <td><span class="badge claim-now">CLAIM NOW</span></td>`;
-                tbody.appendChild(newRow);
-            });
-            setupBadgeToggle();
-            showNotificationCenter("CSV berhasil diimport!");
-        };
-        reader.readAsText(file);
-    };
-});
-
-// ===== ADD MULTIPLE NUMBERS =====
-addMultipleBtn.addEventListener("click", ()=>{
-    overlay.classList.add("show");
-    textarea.value="";
-    textarea.focus();
-});
-
-document.getElementById("multiNumberSubmit").addEventListener("click", ()=>{
-    const input=textarea.value;
-    if(!input.trim()){ showNotificationCenter("Tidak ada nomor yang dimasukkan!"); return; }
-    input.split("\n").forEach(line=>{
-        if(!line.trim()) return;
-        const tbody = table.querySelector("tbody");
-        const newRow = document.createElement("tr");
-        newRow.innerHTML=`
-            <td contenteditable="true">PG/PRAGMATIC</td>
-            <td contenteditable="true">PENDING</td>
-            <td>${createDBCellFromRaw(line.trim())}</td>
-            <td class="keterangan">
-                <span class="check">✓</span> telah di undang<br>
-                <span class="check">✓</span> sudah di baca<br>
-                <span class="check">✓</span> telah membalas
-            </td>
-            <td><span class="badge claim-now">CLAIM NOW</span></td>`;
-        tbody.appendChild(newRow);
-    });
-    overlay.classList.remove("show");
-    setupBadgeToggle();
-});
-
-document.getElementById("multiNumberCancel").addEventListener("click", ()=>{
-    overlay.classList.remove("show");
-});
-
-// ===== POPUP =====
-popupCloseBtn.addEventListener("click", ()=>{ closePopup(); });
-popupCloseX.addEventListener("click", ()=>{
-    closePopup();
-    document.querySelectorAll(".badge").forEach(span=>{
-        if(span.dataset.pendingBadge){
-            span.innerText = "CLAIMED";
-            span.className = "badge claimed";
-            delete span.dataset.pendingBadge;
         }
-    });
-});
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .bg-gradient-dark {
+                background: linear-gradient(135deg, #0A1929 0%, #0F343B 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-dark text-white min-h-screen font-sans">
+    <!-- Header -->
+    <header class="bg-secondary/80 backdrop-blur-sm border-b border-white/10 sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-crown text-yellow-400 text-xl"></i>
+                <h1 class="text-xl font-bold">PEJUANG KASINO</h1>
+                <div class="relative ml-2">
+                    <input type="text" value="274" class="bg-primary/50 border border-white/20 rounded px-3 py-1 text-sm w-24 focus:outline-none focus:ring-1 focus:ring-accent">
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#" class="hover:text-accent transition-colors">Home</a>
+                <a href="#" class="hover:text-accent transition-colors">Games</a>
+                <a href="#" class="hover:text-accent transition-colors">Promotions</a>
+                <a href="#" class="text-accent font-medium">Jackpot Database</a>
+            </nav>
+            <button class="md:hidden text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
 
-// ===== INISIALISASI HALAMAN =====
-window.onload = ()=>{
-    const savedTable = localStorage.getItem("savedTableData");
-    const savedTitle = localStorage.getItem("savedTitle");
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold mb-6">DATABASE JACKPOT PEJUANG KASINO</h2>
 
-    // Kalau ada data tersimpan → tampilkan, kalau tidak → kosongkan tbody
-    table.querySelector("tbody").innerHTML = savedTable || "";
+        <!-- Table Container -->
+        <div class="bg-primary/50 rounded-lg border border-white/10 overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-secondary/70">
+                            <th class="px-4 py-3 text-left font-semibold">GAME</th>
+                            <th class="px-4 py-3 text-left font-semibold">STATUS</th>
+                            <th class="px-4 py-3 text-left font-semibold">DATABASE</th>
+                            <th class="px-4 py-3 text-left font-semibold">KETERANGAN</th>
+                            <th class="px-4 py-3 text-left font-semibold">JACKPOT</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10">
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-4 py-4">PG/PRAGMATIC</td>
+                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <div class="font-medium">Sokhiwanolo Telaumbanua</div>
+                                <div class="text-sm text-white/60">6282272276547</div>
+                            </td>
+                            <td class="px-4 py-4">
+                                <ul class="space-y-1 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                </ul>
+                            </td>
+                            <td class="px-4 py-4">
+                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                    CLAIM NOW
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-4 py-4">PG/PRAGMATIC</td>
+                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <div class="font-medium">Samy</div>
+                                <div class="text-sm text-white/60">6283876422762</div>
+                            </td>
+                            <td class="px-4 py-4">
+                                <ul class="space-y-1 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                </ul>
+                            </td>
+                            <td class="px-4 py-4">
+                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                    CLAIM NOW
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition-colors">
+                            <td class="px-4 py-4">PG/PRAGMATIC</td>
+                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <div class="font-medium">Patria widanti</div>
+                                <div class="text-sm text-white/60">6285272271651</div>
+                            </td>
+                            <td class="px-4 py-4">
+                                <ul class="space-y-1 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                </ul>
+                            </td>
+                            <td class="px-4 py-4">
+                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                    CLAIM NOW
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    // Kalau ada title tersimpan → tampilkan
-    if(savedTitle) title.innerText = savedTitle;
+            <!-- Pagination -->
+            <div class="px-4 py-3 border-t border-white/10 flex items-center justify-center gap-2">
+                <button class="w-8 h-8 flex items-center justify-center rounded bg-buttonBlue text-white">1</button>
+                <button class="w-8 h-8 flex items-center justify-center rounded bg-white/10 hover:bg-white/20 transition-colors">2</button>
+                <button class="px-3 py-1 rounded bg-white/10 hover:bg-white/20 transition-colors">Next</button>
+            </div>
 
-    setupBadgeToggle();
-};
+            <!-- Action Buttons -->
+            <div class="px-4 py-4 border-t border-white/10 flex flex-wrap gap-3">
+                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Baris
+                </button>
+                <button class="bg-buttonRed hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-trash"></i> Hapus Baris
+                </button>
+                <button class="bg-buttonRed hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-trash-can"></i> Hapus Semua
+                </button>
+                <button class="bg-buttonGreen hover:bg-green-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-save"></i> Save
+                </button>
+                <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-file-import"></i> Import CSV
+                </button>
+                <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-keyboard"></i> Masukkan Nomor Banyak
+                </button>
+            </div>
+        </div>
+    </main>
 
-// Switch halaman
-function switchPage(page){
-const header=document.querySelector(".header");
-const container=document.querySelector(".container");
-const footer=document.querySelector(".footer");
-const page2=document.getElementById("page2");
-if(page===2){
-header.style.display="flex"; // tetap tampil
-container.style.display="none";
-footer.style.display="none";
-page2.style.display="block";
-} else {
-header.style.display="flex";
-container.style.display="block";
-footer.style.display="flex";
-page2.style.display="none";
-}
-}
-</script>
+    <footer class="mt-auto py-6 border-t border-white/10 text-center text-white/60 text-sm">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2024 Pejuang Kasino. All rights reserved.</p>
+            <div class="mt-2 space-x-4">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <span>|</span>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactivity
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Add your functionality here
+                console.log('Button clicked:', this.textContent.trim());
+            });
+        });
+    </script>
 </body>
-  </html>
+</html>
