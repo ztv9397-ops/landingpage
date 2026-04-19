@@ -25,37 +25,53 @@
             }
         }
     </script>
-    <style>
-        /* 🔒 GLOBAL STYLE UNTUK TABEL - WAJIB KAKU */
-        table {
-            table-layout: fixed !important;
-            width: 100% !important;
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .nav-link {
+                @apply px-4 py-2 hover:text-accent transition-colors duration-200;
+            }
+            .nav-link.active {
+                @apply text-accent border-b-2 border-accent;
+            }
+            [contenteditable="true"] {
+                @apply cursor-text rounded transition-all duration-150;
+            }
+            [contenteditable="true"]:focus {
+                @apply outline-none ring-2 ring-accent/50 bg-white;
+            }
+            th[contenteditable="true"] {
+                @apply font-semibold;
+            }
+            .data-nama {
+                @apply font-bold text-primary block;
+            }
+            .data-nomor {
+                @apply text-gray-600 text-sm block mt-1;
+            }
+
+            /* ✅ CARA PALING AMAN KUNCI KOLOM */
+            .table-fixed {
+                table-layout: fixed;
+                width: 100%;
+            }
+            
+            /* Kunci lebar header */
+            .th-1 { width: 16%; }
+            .th-2 { width: 12%; }
+            .th-3 { width: 24%; }
+            .th-4 { width: 28%; }
+            .th-5 { width: 20%; }
+
+            /* Kunci lebar isi tabel */
+            .td-1 { width: 16%; }
+            .td-2 { width: 12%; }
+            .td-3 { width: 24%; }
+            .td-4 { width: 28%; }
+            .td-5 { width: 20%; }
         }
-
-        /* Tetapkan ukuran untuk setiap kolom secara PAKSA */
-        table th:nth-child(1), table td:nth-child(1) { width: 15% !important; }  /* GAME */
-        table th:nth-child(2), table td:nth-child(2) { width: 12% !important; }  /* STATUS */
-        table th:nth-child(3), table td:nth-child(3) { width: 25% !important; }  /* DATABASE */
-        table th:nth-child(4), table td:nth-child(4) { width: 28% !important; }  /* KETERANGAN */
-        table th:nth-child(5), table td:nth-child(5) { width: 20% !important; }  /* REWARD */
-
-        /* Agar isi tidak membesar */
-        table th, table td {
-            overflow: hidden !important;
-            word-wrap: break-word !important;
-            word-break: break-all !important; /* Paksa potong kata jika kepanjangan */
-            white-space: normal !important;
-            vertical-align: top !important;
-        }
-
-        /* Style lainnya */
-        .nav-link { @apply px-4 py-2 hover:text-blue-500 transition-colors duration-200; }
-        .nav-link.active { @apply text-blue-500 border-b-2 border-blue-500; }
-        [contenteditable="true"] { @apply cursor-text rounded transition-all duration-150; }
-        [contenteditable="true"]:focus { @apply outline-none ring-2 ring-blue-500/50 bg-white; }
-        th[contenteditable="true"] { @apply font-semibold; }
-        .data-nama { @apply font-bold text-slate-800 block; }
-        .data-nomor { @apply text-gray-600 text-sm block mt-1; }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -64,8 +80,8 @@
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <i class="fa-solid fa-crown text-blue-500 text-xl mr-2"></i>
-                    <span class="text-xl font-bold text-slate-800">PEJUANG KASINO</span>
+                    <i class="fa-solid fa-crown text-accent text-xl mr-2"></i>
+                    <span class="text-xl font-bold text-primary">PEJUANG KASINO</span>
                 </div>
                 <nav class="hidden md:flex space-x-2">
                     <a href="#" class="nav-link">Home</a>
@@ -81,13 +97,13 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-slate-800 mb-4">DATABASE REWARD PEJUANG KASINO</h1>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
 
         <!-- 🔍 SEARCH -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Data</label>
             <div class="flex gap-2">
-                <input type="text" id="searchInput" onkeyup="cariNomor()" placeholder="Ketik nomor atau kata kunci..." class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input type="text" id="searchInput" onkeyup="cariNomor()" placeholder="Ketik nomor atau kata kunci..." class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent">
                 <button onclick="clearSearch()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
                     <i class="fa-solid fa-times"></i> Clear
                 </button>
@@ -97,7 +113,7 @@
         <!-- INPUT DATA -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
-            <textarea id="inputNomor" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Contoh format:
+            <textarea id="inputNomor" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Contoh format:
 ANDI 081234567890
 BUDI 089876543210
 CERIA 081111111111"></textarea>
@@ -108,14 +124,16 @@ CERIA 081111111111"></textarea>
 
         <!-- TABEL -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <table id="dataTable" class="w-full border-collapse">
+            <!-- ✅ TAMBAH CLASS table-fixed -->
+            <table id="dataTable" class="w-full border-collapse table-fixed">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">GAME</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">STATUS</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">DATABASE</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">KETERANGAN</th>
-                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">REWARD</th>
+                        <!-- ✅ TAMBAH CLASS TH -->
+                        <th class="p-4 border-b font-semibold text-gray-700 th-1" contenteditable="true">GAME</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 th-2" contenteditable="true">STATUS</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 th-3" contenteditable="true">DATABASE</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 th-4" contenteditable="true">KETERANGAN</th>
+                        <th class="p-4 border-b font-semibold text-gray-700 th-5" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -132,31 +150,32 @@ CERIA 081111111111"></textarea>
             <button onclick="simpanData()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-save mr-2"></i> SAVE DATA
             </button>
-            <button onclick="hapusSemua()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
+            <button onclick="hapusSemua()" class="bg-danger hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-trash mr-2"></i> Hapus Semua Baris
             </button>
         </div>
     </main>
 
     <script>
+        // ✅ TEMPLATE BARIS DENGAN CLASS TD YANG DIKUNCI
         const barisTemplate = `
-            <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-            <td class="p-4">
-                <span class="px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-600" contenteditable="true">PENDING</span>
+            <td class="p-4 td-1" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4 td-2">
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
-            <td class="p-4">
+            <td class="p-4 td-3">
                 <span class="data-nama" contenteditable="true"></span>
                 <span class="data-nomor" contenteditable="true"></span>
             </td>
-            <td class="p-4">
+            <td class="p-4 td-4">
                 <ul class="space-y-1 text-sm text-gray-600">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span contenteditable="true">telah di undang</span></li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
                 </ul>
             </td>
-            <td class="p-4">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+            <td class="p-4 td-5">
+                <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
             </td>
@@ -183,10 +202,25 @@ CERIA 081111111111"></textarea>
             
             barisTeks.forEach((isi, index) => {
                 let bagian = isi.trim().split(/\s+/);
-                let nama = bagian.filter(item => !/^\d+$/.test(item)).join(" ");
-                let nomor = bagian.find(item => /^\d+$/.test(item)) || "";
+                
+                let nama = "";
+                let nomor = "";
 
-                let row = tbody.rows[index] || tambahBaris();
+                if(bagian.length >= 2) {
+                    nama = bagian.filter(item => !/^\d+$/.test(item)).join(" ");
+                    nomor = bagian.find(item => /^\d+$/.test(item)) || "";
+                } else {
+                    nama = isi;
+                }
+
+                let row;
+                if(tbody.rows[index]) {
+                    row = tbody.rows[index];
+                } else {
+                    row = tambahBaris();
+                }
+
+                // Masukkan ke span yang sudah ada
                 let spans = row.cells[2].querySelectorAll('span');
                 spans[0].textContent = nama;
                 spans[1].textContent = nomor;
@@ -216,6 +250,7 @@ CERIA 081111111111"></textarea>
             }
         }
 
+        // Fungsi Search tanpa highlight
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
@@ -226,7 +261,11 @@ CERIA 081111111111"></textarea>
                 let td = tr[i].getElementsByTagName("td")[2];
                 if (td) {
                     let txtValue = td.textContent || td.innerText;
-                    tr[i].style.display = (txtValue.toUpperCase().indexOf(filter) > -1) ? "" : "none";
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }       
             }
         }
