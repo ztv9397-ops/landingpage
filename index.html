@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Reward Pejuang Kasino</title>
+    <title>Database Jackpot Pejuang Kasino</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -66,17 +66,6 @@
                 vertical-align: top !important;
                 overflow: hidden !important;
                 word-wrap: break-word !important;
-            }
-
-            /* ✅ STYLE KHUSUS STATUS SEPERTI DI FOTO */
-            .status-badge {
-                background-color: #fef3c7 !important; /* Kuning krem */
-                color: #d97706 !important; /* Coklat muda */
-                border-radius: 9999px !important; /* Bulat sempurna */
-                padding: 4px 10px !important;
-                font-size: 0.75rem !important;
-                font-weight: 500 !important;
-                display: inline-block !important;
             }
         }
     </style>
@@ -162,11 +151,12 @@ CERIA 081111111111"></textarea>
     </main>
 
     <script>
-        // Template baris
+        // ✅ TEMPLATE DENGAN STYLE LANGSUNG DI DALAMNYA
         const barisTemplate = `
             <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
             <td class="p-4 col-status">
-                <span class="status-badge" contenteditable="true">PENDING</span>
+                <!-- ✅ STYLE DI TULIS LANGSUNG DISINI -->
+                <span style="background-color: #fef3c7; color: #d97706; border-radius: 9999px; padding: 4px 10px; font-size: 0.75rem; font-weight: 500; display: inline-block;" contenteditable="true">PENDING</span>
             </td>
             <td class="p-4 col-db">
                 <span class="data-nama" contenteditable="true"></span>
