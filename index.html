@@ -45,9 +45,6 @@
             th[contenteditable="true"] {
                 @apply font-semibold;
             }
-            .highlight {
-                @apply bg-yellow-200 px-1 rounded;
-            }
             .data-nama {
                 @apply font-bold text-primary block;
             }
@@ -231,32 +228,12 @@ CERIA 081111111111"></textarea>
             }
         }
 
-        // ✅ PERBAIKAN FUNGSI SEARCH
+        // ✅ PERBAIKAN: Hapus warna highlight, hanya filter tampilan
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
             let table = document.getElementById('dataTable');
             let tr = table.getElementsByTagName("tr");
-
-            // Hapus highlight lama dengan cara yang aman
-            function removeHighlight(el) {
-                if(el.classList.contains('highlight')) {
-                    let parent = el.parentNode;
-                    parent.replaceChild(document.createTextNode(el.textContent), el);
-                    parent.normalize();
-                }
-            }
-
-            // Cari semua highlight dan hapus
-            let allSpans = table.querySelectorAll('.data-nama, .data-nomor');
-            allSpans.forEach(span => {
-                Array.from(span.childNodes).forEach(node => {
-                    if(node.nodeType === 1 && node.classList.contains('highlight')) {
-                        removeHighlight(node);
-                    }
-                });
-            });
-
 
             for (let i = 1; i < tr.length; i++) {
                 let td = tr[i].getElementsByTagName("td")[2];
@@ -264,17 +241,6 @@ CERIA 081111111111"></textarea>
                     let txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
-                        
-                        // Tambah highlight baru
-                        if(filter.length > 0) {
-                            let spans = td.querySelectorAll('.data-nama, .data-nomor');
-                            spans.forEach(span => {
-                                let text = span.innerHTML;
-                                let regex = new RegExp('('+filter+')', 'gi');
-                                span.innerHTML = text.replace(regex, `<span class="highlight">$1</span>`);
-                            });
-                        }
-
                     } else {
                         tr[i].style.display = "none";
                     }
