@@ -35,7 +35,6 @@
             .nav-link.active {
                 @apply text-accent border-b-2 border-accent;
             }
-            /* Style untuk elemen yang bisa diedit */
             [contenteditable="true"] {
                 @apply cursor-text rounded transition-all duration-150;
             }
@@ -53,21 +52,16 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <div class="flex items-center">
                     <i class="fa-solid fa-crown text-accent text-xl mr-2"></i>
                     <span class="text-xl font-bold text-primary">PEJUANG KASINO</span>
                 </div>
-
-                <!-- Navigation Menu -->
                 <nav class="hidden md:flex space-x-2">
                     <a href="#" class="nav-link">Home</a>
                     <a href="#" class="nav-link">Games</a>
                     <a href="#" class="nav-link">Promotions</a>
                     <a href="#" class="nav-link active">Reward Database</a>
                 </nav>
-
-                <!-- Mobile Menu Button -->
                 <button class="md:hidden text-gray-700">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
@@ -76,8 +70,16 @@
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <!-- Page Title -->
-        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-8">DATABASE REWARD PEJUANG KASINO</h1>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
+
+        <!-- BAGIAN INPUT NOMOR BANYAK -->
+        <div class="bg-white p-4 rounded-lg shadow mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Banyak Nomor / Data (Pisahkan dengan Enter atau Koma)</label>
+            <textarea id="inputNomor" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Contoh: 081234567890, 089876543210 atau paste disini..."></textarea>
+            <button onclick="masukkanNomor()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                <i class="fa-solid fa-paste mr-1"></i> Masukkan ke Database
+            </button>
+        </div>
 
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
@@ -91,112 +93,132 @@
                         <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Row 1 -->
-                    <tr class="border-b hover:bg-gray-50 transition-colors">
-                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-                        <td class="p-4">
-                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
-                        </td>
-                        <td class="p-4" contenteditable="true"></td>
-                        <td class="p-4">
-                            <ul class="space-y-1 text-sm text-gray-600">
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
-                            </ul>
-                        </td>
-                        <td class="p-4">
-                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
-                                CLAIM NOW
-                            </button>
-                        </td>
-                    </tr>
-
-                    <!-- Row 2 -->
-                    <tr class="border-b hover:bg-gray-50 transition-colors">
-                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-                        <td class="p-4">
-                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
-                        </td>
-                        <td class="p-4" contenteditable="true"></td>
-                        <td class="p-4">
-                            <ul class="space-y-1 text-sm text-gray-600">
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
-                            </ul>
-                        </td>
-                        <td class="p-4">
-                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
-                                CLAIM NOW
-                            </button>
-                        </td>
-                    </tr>
-
-                    <!-- Row 3 -->
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-                        <td class="p-4">
-                            <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
-                        </td>
-                        <td class="p-4" contenteditable="true"></td>
-                        <td class="p-4">
-                            <ul class="space-y-1 text-sm text-gray-600">
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
-                                <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
-                            </ul>
-                        </td>
-                        <td class="p-4">
-                            <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
-                                CLAIM NOW
-                            </button>
-                        </td>
-                    </tr>
+                <tbody id="tableBody">
+                    <!-- Baris akan diisi oleh JavaScript -->
                 </tbody>
             </table>
         </div>
 
-        <!-- Tombol Tambah Baris -->
-        <div class="mt-4">
+        <!-- Tombol Aksi -->
+        <div class="mt-4 flex gap-3">
             <button onclick="tambahBaris()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-plus mr-2"></i> Tambah Baris
+            </button>
+            <button onclick="simpanData()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
+                <i class="fa-solid fa-save mr-2"></i> SAVE DATA
             </button>
         </div>
     </main>
 
     <script>
-        function tambahBaris() {
-            // Ambil tabel dan body tabel
-            var table = document.getElementById("dataTable");
-            var tbody = table.getElementsByTagName('tbody')[0];
+        // Template baris baru
+        const barisTemplate = `
+            <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4">
+                <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
+            </td>
+            <td class="p-4" contenteditable="true"></td>
+            <td class="p-4">
+                <ul class="space-y-1 text-sm text-gray-600">
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
+                </ul>
+            </td>
+            <td class="p-4">
+                <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
+                    CLAIM NOW
+                </button>
+            </td>
+        `;
 
-            // Buat baris baru
+        // Fungsi Tambah Baris
+        function tambahBaris() {
+            var tbody = document.getElementById('tableBody');
             var newRow = tbody.insertRow();
             newRow.className = "border-b hover:bg-gray-50 transition-colors";
-
-            // Isi kolom-kolom baru dengan struktur yang sama
-            newRow.innerHTML = `
-                <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
-                <td class="p-4">
-                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
-                </td>
-                <td class="p-4" contenteditable="true"></td>
-                <td class="p-4">
-                    <ul class="space-y-1 text-sm text-gray-600">
-                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
-                    </ul>
-                </td>
-                <td class="p-4">
-                    <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
-                        CLAIM NOW
-                    </button>
-                </td>
-            `;
+            newRow.innerHTML = barisTemplate;
         }
+
+        // Fungsi Masukkan Nomor Banyak
+        function masukkanNomor() {
+            let teks = document.getElementById('inputNomor').value;
+            // Pisahkan berdasarkan baris baru atau koma
+            let nomorList = teks.split(/[\n,]+/).filter(item => item.trim() != '');
+
+            if(nomorList.length == 0) {
+                alert('Mohon masukkan nomor/data terlebih dahulu!');
+                return;
+            }
+
+            let tbody = document.getElementById('tableBody');
+            
+            nomorList.forEach((nomor, index) => {
+                // Cek apakah baris sudah ada, jika belum tambah baru
+                let row;
+                if(tbody.rows[index]) {
+                    row = tbody.rows[index];
+                } else {
+                    row = tbody.insertRow();
+                    row.className = "border-b hover:bg-gray-50 transition-colors";
+                    row.innerHTML = barisTemplate;
+                }
+
+                // Masukkan nomor ke kolom DATABASE (kolom ke-3)
+                row.cells[2].textContent = nomor.trim();
+            });
+
+            alert(`Berhasil memasukkan ${nomorList.length} data!`);
+            document.getElementById('inputNomor').value = ''; // Kosongkan textarea
+        }
+
+        // Fungsi Simpan Data ke Local Storage
+        function simpanData() {
+            let table = document.getElementById('dataTable');
+            let data = [];
+
+            // Looping semua baris di tabel
+            for(let i = 1; i < table.rows.length; i++) { // i=1 agar skip header
+                let rowData = [];
+                for(let j = 0; j < table.rows[i].cells.length; j++) {
+                    // Ambil teks dari setiap cell
+                    rowData.push(table.rows[i].cells[j].innerText);
+                }
+                data.push(rowData);
+            }
+
+            // Simpan ke browser
+            localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
+            alert('✅ Data BERHASIL disimpan!');
+        }
+
+        // Fungsi Load Data saat halaman dibuka
+        function loadData() {
+            let savedData = localStorage.getItem('dataPejuangKasino');
+            if(savedData) {
+                let data = JSON.parse(savedData);
+                let tbody = document.getElementById('tableBody');
+                tbody.innerHTML = ''; // Kosongkan dulu
+
+                data.forEach(rowData => {
+                    let newRow = tbody.insertRow();
+                    newRow.className = "border-b hover:bg-gray-50 transition-colors";
+                    newRow.innerHTML = barisTemplate;
+                    
+                    // Isi data yang disimpan
+                    newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
+                    newRow.cells[1].textContent = rowData[1] || 'PENDING';
+                    newRow.cells[2].textContent = rowData[2] || '';
+                    // Keterangan dan Reward biarkan template asli atau bisa disesuaikan
+                });
+            } else {
+                // Jika belum ada data, buat 3 baris awal
+                for(let i=0; i<3; i++) tambahBaris();
+            }
+        }
+
+        // Jalankan load data saat halaman selesai dimuat
+        window.onload = loadData;
     </script>
 </body>
 </html>
