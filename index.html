@@ -45,9 +45,15 @@
             th[contenteditable="true"] {
                 @apply font-semibold;
             }
-            /* Style untuk hasil pencarian */
             .highlight {
                 @apply bg-yellow-200 px-1 rounded;
+            }
+            /* Style untuk nama dan nomor */
+            .data-nama {
+                @apply font-bold text-primary block;
+            }
+            .data-nomor {
+                @apply text-gray-600 text-sm block mt-1;
             }
         }
     </style>
@@ -90,8 +96,11 @@
 
         <!-- BAGIAN INPUT NOMOR BANYAK -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Banyak Nomor / Data (Pisahkan dengan Enter atau Koma)</label>
-            <textarea id="inputNomor" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Contoh: 081234567890, 089876543210 atau paste disini..."></textarea>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
+            <textarea id="inputNomor" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Contoh format:
+ANDI 081234567890
+BUDI 089876543210
+CERIA 081111111111"></textarea>
             <button onclick="masukkanNomor()" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                 <i class="fa-solid fa-paste mr-1"></i> Masukkan ke Database
             </button>
@@ -123,7 +132,6 @@
             <button onclick="simpanData()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-save mr-2"></i> SAVE DATA
             </button>
-            <!-- 🗑️ TOMBOL HAPUS SEMUA -->
             <button onclick="hapusSemua()" class="bg-danger hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-trash mr-2"></i> Hapus Semua Baris
             </button>
@@ -137,7 +145,10 @@
             <td class="p-4">
                 <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
-            <td class="p-4" contenteditable="true"></td>
+            <td class="p-4" contenteditable="true">
+                <span class="data-nama"></span>
+                <span class="data-nomor"></span>
+            </td>
             <td class="p-4">
                 <ul class="space-y-1 text-sm text-gray-600">
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
@@ -152,43 +163,64 @@
             </td>
         `;
 
-        // Fungsi Tambah Baris
         function tambahBaris() {
             var tbody = document.getElementById('tableBody');
             var newRow = tbody.insertRow();
             newRow.className = "border-b hover:bg-gray-50 transition-colors";
             newRow.innerHTML = barisTemplate;
+            return newRow;
         }
 
-        // Fungsi Masukkan Nomor Banyak
+        // ✅ FUNGSI BARU: Memisahkan Nama dan Nomor
         function masukkanNomor() {
             let teks = document.getElementById('inputNomor').value;
-            let nomorList = teks.split(/[\n,]+/).filter(item => item.trim() != '');
+            let barisTeks = teks.split(/\n/).filter(item => item.trim() != '');
 
-            if(nomorList.length == 0) {
-                alert('Mohon masukkan nomor/data terlebih dahulu!');
+            if(barisTeks.length == 0) {
+                alert('Mohon masukkan data terlebih dahulu!');
                 return;
             }
 
             let tbody = document.getElementById('tableBody');
             
-            nomorList.forEach((nomor, index) => {
+            barisTeks.forEach((isi, index) => {
+                // Pisahkan teks menjadi bagian (nama dan nomor)
+                let bagian = isi.trim().split(/\s+/); // Pisahkan berdasarkan spasi
+                
+                let nama = "";
+                let nomor = "";
+
+                // Cari mana yang huruf (nama) dan mana yang angka (nomor)
+                if(bagian.length >= 2) {
+                    // Ambil semua yang bukan angka sebagai Nama
+                    nama = bagian.filter(item => !/^\d+$/.test(item)).join(" ");
+                    // Ambil yang ada angka sebagai Nomor
+                    nomor = bagian.find(item => /^\d+$/.test(item)) || "";
+                } else {
+                    // Jika cuma satu kata, masukkan sebagai nama saja
+                    nama = isi;
+                }
+
+                // Siapkan baris
                 let row;
                 if(tbody.rows[index]) {
                     row = tbody.rows[index];
                 } else {
-                    row = tbody.insertRow();
-                    row.className = "border-b hover:bg-gray-50 transition-colors";
-                    row.innerHTML = barisTemplate;
+                    row = tambahBaris();
                 }
-                row.cells[2].textContent = nomor.trim();
+
+                // Masukkan ke dalam kolom Database dengan format terpisah
+                let cellDatabase = row.cells[2];
+                cellDatabase.innerHTML = `
+                    <span class="data-nama" contenteditable="true">${nama}</span>
+                    <span class="data-nomor" contenteditable="true">${nomor}</span>
+                `;
             });
 
-            alert(`Berhasil memasukkan ${nomorList.length} data!`);
+            alert(`Berhasil memasukkan ${barisTeks.length} data!`);
             document.getElementById('inputNomor').value = '';
         }
 
-        // Fungsi Simpan Data
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
@@ -203,34 +235,27 @@
             alert('✅ Data BERHASIL disimpan!');
         }
 
-        // 🗑️ FUNGSI HAPUS SEMUA BARIS
         function hapusSemua() {
-            if(confirm("⚠️ Yakin ingin menghapus SEMUA baris? Data yang tidak disimpan akan hilang!")) {
+            if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) {
                 document.getElementById('tableBody').innerHTML = "";
-                // Opsional: Hapus juga dari local storage
-                // localStorage.removeItem('dataPejuangKasino');
             }
         }
 
-        // 🔍 FUNGSI SEARCH / CARI NOMOR
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
             let table = document.getElementById('dataTable');
             let tr = table.getElementsByTagName("tr");
 
-            // Hapus highlight lama
             let highlights = table.querySelectorAll('.highlight');
             highlights.forEach(el => el.outerHTML = el.innerHTML);
 
-            for (let i = 1; i < tr.length; i++) { // Mulai dari 1 untuk skip header
-                let td = tr[i].getElementsByTagName("td")[2]; // Cari di kolom Database (index ke-2)
+            for (let i = 1; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName("td")[2];
                 if (td) {
                     let txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
-                        
-                        // Tambahkan warna kuning pada teks yang cocok
                         if(filter.length > 0) {
                             let regex = new RegExp('('+filter+')', 'gi');
                             td.innerHTML = td.innerHTML.replace(regex, `<span class="highlight">$1</span>`);
@@ -242,13 +267,11 @@
             }
         }
 
-        // Bersihkan pencarian
         function clearSearch() {
             document.getElementById('searchInput').value = '';
-            cariNomor(); // Tampilkan semua lagi
+            cariNomor();
         }
 
-        // Load Data
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
@@ -262,7 +285,18 @@
                     newRow.innerHTML = barisTemplate;
                     newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
                     newRow.cells[1].textContent = rowData[1] || 'PENDING';
-                    newRow.cells[2].textContent = rowData[2] || '';
+                    
+                    // Pecah isi database
+                    let isiDb = rowData[2] || "";
+                    let parts = isiDb.split('\n');
+                    if(parts.length >= 2) {
+                        newRow.cells[2].innerHTML = `
+                            <span class="data-nama" contenteditable="true">${parts[0]}</span>
+                            <span class="data-nomor" contenteditable="true">${parts[1]}</span>
+                        `;
+                    } else {
+                        newRow.cells[2].textContent = isiDb;
+                    }
                 });
             } else {
                 for(let i=0; i<3; i++) tambahBaris();
@@ -272,4 +306,5 @@
         window.onload = loadData;
     </script>
 </body>
-</html>
+    </html>
+    
