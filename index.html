@@ -173,7 +173,7 @@ CERIA 081111111111"></textarea>
                 </ul>
             </td>
             <td class="p-4 col-reward">
-                <button onclick="bukaPopup()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors">
+                <button onclick="bukaPopup()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
             </td>
@@ -208,13 +208,14 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
+        // ✅ PERBAIKAN: Simpan data dengan cara yang benar biar pas saat load lagi
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let row = table.rows[i];
                 let objData = {
-                    game: row.cells[0].textContent.trim(),
+                    game: row.cells[0].querySelector('.game-text').textContent.trim(),
                     status: row.cells[1].textContent.trim(),
                     nama: row.cells[2].querySelector('.data-nama').textContent.trim(),
                     nomor: row.cells[2].querySelector('.data-nomor').textContent.trim(),
@@ -236,14 +237,12 @@ CERIA 081111111111"></textarea>
             let tr = table.getElementsByTagName("tr");
             for (let i = 1; i < tr.length; i++) {
                 let td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                    let txtValue = td.textContent || td.innerText;
-                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-                }       
+                tr[i].style.display = (td && td.textContent.toUpperCase().indexOf(filter) > -1) ? "" : "none";
             }
         }
         function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
+        // ✅ PERBAIKAN: Load data kembali ke posisi yang tepat
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
@@ -253,10 +252,5 @@ CERIA 081111111111"></textarea>
                 data.forEach((item) => {
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    newRow.innerHTML = barisTemplate;
-                    
-                    newRow.cells[0].querySelector('.game-text').textContent = item.game || 'PG/PRAGMATIC';
-                    newRow.cells[1].textContent = item.status || 'PENDING';
-                    
-                    let spans = newRow.cells
-                    
+                    newRow.innerHTML = baris
+        
