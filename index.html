@@ -11,12 +11,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0F343B',
-                        secondary: '#1A535C',
-                        accent: '#4ECDC4',
-                        buttonBlue: '#2563EB',
-                        buttonRed: '#DC2626',
-                        buttonGreen: '#059669',
+                        primary: '#1E40AF',
+                        secondary: '#F1F5F9',
+                        neutral: '#94A3B8',
+                        dark: '#1E293B',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -30,108 +28,114 @@
             .content-auto {
                 content-visibility: auto;
             }
-            .bg-gradient-dark {
-                background: linear-gradient(135deg, #0A1929 0%, #0F343B 100%);
+            .shadow-card {
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             }
         }
     </style>
 </head>
-<body class="bg-gradient-dark text-white min-h-screen font-sans">
+<body class="bg-white text-slate-800 min-h-screen font-sans">
     <!-- Header -->
-    <header class="bg-secondary/80 backdrop-blur-sm border-b border-white/10 sticky top-0 z-10">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-crown text-yellow-400 text-xl"></i>
-                <h1 class="text-xl font-bold">PEJUANG KASINO</h1>
+                <i class="fa-solid fa-crown text-primary text-xl"></i>
+                <h1 class="text-xl font-bold text-dark">PEJUANG KASINO</h1>
                 <div class="relative ml-2">
-                    <input type="text" value="274" class="bg-primary/50 border border-white/20 rounded px-3 py-1 text-sm w-24 focus:outline-none focus:ring-1 focus:ring-accent">
+                    <input type="text" value="274" class="bg-white border border-slate-300 rounded px-3 py-1.5 text-sm w-24 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-6">
-                <a href="#" class="hover:text-accent transition-colors">Home</a>
-                <a href="#" class="hover:text-accent transition-colors">Games</a>
-                <a href="#" class="hover:text-accent transition-colors">Promotions</a>
-                <a href="#" class="text-accent font-medium">Jackpot Database</a>
+                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Home</a>
+                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Games</a>
+                <a href="#" class="text-slate-600 hover:text-primary transition-colors">Promotions</a>
+                <a href="#" class="text-primary font-medium">Jackpot Database</a>
             </nav>
-            <button class="md:hidden text-2xl">
+            <button class="md:hidden text-2xl text-slate-600">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-bold mb-6">DATABASE JACKPOT PEJUANG KASINO</h2>
+        <h2 class="text-2xl font-bold text-dark mb-6">DATABASE JACKPOT PEJUANG KASINO</h2>
 
         <!-- Table Container -->
-        <div class="bg-primary/50 rounded-lg border border-white/10 overflow-hidden shadow-xl">
+        <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-card">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="bg-secondary/70">
-                            <th class="px-4 py-3 text-left font-semibold">GAME</th>
-                            <th class="px-4 py-3 text-left font-semibold">STATUS</th>
-                            <th class="px-4 py-3 text-left font-semibold">DATABASE</th>
-                            <th class="px-4 py-3 text-left font-semibold">KETERANGAN</th>
-                            <th class="px-4 py-3 text-left font-semibold">JACKPOT</th>
+                        <tr class="bg-secondary">
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">GAME</th>
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">STATUS</th>
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">DATABASE</th>
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">KETERANGAN</th>
+                            <th class="px-4 py-3 text-left font-semibold text-dark border-b border-slate-200">JACKPOT</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-white/10">
-                        <tr class="hover:bg-white/5 transition-colors">
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-4 py-4">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span>
+                            </td>
                             <td class="px-4 py-4">
                                 <div class="font-medium">Sokhiwanolo Telaumbanua</div>
-                                <div class="text-sm text-white/60">6282272276547</div>
+                                <div class="text-sm text-slate-500">6282272276547</div>
                             </td>
                             <td class="px-4 py-4">
                                 <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah membalas</li>
                                 </ul>
                             </td>
                             <td class="px-4 py-4">
-                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
                                     CLAIM NOW
                                 </button>
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
+                        <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-4 py-4">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span>
+                            </td>
                             <td class="px-4 py-4">
                                 <div class="font-medium">Samy</div>
-                                <div class="text-sm text-white/60">6283876422762</div>
+                                <div class="text-sm text-slate-500">6283876422762</div>
                             </td>
                             <td class="px-4 py-4">
                                 <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah membalas</li>
                                 </ul>
                             </td>
                             <td class="px-4 py-4">
-                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
                                     CLAIM NOW
                                 </button>
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
+                        <tr class="hover:bg-slate-50 transition-colors">
                             <td class="px-4 py-4">PG/PRAGMATIC</td>
-                            <td class="px-4 py-4 text-yellow-400">PENDING</td>
+                            <td class="px-4 py-4">
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">PENDING</span>
+                            </td>
                             <td class="px-4 py-4">
                                 <div class="font-medium">Patria widanti</div>
-                                <div class="text-sm text-white/60">6285272271651</div>
+                                <div class="text-sm text-slate-500">6285272271651</div>
                             </td>
                             <td class="px-4 py-4">
                                 <ul class="space-y-1 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah di undang</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> sudah di baca</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> telah membalas</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah di undang</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> sudah di baca</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-600"></i> telah membalas</li>
                                 </ul>
                             </td>
                             <td class="px-4 py-4">
-                                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors shadow-sm">
                                     CLAIM NOW
                                 </button>
                             </td>
@@ -141,43 +145,43 @@
             </div>
 
             <!-- Pagination -->
-            <div class="px-4 py-3 border-t border-white/10 flex items-center justify-center gap-2">
-                <button class="w-8 h-8 flex items-center justify-center rounded bg-buttonBlue text-white">1</button>
-                <button class="w-8 h-8 flex items-center justify-center rounded bg-white/10 hover:bg-white/20 transition-colors">2</button>
-                <button class="px-3 py-1 rounded bg-white/10 hover:bg-white/20 transition-colors">Next</button>
+            <div class="px-4 py-3 border-t border-slate-200 flex items-center justify-center gap-2">
+                <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-white">1</button>
+                <button class="w-8 h-8 flex items-center justify-center rounded bg-slate-100 hover:bg-slate-200 transition-colors text-slate-700">2</button>
+                <button class="px-3 py-1 rounded bg-slate-100 hover:bg-slate-200 transition-colors text-slate-700">Next</button>
             </div>
 
             <!-- Action Buttons -->
-            <div class="px-4 py-4 border-t border-white/10 flex flex-wrap gap-3">
-                <button class="bg-buttonBlue hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+            <div class="px-4 py-4 border-t border-slate-200 flex flex-wrap gap-3">
+                <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-plus"></i> Tambah Baris
                 </button>
-                <button class="bg-buttonRed hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-trash"></i> Hapus Baris
                 </button>
-                <button class="bg-buttonRed hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-trash-can"></i> Hapus Semua
                 </button>
-                <button class="bg-buttonGreen hover:bg-green-600 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-save"></i> Save
                 </button>
-                <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-file-import"></i> Import CSV
                 </button>
-                <button class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2">
+                <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
                     <i class="fa-solid fa-keyboard"></i> Masukkan Nomor Banyak
                 </button>
             </div>
         </div>
     </main>
 
-    <footer class="mt-auto py-6 border-t border-white/10 text-center text-white/60 text-sm">
+    <footer class="mt-auto py-6 border-t border-slate-200 text-center text-slate-500 text-sm">
         <div class="container mx-auto px-4">
             <p>&copy; 2024 Pejuang Kasino. All rights reserved.</p>
             <div class="mt-2 space-x-4">
-                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-slate-700 transition-colors">Privacy Policy</a>
                 <span>|</span>
-                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-slate-700 transition-colors">Terms of Service</a>
             </div>
         </div>
     </footer>
