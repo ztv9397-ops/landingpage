@@ -52,21 +52,25 @@
                 @apply text-gray-600 text-sm block mt-1;
             }
 
-            /* ✅ TAMBAHAN INI: Agar lebar kolom TETAP */
-            .fixed-col {
-                table-layout: fixed;
-                width: 100%;
+            /* ✅ PENGATURAN TABEL AGAR SANGAT KAKU DAN STABIL */
+            table {
+                table-layout: fixed !important; /* Paksa mode tetap */
+                width: 100% !important;
             }
-            .col-game { width: 18%; }
-            .col-status { width: 12%; }
-            .col-db { width: 25%; }
-            .col-desc { width: 25%; }
-            .col-reward { width: 20%; }
+            
+            /* Tetapkan lebar untuk SETIAP KOLOM (Header dan Isi) */
+            th:nth-child(1), td:nth-child(1) { width: 16% !important; } /* GAME */
+            th:nth-child(2), td:nth-child(2) { width: 12% !important; } /* STATUS */
+            th:nth-child(3), td:nth-child(3) { width: 24% !important; } /* DATABASE */
+            th:nth-child(4), td:nth-child(4) { width: 28% !important; } /* KETERANGAN */
+            th:nth-child(5), td:nth-child(5) { width: 20% !important; } /* REWARD */
 
-            /* Agar teks panjang tidak merusak tampilan */
-            td, th {
-                white-space: normal;
-                word-wrap: break-word;
+            /* Pastikan teks tidak memaksa melebar */
+            th, td {
+                overflow: hidden !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                vertical-align: top !important;
             }
         }
     </style>
@@ -121,16 +125,14 @@ CERIA 081111111111"></textarea>
 
         <!-- Table Container -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
-            <!-- ✅ TAMBAH CLASS fixed-col -->
-            <table id="dataTable" class="w-full border-collapse fixed-col">
+            <table id="dataTable" class="w-full border-collapse">
                 <thead>
                     <tr class="bg-gray-100 text-left">
-                        <!-- ✅ TAMBAH CLASS LEBAR -->
-                        <th class="p-4 border-b font-semibold text-gray-700 col-game" contenteditable="true">GAME</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 col-status" contenteditable="true">STATUS</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 col-db" contenteditable="true">DATABASE</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 col-desc" contenteditable="true">KETERANGAN</th>
-                        <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">REWARD</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">GAME</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">STATUS</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">DATABASE</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">KETERANGAN</th>
+                        <th class="p-4 border-b font-semibold text-gray-700" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -156,22 +158,22 @@ CERIA 081111111111"></textarea>
     <script>
         // Template baris baru
         const barisTemplate = `
-            <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
-            <td class="p-4 col-status">
+            <td class="p-4" contenteditable="true">PG/PRAGMATIC</td>
+            <td class="p-4">
                 <span class="px-3 py-1 rounded-full text-sm font-medium bg-pending/20 text-pending" contenteditable="true">PENDING</span>
             </td>
-            <td class="p-4 col-db">
+            <td class="p-4">
                 <span class="data-nama" contenteditable="true"></span>
                 <span class="data-nomor" contenteditable="true"></span>
             </td>
-            <td class="p-4 col-desc">
+            <td class="p-4">
                 <ul class="space-y-1 text-sm text-gray-600">
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah di undang</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">sudah di baca</span></li>
                     <li class="flex items-center"><i class="fa-solid fa-check text-success mr-2"></i> <span contenteditable="true">telah membalas</span></li>
                 </ul>
             </td>
-            <td class="p-4 col-reward">
+            <td class="p-4">
                 <button class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
