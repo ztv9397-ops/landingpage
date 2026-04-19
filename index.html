@@ -27,141 +27,38 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .nav-link {
-                @apply px-4 py-2 hover:text-accent transition-colors duration-200;
-            }
-            .nav-link.active {
-                @apply text-accent border-b-2 border-accent;
-            }
-            [contenteditable="true"] {
-                @apply cursor-text rounded transition-all duration-150;
-            }
-            [contenteditable="true"]:focus {
-                @apply outline-none ring-2 ring-accent/50 bg-white;
-            }
-            th[contenteditable="true"] {
-                @apply font-semibold;
-            }
-            .data-nama {
-                @apply font-bold text-primary block;
-            }
-            .data-nomor {
-                @apply text-gray-600 text-sm block mt-1;
-            }
-
-            /* Kunci tabel agar kaku */
-            .fixed-table {
-                table-layout: fixed !important;
-                width: 100% !important;
-            }
+            .content-auto { content-visibility: auto; }
+            .nav-link { @apply px-4 py-2 hover:text-accent transition-colors duration-200; }
+            .nav-link.active { @apply text-accent border-b-2 border-accent; }
+            [contenteditable="true"] { @apply cursor-text rounded transition-all duration-150; }
+            [contenteditable="true"]:focus { @apply outline-none ring-2 ring-accent/50 bg-white; }
+            th[contenteditable="true"] { @apply font-semibold; }
+            .data-nama { @apply font-bold text-primary block; }
+            .data-nomor { @apply text-gray-600 text-sm block mt-1; }
+            .fixed-table { table-layout: fixed !important; width: 100% !important; }
             .col-game { width: 18%; }
             .col-status { width: 14%; }
             .col-db { width: 24%; }
             .col-desc { width: 24%; }
             .col-reward { width: 20%; }
-            td, th {
-                vertical-align: top !important;
-                overflow: hidden !important;
-                word-wrap: break-word !important;
-            }
-
-            /* STYLE PENDING YANG SUDAH BENAR */
-            .status-badge {
-                background-color: #fef3c7 !important;
-                color: #d97706 !important;
-                border-radius: 9999px !important;
-                padding: 4px 10px !important;
-                font-size: 0.75rem !important;
-                font-weight: 500 !important;
-                display: inline-block !important;
-            }
-
-            /* ✅ TAMBAHAN STYLE POPUP SAJA */
-            .popup-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.7);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.3s ease, visibility 0.3s ease;
-            }
-            .popup-overlay.active {
-                opacity: 1;
-                visibility: visible;
-            }
-            .popup-box {
-                background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-                border: 1px solid #334155;
-                border-radius: 12px;
-                padding: 24px;
-                max-width: 350px;
-                width: 90%;
-                text-align: center;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                transform: scale(0.9);
-                transition: transform 0.3s ease;
-            }
-            .popup-overlay.active .popup-box {
-                transform: scale(1);
-            }
-            .popup-icon {
-                width: 50px;
-                height: 50px;
-                margin: 0 auto 16px;
-                background: rgba(220, 38, 38, 0.1);
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .popup-icon i {
-                color: #EF4444;
-                font-size: 24px;
-            }
-            .popup-text {
-                color: #E2E8F0;
-                font-size: 14px;
-                line-height: 1.6;
-                margin-bottom: 20px;
-            }
-            .popup-btn {
-                background: #2563EB;
-                color: white;
-                border: none;
-                padding: 10px 24px;
-                border-radius: 8px;
-                font-weight: 500;
-                cursor: pointer;
-                transition: background 0.2s;
-            }
-            .popup-btn:hover {
-                background: #1D4ED8;
-            }
-            .popup-close {
-                position: absolute;
-                top: 15px;
-                right: 20px;
-                background: none;
-                border: none;
-                color: #94A3B8;
-                font-size: 20px;
-                cursor: pointer;
-            }
+            td, th { vertical-align: top !important; overflow: hidden !important; word-wrap: break-word !important; }
+            .status-badge { background-color: #fef3c7 !important; color: #d97706 !important; border-radius: 9999px !important; padding: 4px 10px !important; font-size: 0.75rem !important; font-weight: 500 !important; display: inline-block !important; }
+            
+            /* ✅ HANYA TAMBAHAN STYLE POPUP */
+            .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+            .popup-overlay.active { opacity: 1; visibility: visible; }
+            .popup-box { background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; border-radius: 12px; padding: 24px; max-width: 350px; width: 90%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.3s ease; }
+            .popup-overlay.active .popup-box { transform: scale(1); }
+            .popup-icon { width: 50px; height: 50px; margin: 0 auto 16px; background: rgba(220, 38, 38, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+            .popup-icon i { color: #EF4444; font-size: 24px; }
+            .popup-text { color: #E2E8F0; font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+            .popup-btn { background: #2563EB; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+            .popup-btn:hover { background: #1D4ED8; }
+            .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #94A3B8; font-size: 20px; cursor: pointer; }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
-    <!-- Header / Navbar -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16">
@@ -185,7 +82,6 @@
     <main class="container mx-auto px-4 py-8">
         <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">DATABASE REWARD PEJUANG KASINO</h1>
 
-        <!-- 🔍 SEARCH -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Data</label>
             <div class="flex gap-2">
@@ -196,7 +92,6 @@
             </div>
         </div>
 
-        <!-- INPUT DATA -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
             <textarea id="inputNomor" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Contoh format:
@@ -208,7 +103,6 @@ CERIA 081111111111"></textarea>
             </button>
         </div>
 
-        <!-- TABEL -->
         <div class="overflow-x-auto bg-white rounded-lg shadow">
             <table id="dataTable" class="w-full border-collapse fixed-table">
                 <thead>
@@ -220,13 +114,10 @@ CERIA 081111111111"></textarea>
                         <th class="p-4 border-b font-semibold text-gray-700 col-reward" contenteditable="true">REWARD</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <!-- Baris akan diisi oleh JS -->
-                </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
 
-        <!-- TOMBOL AKSI -->
         <div class="mt-4 flex flex-wrap gap-3">
             <button onclick="tambahBaris()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center">
                 <i class="fa-solid fa-plus mr-2"></i> Tambah Baris
@@ -240,7 +131,7 @@ CERIA 081111111111"></textarea>
         </div>
     </main>
 
-    <!-- ✅ TAMBAHAN: KODE POPUP -->
+    <!-- ✅ KODE POPUP -->
     <div id="popupNotif" class="popup-overlay">
         <div class="popup-box relative">
             <button class="popup-close" onclick="tutupPopup()">&times;</button>
@@ -255,7 +146,6 @@ CERIA 081111111111"></textarea>
     </div>
 
     <script>
-        // TEMPLATE BARIS
         const barisTemplate = `
             <td class="p-4 col-game" contenteditable="true">PG/PRAGMATIC</td>
             <td class="p-4 col-status">
@@ -273,12 +163,15 @@ CERIA 081111111111"></textarea>
                 </ul>
             </td>
             <td class="p-4 col-reward">
-                <!-- ✅ Tombol Claim sekarang punya fungsi klik -->
                 <button onclick="bukaPopup()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm font-medium transition-colors" contenteditable="true">
                     CLAIM NOW
                 </button>
             </td>
         `;
+
+        function bukaPopup() { document.getElementById('popupNotif').classList.add('active'); }
+        function tutupPopup() { document.getElementById('popupNotif').classList.remove('active'); }
+        document.getElementById('popupNotif').addEventListener('click', function(e) { if(e.target === this) tutupPopup(); });
 
         function tambahBaris() {
             var tbody = document.getElementById('tableBody');
@@ -291,40 +184,16 @@ CERIA 081111111111"></textarea>
         function masukkanNomor() {
             let teks = document.getElementById('inputNomor').value;
             let barisTeks = teks.split(/\n/).filter(item => item.trim() != '');
-
-            if(barisTeks.length == 0) {
-                alert('Mohon masukkan data terlebih dahulu!');
-                return;
-            }
-
             let tbody = document.getElementById('tableBody');
-            
             barisTeks.forEach((isi, index) => {
                 let bagian = isi.trim().split(/\s+/);
-                
-                let nama = "";
-                let nomor = "";
-
-                if(bagian.length >= 2) {
-                    nama = bagian.filter(item => !/^\d+$/.test(item)).join(" ");
-                    nomor = bagian.find(item => /^\d+$/.test(item)) || "";
-                } else {
-                    nama = isi;
-                }
-
-                let row;
-                if(tbody.rows[index]) {
-                    row = tbody.rows[index];
-                } else {
-                    row = tambahBaris();
-                }
-
-                // Masukkan ke span yang sudah ada
+                let nama = bagian.filter(item => !/^\d+$/.test(item)).join(" ");
+                let nomor = bagian.find(item => /^\d+$/.test(item)) || "";
+                let row = tbody.rows[index] || tambahBaris();
                 let spans = row.cells[2].querySelectorAll('span');
                 spans[0].textContent = nama;
                 spans[1].textContent = nomor;
             });
-
             alert(`Berhasil memasukkan ${barisTeks.length} data!`);
             document.getElementById('inputNomor').value = '';
         }
@@ -334,34 +203,48 @@ CERIA 081111111111"></textarea>
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let rowData = [];
-                for(let j = 0; j < table.rows[i].cells.length; j++) {
-                    rowData.push(table.rows[i].cells[j].innerText);
-                }
+                for(let j = 0; j < table.rows[i].cells.length; j++) { rowData.push(table.rows[i].cells[j].innerText); }
                 data.push(rowData);
             }
             localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
             alert('✅ Data BERHASIL disimpan!');
         }
 
-        function hapusSemua() {
-            if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) {
-                document.getElementById('tableBody').innerHTML = "";
-            }
-        }
+        function hapusSemua() { if(confirm("⚠️ Yakin ingin menghapus SEMUA baris?")) document.getElementById('tableBody').innerHTML = ""; }
 
-        // Fungsi Search tanpa highlight
         function cariNomor() {
             let input = document.getElementById('searchInput');
             let filter = input.value.toUpperCase();
             let table = document.getElementById('dataTable');
             let tr = table.getElementsByTagName("tr");
-
             for (let i = 1; i < tr.length; i++) {
                 let td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                    let txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style
-                        
+                tr[i].style.display = (td && td.textContent.toUpperCase().indexOf(filter) > -1) ? "" : "none";
+            }
+        }
+        function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
+
+        function loadData() {
+            let savedData = localStorage.getItem('dataPejuangKasino');
+            if(savedData) {
+                let data = JSON.parse(savedData);
+                let tbody = document.getElementById('tableBody');
+                tbody.innerHTML = '';
+                data.forEach(rowData => {
+                    let newRow = tbody.insertRow();
+                    newRow.className = "border-b hover:bg-gray-50 transition-colors";
+                    newRow.innerHTML = barisTemplate;
+                    newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
+                    newRow.cells[1].textContent = rowData[1] || 'PENDING';
+                    let isiDb = rowData[2] || "";
+                    let parts = isiDb.split('\n');
+                    let spans = newRow.cells[2].querySelectorAll('span');
+                    if(parts.length >= 2) { spans[0].textContent = parts[0].trim(); spans[1].textContent = parts[1].trim(); }
+                    else { spans[0].textContent = isiDb.trim(); }
+                });
+            } else { for(let i=0; i<3; i++) tambahBaris(); }
+        }
+        window.onload = loadData;
+    </script>
+</body>
+</html>
