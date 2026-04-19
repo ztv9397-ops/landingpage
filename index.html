@@ -56,7 +56,7 @@
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
 
-            /* FONT GAME */
+            /* FONT GAME - CUMA INI YANG DIUBAH */
             .game-text {
                 font-family: 'Arial', sans-serif;
                 font-size: 13px;
@@ -243,12 +243,12 @@ CERIA 081111111111"></textarea>
                 let tbody = document.getElementById('tableBody');
                 tbody.innerHTML = '';
                 data.forEach((rowData, index) => {
-                    if(index === 0) return; // Skip header row
+                    if(index === 0) return;
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
                     newRow.innerHTML = barisTemplate;
                     
-                    // Isi data kembali dengan benar
+                    // Isi data dengan benar
                     if(rowData[0]) newRow.cells[0].querySelector('.game-text').textContent = rowData[0];
                     if(rowData[1]) newRow.cells[1].textContent = rowData[1];
                     
@@ -259,5 +259,5 @@ CERIA 081111111111"></textarea>
                     if(rowData[4]) {
                         let listItems = newRow.cells[4].querySelectorAll('span');
                         let parts = rowData[4].split(', ');
-                        for(let k=0
-        
+                        for
+    
