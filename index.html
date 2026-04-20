@@ -208,14 +208,14 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
-        // ✅ FIX: Simpan innerHTML biar class dan warnanya ikut ke save
+        // ✅ SIMPAN HTML LENGKAP
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let rowData = [];
                 for(let j = 0; j < table.rows[i].cells.length; j++) { 
-                    rowData.push(table.rows[i].cells[j].innerHTML); // Ambil HTML lengkap
+                    rowData.push(table.rows[i].cells[j].innerHTML); 
                 }
                 data.push(rowData);
             }
@@ -237,7 +237,7 @@ CERIA 081111111111"></textarea>
         }
         function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
-        // ✅ FIX: Load HTML langsung biar tampilan gak berubah
+        // ✅ LOAD HTML LANGSUNG (INI YANG DIPERBAIKI)
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
@@ -247,10 +247,10 @@ CERIA 081111111111"></textarea>
                 data.forEach(rowData => {
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    // Masukin HTML langsung ke setiap cell
-                    newRow.innerHTML = `
-                        <td class="p-4 col-game" contenteditable="true">${rowData[0]}</td>
-                        <td class="p-4 col-status">${rowData[1]}</td>
-                        <td class="p-4 col-db">${rowData[2]}</td>
-                        <td class="p-4 col-desc">${rowData[3]}</td>
-        
+                    // Masukin HTML yang disimpan ke setiap cell
+                    newRow.cells[0].innerHTML = rowData[0];
+                    newRow.cells[1].innerHTML = rowData[1];
+                    newRow.cells[2].innerHTML = rowData[2];
+                    newRow.cells[3].innerHTML = rowData[3];
+                    newRow.cells[
+                        
