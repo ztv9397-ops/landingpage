@@ -56,7 +56,7 @@
             .popup-btn:hover { background: #1D4ED8; }
             .popup-close { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #9CA3AF; font-size: 22px; cursor: pointer; }
 
-            /* FONT GAME */
+            /* ✅ FONT PG/PRAGMATIC DIUBAH JADI LEBIH RAPI */
             .game-text {
                 font-family: 'Arial', sans-serif;
                 font-size: 13px;
@@ -208,15 +208,12 @@ CERIA 081111111111"></textarea>
             document.getElementById('inputNomor').value = '';
         }
 
-        // ✅ SIMPAN HTML LENGKAP
         function simpanData() {
             let table = document.getElementById('dataTable');
             let data = [];
             for(let i = 1; i < table.rows.length; i++) {
                 let rowData = [];
-                for(let j = 0; j < table.rows[i].cells.length; j++) { 
-                    rowData.push(table.rows[i].cells[j].innerHTML); 
-                }
+                for(let j = 0; j < table.rows[i].cells.length; j++) { rowData.push(table.rows[i].cells[j].innerText); }
                 data.push(rowData);
             }
             localStorage.setItem('dataPejuangKasino', JSON.stringify(data));
@@ -237,7 +234,6 @@ CERIA 081111111111"></textarea>
         }
         function clearSearch() { document.getElementById('searchInput').value = ''; cariNomor(); }
 
-        // ✅ LOAD HTML LANGSUNG (INI YANG DIPERBAIKI)
         function loadData() {
             let savedData = localStorage.getItem('dataPejuangKasino');
             if(savedData) {
@@ -247,10 +243,17 @@ CERIA 081111111111"></textarea>
                 data.forEach(rowData => {
                     let newRow = tbody.insertRow();
                     newRow.className = "border-b hover:bg-gray-50 transition-colors";
-                    // Masukin HTML yang disimpan ke setiap cell
-                    newRow.cells[0].innerHTML = rowData[0];
-                    newRow.cells[1].innerHTML = rowData[1];
-                    newRow.cells[2].innerHTML = rowData[2];
-                    newRow.cells[3].innerHTML = rowData[3];
-                    newRow.cells[
-                        
+                    newRow.innerHTML = barisTemplate;
+                    newRow.cells[0].textContent = rowData[0] || 'PG/PRAGMATIC';
+                    newRow.cells[1].textContent = rowData[1] || 'PENDING';
+                    let isiDb = rowData[2] || "";
+                    let parts = isiDb.split('\n');
+                    let spans = newRow.cells[2].querySelectorAll('span');
+                    if(parts.length >= 2) { spans[0].textContent = parts[0].trim(); spans[1].textContent = parts[1].trim(); }
+                    else { spans[0].textContent = isiDb.trim(); }
+                });
+            } else { for(let i=0; i<3; i++) tambahBaris(); }
+        }
+        window.onload = loadData;
+    </script>
+    
