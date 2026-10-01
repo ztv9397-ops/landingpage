@@ -8,132 +8,74 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body {
-            min-height: 100vh;
-            background: #f8fafc;
-        }
+        html, body { min-height: 100vh; background: #f8fafc; }
         table { 
-            border-collapse: separate; 
-            border-spacing: 0; 
-            width: 100%;
+            border-collapse: separate; border-spacing: 0; width: 100%;
             table-layout: fixed;
         }
         th, td { 
             border: 1px solid #cbd5e1 !important; 
             padding: 10px 6px !important;
-            vertical-align: middle;
-            overflow: hidden;
+            vertical-align: middle; overflow: hidden;
         }
         tr:last-child td { border-bottom: 2px solid #cbd5e1 !important; }
         th { 
-            border-bottom-width: 2px !important; 
-            white-space: nowrap; 
-            padding: 10px 3px !important;
-            font-size: 0.78rem;
-            font-weight: 700;
+            border-bottom-width: 2px !important; white-space: nowrap; 
+            padding: 10px 3px !important; font-size: 0.78rem; font-weight: 700;
         }
 
         .link-wa {
-            color: #25D366;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.2s;
-            font-size: 0.82rem;
+            color: #25D366; font-weight: 500; text-decoration: none;
+            transition: all 0.2s; font-size: 0.82rem;
         }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
         .btn-salin {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            border: none;
-            background: #e5e7eb;
-            color: #6b7280;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            font-size: 0.75rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 24px; height: 24px; border-radius: 4px; border: none;
+            background: #e5e7eb; color: #6b7280; cursor: pointer;
+            transition: all 0.2s ease; flex-shrink: 0; font-size: 0.75rem;
         }
         .btn-salin:hover { background: #d1d5db; color: #374151; }
         .btn-salin.sukses { background: #d1fae5; color: #059669; }
 
         .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; }
-        .baris-db { 
-            display: flex; 
-            align-items: center; 
-            gap: 5px; 
-            flex-wrap: nowrap; 
-            width: 100%; 
-        }
+        .baris-db { display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; width: 100%; }
         .teks-nama {
-            font-weight: 500;
-            color: #1f2937;
-            font-size: 0.82rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-weight: 500; color: #1f2937; font-size: 0.82rem;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
         .teks-nomor { font-family: monospace; font-size: 0.8rem; }
 
         button {
-            transition: all 0.12s ease !important;
-            position: relative;
-            overflow: hidden;
-            box-sizing: border-box;
+            transition: all 0.12s ease !important; position: relative;
+            overflow: hidden; box-sizing: border-box;
         }
         button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
 
         .centang-bulat {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; border-radius: 50%;
             background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(34, 197, 94, 0.25);
-            flex-shrink: 0;
+            color: white; font-size: 10px; font-weight: bold;
+            box-shadow: 0 2px 4px rgba(34,197,94,0.25); flex-shrink: 0;
         }
-        .table-container { 
-            width: 100%; 
-            overflow: hidden; 
-            border-radius: 0.5rem; 
-        }
-        main { 
-            max-width: 100%; 
-            margin: 0 auto; 
-            padding: 0 10px; 
-        }
+        .table-container { width: 100%; overflow: hidden; border-radius: 0.5rem; }
+        main { max-width: 100%; margin: 0 auto; padding: 0 10px; }
         input, textarea { 
-            box-sizing: border-box; 
-            max-width: 100%; 
-            font-size: 0.9rem !important;
+            box-sizing: border-box; max-width: 100%; font-size: 0.9rem !important;
         }
 
         .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
+            position: fixed; bottom: 20px; left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: #374151;
-            color: white;
-            padding: 9px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 9999;
+            background: #374151; color: white; padding: 9px 16px;
+            border-radius: 6px; font-size: 12px; opacity: 0;
+            transition: all 0.3s; z-index: 9999;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* Lebar kolom presisi — aman di semua layar */
         .col-game { width: 15%; }
         .col-status { width: 14%; }
         .col-db { width: 27%; }
@@ -141,17 +83,28 @@
         .col-jp { width: 12%; }
         .col-confirm { width: 10%; }
 
-        .tag-game, .tag-status {
-            font-size: 0.78rem;
-            white-space: nowrap;
-        }
+        .tag-game { font-size: 0.78rem; white-space: nowrap; }
+        .keterangan-teks { font-size: 0.78rem; }
         .tombol-nominal, .btn-claim {
-            font-size: 0.78rem;
-            padding: 6px 4px !important;
+            font-size: 0.78rem; padding: 6px 4px !important;
         }
-        .keterangan-teks {
-            font-size: 0.78rem;
+
+        /* === TOMBOL STATUS BISA DIKLIK === */
+        .tombol-status {
+            cursor: pointer; transition: all 0.2s; font-size: 0.75rem;
         }
+        .tombol-status:hover { filter: brightness(0.95); transform: scale(1.03); }
+        .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
+        .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+        .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
+
+        /* === TOMBOL KLAIM BISA DIKLIK === */
+        .tombol-klaim {
+            cursor: pointer; transition: all 0.2s; font-size: 0.75rem;
+        }
+        .tombol-klaim.claim { background: #3b82f6; color: white; }
+        .tombol-klaim.lose { background: #ef4444; color: white; }
+        .tombol-klaim.claimed { background: #10b981; color: white; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -191,7 +144,7 @@
             </button>
         </div>
 
-        <!-- TABEL — Semua Muat Rapi, Tidak Terpotong -->
+        <!-- TABEL -->
         <div class="bg-white rounded-lg shadow mb-4 table-container">
             <table>
                 <thead>
@@ -225,7 +178,7 @@
         </div>
     </main>
 
-    <!-- Notifikasi Salin -->
+    <!-- Notifikasi -->
     <div id="toast" class="toast">Berhasil disalin! ✅</div>
 
     <!-- Popup Pilih Nominal -->
@@ -284,7 +237,7 @@
             setTimeout(() => el.classList.remove('tampil'), 2000);
         }
 
-        // === PISAH NAMA & NOMOR OTOMATIS ===
+        // === PISAH NAMA & NOMOR ===
         function pisahNamaNomor(teks) {
             const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
             if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
@@ -304,6 +257,45 @@
         function keRupiah(angka) {
             if (!angka) return '';
             return 'Rp ' + Number(angka).toLocaleString('id-ID');
+        }
+
+        // === UBAH STATUS: PENDING → LOSE → DONE → PENDING ===
+        function ubahStatus(tombol) {
+            const urutan = ['pending', 'lose', 'done'];
+            const sekarang = tombol.dataset.status;
+            const indeks = urutan.indexOf(sekarang);
+            const berikutnya = urutan[(indeks + 1) % urutan.length];
+            tombol.dataset.status = berikutnya;
+            tombol.className = `tombol-status inline-flex items-center gap-1 px-2 py-1 rounded-full border ${berikutnya}`;
+            
+            const label = {
+                pending: 'PENDING',
+                lose: 'LOSE',
+                done: 'DONE'
+            };
+            const ikon = {
+                pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
+                lose: '<i class="fa-solid fa-times-circle text-xs"></i>',
+                done: '<i class="fa-solid fa-check-circle text-xs"></i>'
+            };
+            tombol.innerHTML = `${ikon[berikutnya]}${label[berikutnya]}`;
+        }
+
+        // === UBAH KLAIM: CLAIM → LOSE → CLAIMED → CLAIM ===
+        function ubahKlaim(tombol) {
+            const urutan = ['claim', 'lose', 'claimed'];
+            const sekarang = tombol.dataset.claim;
+            const indeks = urutan.indexOf(sekarang);
+            const berikutnya = urutan[(indeks + 1) % urutan.length];
+            tombol.dataset.claim = berikutnya;
+            tombol.className = `tombol-klaim w-full py-1.5 rounded-lg font-medium ${berikutnya}`;
+            
+            const label = {
+                claim: 'CLAIM',
+                lose: 'LOSE',
+                claimed: 'CLAIMED'
+            };
+            tombol.textContent = label[berikutnya];
         }
 
         function bukaPilihNominal(tombol) {
@@ -349,7 +341,7 @@
             document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
         }
 
-        function buatBaris(game='PG/PRAGMATIC', status='PENDING', nama='', nomor='', nominal='') {
+        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim') {
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-gray-50';
             
@@ -358,15 +350,32 @@
                     ${game}
                 </span>
             `;
+
+            const labelStatus = {
+                pending: 'PENDING', lose: 'LOSE', done: 'DONE'
+            }[status];
+            const ikonStatus = {
+                pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
+                lose: '<i class="fa-solid fa-times-circle text-xs"></i>',
+                done: '<i class="fa-solid fa-check-circle text-xs"></i>'
+            }[status];
             
             const tampilStatus = `
-                <span class="tag-status inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full">
-                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>
-                    ${status}
-                </span>
+                <button class="tombol-status inline-flex items-center gap-1 px-2 py-1 rounded-full border ${status}" 
+                        data-status="${status}" onclick="ubahStatus(this)">
+                    ${ikonStatus}${labelStatus}
+                </button>
             `;
 
             const linkWA = buatLinkWA(nomor);
+
+            const labelKlaim = { claim: 'CLAIM', lose: 'LOSE', claimed: 'CLAIMED' }[klaim];
+            const tampilKlaim = `
+                <button class="tombol-klaim w-full py-1.5 rounded-lg font-medium ${klaim}" 
+                        data-claim="${klaim}" onclick="ubahKlaim(this)">
+                    ${labelKlaim}
+                </button>
+            `;
             
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
@@ -400,9 +409,7 @@
                         ${nominal ? `<span class="font-bold text-green-600">${keRupiah(nominal)}</span>` : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`}
                     </button>
                 </td>
-                <td>
-                    <button onclick="bukaPopupKlaim()" class="btn-claim w-full bg-blue-600 hover:bg-blue-700 text-white py-1.5 rounded-lg font-medium">CLAIM</button>
-                </td>
+                <td>${tampilKlaim}</td>
             `;
             return tr;
         }
@@ -418,7 +425,7 @@
             teks.split('\n').forEach(baris => {
                 const { nama, nomor } = pisahNamaNomor(baris);
                 if (nama || nomor) {
-                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'PENDING', nama, nomor));
+                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'pending', nama, nomor));
                     jumlah++;
                 }
             });
@@ -431,12 +438,15 @@
             document.querySelectorAll('#badanTabel tr').forEach(tr => {
                 const namaEl = tr.querySelector('.teks-nama');
                 const nomorEl = tr.querySelector('.teks-nomor');
+                const tombolStatus = tr.querySelector('.tombol-status');
+                const tombolKlaim = tr.querySelector('.tombol-klaim');
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
-                    status: tr.cells[1].innerText.trim().replace('●','').trim(),
+                    status: tombolStatus ? tombolStatus.dataset.status : 'pending',
                     nama: namaEl ? namaEl.textContent.trim() : '',
                     nomor: nomorEl ? nomorEl.textContent.trim() : '',
-                    nominal: tr.querySelector('.tombol-nominal').dataset.nilai || ''
+                    nominal: tr.querySelector('.tombol-nominal').dataset.nilai || '',
+                    klaim: tombolKlaim ? tombolKlaim.dataset.claim : 'claim'
                 });
             });
             localStorage.setItem('dataJackpotAkhir', JSON.stringify(semua));
@@ -468,7 +478,14 @@
             if (simpanan) {
                 JSON.parse(simpanan).forEach(item => {
                     document.getElementById('badanTabel').appendChild(
-                        buatBaris(item.game, item.status, item.nama || item.database, item.nomor || '', item.nominal)
+                        buatBaris(
+                            item.game, 
+                            item.status || 'pending', 
+                            item.nama || item.database, 
+                            item.nomor || '', 
+                            item.nominal,
+                            item.klaim || 'claim'
+                        )
                     );
                 });
             }
@@ -476,7 +493,6 @@
 
         muatSaatMulai();
     </script>
-
 
 </body>
 </html>
