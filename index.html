@@ -36,11 +36,8 @@
             transition: all 0.2s;
             font-size: 0.92rem;
         }
-        .link-wa:hover {
-            color: #128C7E;
-            text-decoration: underline;
-        }
-        /* === TOMBOL SALIN — WARNA LEMBUT TIDAK MENCOLOK === */
+        .link-wa:hover { color: #128C7E; text-decoration: underline; }
+
         .btn-salin {
             display: inline-flex;
             align-items: center;
@@ -56,27 +53,11 @@
             flex-shrink: 0;
             font-size: 0.8rem;
         }
-        .btn-salin:hover {
-            background: #d1d5db;
-            color: #374151;
-        }
-        .btn-salin.sukses {
-            background: #d1fae5;
-            color: #059669;
-        }
-        .db-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            width: 100%;
-        }
-        .baris-db {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: nowrap;
-            width: 100%;
-        }
+        .btn-salin:hover { background: #d1d5db; color: #374151; }
+        .btn-salin.sukses { background: #d1fae5; color: #059669; }
+
+        .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+        .baris-db { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; width: 100%; }
         .teks-nama {
             font-weight: 500;
             color: #1f2937;
@@ -85,10 +66,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .teks-nomor {
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
+        .teks-nomor { font-family: monospace; font-size: 0.9rem; }
 
         button {
             transition: all 0.12s ease !important;
@@ -96,10 +74,8 @@
             overflow: hidden;
             box-sizing: border-box;
         }
-        button:active {
-            transform: translateY(1px) scale(0.98);
-            filter: brightness(0.9);
-        }
+        button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
+
         .centang-bulat {
             display: inline-flex;
             align-items: center;
@@ -114,20 +90,10 @@
             box-shadow: 0 2px 4px rgba(34, 197, 94, 0.25);
             flex-shrink: 0;
         }
-        .table-container {
-            width: 100%;
-            overflow: hidden;
-            border-radius: 0.5rem;
-        }
-        main {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0 12px;
-        }
-        input, textarea {
-            box-sizing: border-box;
-            max-width: 100%;
-        }
+        .table-container { width: 100%; overflow: hidden; border-radius: 0.5rem; }
+        main { max-width: 100%; margin: 0 auto; padding: 0 12px; }
+        input, textarea { box-sizing: border-box; max-width: 100%; }
+
         .toast {
             position: fixed;
             bottom: 24px;
@@ -143,11 +109,8 @@
             z-index: 9999;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .toast.tampil {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        /* Lebar kolom presisi agar tidak keluar */
+        .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
+
         .col-game { width: 14%; }
         .col-status { width: 13%; }
         .col-db { width: 28%; }
@@ -193,7 +156,7 @@
             </button>
         </div>
 
-        <!-- TABEL DIrapikan — TIDAK ADA YANG KELUAR -->
+        <!-- TABEL -->
         <div class="bg-white rounded-lg shadow mb-5 table-container">
             <table>
                 <thead>
@@ -289,9 +252,7 @@
         // === PISAH NAMA & NOMOR OTOMATIS ===
         function pisahNamaNomor(teks) {
             const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
-            if (cocok) {
-                return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
-            }
+            if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
             const bagian = teks.trim().split(/\s+/);
             const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
             const nama = bagian.filter(x => x !== nomor).join(' ').trim();
@@ -470,4 +431,16 @@
         function muatSaatMulai() {
             const simpanan = localStorage.getItem('dataJackpotAkhir');
             if (simpanan) {
-                JSON.parse(sim
+                JSON.parse(simpanan).forEach(item => {
+                    document.getElementById('badanTabel').appendChild(
+                        buatBaris(item.game, item.status, item.nama || item.database, item.nomor || '', item.nominal)
+                    );
+                });
+            }
+        }
+
+        muatSaatMulai();
+    </script>
+
+</body>
+</html>
