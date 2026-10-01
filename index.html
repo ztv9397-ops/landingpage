@@ -7,12 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body {
             min-height: 100vh;
             background: #f8fafc;
-            margin: 0;
-            padding: 0;
         }
         table { 
             border-collapse: separate; 
@@ -22,19 +20,25 @@
         }
         th, td { 
             border: 1px solid #cbd5e1 !important; 
-            padding: 12px 10px !important;
+            padding: 10px 6px !important;
             vertical-align: middle;
             overflow: hidden;
         }
         tr:last-child td { border-bottom: 2px solid #cbd5e1 !important; }
-        th { border-bottom-width: 2px !important; white-space: nowrap; padding: 12px 8px !important; }
+        th { 
+            border-bottom-width: 2px !important; 
+            white-space: nowrap; 
+            padding: 10px 3px !important;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
 
         .link-wa {
             color: #25D366;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.2s;
-            font-size: 0.92rem;
+            font-size: 0.82rem;
         }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
@@ -42,31 +46,37 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 26px;
-            height: 26px;
-            border-radius: 5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
             border: none;
             background: #e5e7eb;
             color: #6b7280;
             cursor: pointer;
             transition: all 0.2s ease;
             flex-shrink: 0;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .btn-salin:hover { background: #d1d5db; color: #374151; }
         .btn-salin.sukses { background: #d1fae5; color: #059669; }
 
-        .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; }
-        .baris-db { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; width: 100%; }
+        .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; }
+        .baris-db { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            flex-wrap: nowrap; 
+            width: 100%; 
+        }
         .teks-nama {
             font-weight: 500;
             color: #1f2937;
-            font-size: 0.92rem;
+            font-size: 0.82rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .teks-nomor { font-family: monospace; font-size: 0.9rem; }
+        .teks-nomor { font-family: monospace; font-size: 0.8rem; }
 
         button {
             transition: all 0.12s ease !important;
@@ -80,30 +90,42 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             box-shadow: 0 2px 4px rgba(34, 197, 94, 0.25);
             flex-shrink: 0;
         }
-        .table-container { width: 100%; overflow: hidden; border-radius: 0.5rem; }
-        main { max-width: 100%; margin: 0 auto; padding: 0 12px; }
-        input, textarea { box-sizing: border-box; max-width: 100%; }
+        .table-container { 
+            width: 100%; 
+            overflow: hidden; 
+            border-radius: 0.5rem; 
+        }
+        main { 
+            max-width: 100%; 
+            margin: 0 auto; 
+            padding: 0 10px; 
+        }
+        input, textarea { 
+            box-sizing: border-box; 
+            max-width: 100%; 
+            font-size: 0.9rem !important;
+        }
 
         .toast {
             position: fixed;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: #374151;
             color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 12px;
             opacity: 0;
             transition: all 0.3s;
             z-index: 9999;
@@ -111,53 +133,66 @@
         }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        .col-game { width: 14%; }
-        .col-status { width: 13%; }
-        .col-db { width: 28%; }
-        .col-ket { width: 23%; }
+        /* Lebar kolom presisi — aman di semua layar */
+        .col-game { width: 15%; }
+        .col-status { width: 14%; }
+        .col-db { width: 27%; }
+        .col-ket { width: 22%; }
         .col-jp { width: 12%; }
         .col-confirm { width: 10%; }
+
+        .tag-game, .tag-status {
+            font-size: 0.78rem;
+            white-space: nowrap;
+        }
+        .tombol-nominal, .btn-claim {
+            font-size: 0.78rem;
+            padding: 6px 4px !important;
+        }
+        .keterangan-teks {
+            font-size: 0.78rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-crown text-blue-600 text-xl"></i>
-                <span class="text-xl font-bold text-gray-900">PEJUANG KASINO</span>
+                <i class="fa-solid fa-crown text-blue-600 text-lg"></i>
+                <span class="text-lg font-bold text-gray-900">PEJUANG KASINO</span>
             </div>
         </div>
     </header>
 
-    <main class="py-6 pb-12">
-        <h1 class="text-2xl font-bold text-gray-900 mb-6">DATABASE JACKPOT PEJUANG KASINO</h1>
+    <main class="py-5 pb-10">
+        <h1 class="text-xl font-bold text-gray-900 mb-5">DATABASE JACKPOT PEJUANG KASINO</h1>
 
         <!-- Pencarian -->
-        <div class="bg-white p-5 rounded-lg shadow mb-5">
+        <div class="bg-white p-4 rounded-lg shadow mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Nama</label>
             <div class="flex gap-3 flex-wrap">
                 <input type="text" id="kataCari" oninput="filterTabel()" placeholder="Ketik nama atau nomor..." 
-                    class="flex-1 min-w-[180px] p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-base">
-                <button onclick="resetCari()" class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg font-medium">
+                    class="flex-1 min-w-[160px] p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                <button onclick="resetCari()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                     <i class="fa-solid fa-times"></i> Clear
                 </button>
             </div>
         </div>
 
         <!-- Input Data -->
-        <div class="bg-white p-5 rounded-lg shadow mb-5">
+        <div class="bg-white p-4 rounded-lg shadow mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
-            <textarea id="areaInput" rows="4" 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-base"
+            <textarea id="areaInput" rows="3" 
+                class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="ANDI 081234567890&#10;BUDI 089876543210"></textarea>
             <button onclick="tambahDariInput()" 
-                class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-medium">
-                <i class="fa-solid fa-paste mr-2"></i> Masukkan ke Database
+                class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
+                <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Database
             </button>
         </div>
 
-        <!-- TABEL -->
-        <div class="bg-white rounded-lg shadow mb-5 table-container">
+        <!-- TABEL — Semua Muat Rapi, Tidak Terpotong -->
+        <div class="bg-white rounded-lg shadow mb-4 table-container">
             <table>
                 <thead>
                     <tr class="bg-gray-100">
@@ -174,18 +209,18 @@
         </div>
 
         <!-- Tombol Aksi -->
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-2.5">
             <button onclick="tambahBarisKosong()" 
-                class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg font-medium text-base">
-                <i class="fa-solid fa-plus mr-2"></i> Tambah Baris
+                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
+                <i class="fa-solid fa-plus mr-1.5"></i> Tambah Baris
             </button>
             <button onclick="simpanSemua()" 
-                class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-3 rounded-lg font-medium text-base">
-                <i class="fa-solid fa-save mr-2"></i> SIMPAN DATA
+                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
+                <i class="fa-solid fa-save mr-1.5"></i> SIMPAN DATA
             </button>
             <button onclick="hapusSemuaSekaliKlik()" 
-                class="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg font-medium text-base">
-                <i class="fa-solid fa-trash mr-2"></i> HAPUS SEMUA BARIS
+                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
+                <i class="fa-solid fa-trash mr-1.5"></i> HAPUS SEMUA
             </button>
         </div>
     </main>
@@ -195,30 +230,30 @@
 
     <!-- Popup Pilih Nominal -->
     <div id="popupNominal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
-        <div class="bg-white rounded-xl p-6 w-[92%] max-w-md relative">
-            <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
-            <h3 class="text-lg font-bold text-gray-800 mb-1">Pilih Nominal</h3>
-            <p class="text-sm text-gray-500 mb-4">Klik nominal yang diinginkan</p>
+        <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
+            <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
+            <h3 class="text-base font-bold text-gray-800 mb-1">Pilih Nominal</h3>
+            <p class="text-sm text-gray-500 mb-3">Klik nominal yang diinginkan</p>
             <div id="daftarPilihan" class="grid grid-cols-3 gap-2 mb-4"></div>
             <div class="flex gap-2">
-                <button onclick="tutupPopupNominal()" class="flex-1 bg-gray-200 hover:bg-gray-300 py-2.5 rounded-lg font-medium">Batal</button>
-                <button onclick="terapkanNominal()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium">Simpan</button>
+                <button onclick="tutupPopupNominal()" class="flex-1 bg-gray-200 hover:bg-gray-300 py-2 rounded-lg font-medium text-sm">Batal</button>
+                <button onclick="terapkanNominal()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">Simpan</button>
             </div>
         </div>
     </div>
 
     <!-- Popup Klaim -->
     <div id="popupKlaim" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
-        <div class="bg-white rounded-xl p-6 w-[92%] max-w-md relative">
-            <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
-            <div class="w-16 h-16 mx-auto mb-4 bg-yellow-50 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-exclamation-triangle text-yellow-500 text-3xl"></i>
+        <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
+            <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
+            <div class="w-14 h-14 mx-auto mb-3 bg-yellow-50 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-exclamation-triangle text-yellow-500 text-2xl"></i>
             </div>
-            <p class="text-gray-600 my-5 text-center">
+            <p class="text-gray-600 my-4 text-center text-sm">
                 Mohon Maaf, KEMENANGAN tidak dapat diberikan,<br>
                 karena nomor ini belum melakukan DEPOSIT atau belum TERDAFTAR.
             </p>
-            <button onclick="tutupPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium">Tutup</button>
+            <button onclick="tutupPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">Tutup</button>
         </div>
     </div>
 
@@ -278,7 +313,7 @@
             wadah.innerHTML = '';
             daftarNilai.forEach(n => {
                 const btn = document.createElement('button');
-                btn.className = 'px-3 py-2.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-green-50 hover:border-green-300 text-gray-700 font-medium text-sm';
+                btn.className = 'px-2 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-green-50 hover:border-green-300 text-gray-700 font-medium text-sm';
                 btn.textContent = keRupiah(n);
                 btn.onclick = () => {
                     document.querySelectorAll('#daftarPilihan button').forEach(b => {
@@ -319,14 +354,14 @@
             tr.className = 'hover:bg-gray-50';
             
             const tampilGame = `
-                <span class="inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1.5 rounded-lg text-sm whitespace-nowrap">
+                <span class="tag-game inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1 rounded-lg">
                     ${game}
                 </span>
             `;
             
             const tampilStatus = `
-                <span class="inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full text-sm whitespace-nowrap">
-                    <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                <span class="tag-status inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full">
+                    <span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>
                     ${status}
                 </span>
             `;
@@ -357,16 +392,16 @@
                 <td>
                     <div class="flex items-center gap-2">
                         <span class="centang-bulat">✓</span>
-                        <span class="text-sm text-gray-700 font-medium">Kemenangan Pengisian Pertama</span>
+                        <span class="keterangan-teks text-gray-700 font-medium">Kemenangan Pengisian Pertama</span>
                     </div>
                 </td>
                 <td>
-                    <button class="tombol-nominal w-full flex items-center justify-between px-2 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-semibold text-sm hover:bg-blue-50" data-nilai="${nominal}" onclick="bukaPilihNominal(this)">
+                    <button class="tombol-nominal w-full flex items-center justify-between px-2 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-semibold hover:bg-blue-50" data-nilai="${nominal}" onclick="bukaPilihNominal(this)">
                         ${nominal ? `<span class="font-bold text-green-600">${keRupiah(nominal)}</span>` : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`}
                     </button>
                 </td>
                 <td>
-                    <button onclick="bukaPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">CLAIM</button>
+                    <button onclick="bukaPopupKlaim()" class="btn-claim w-full bg-blue-600 hover:bg-blue-700 text-white py-1.5 rounded-lg font-medium">CLAIM</button>
                 </td>
             `;
             return tr;
@@ -441,6 +476,7 @@
 
         muatSaatMulai();
     </script>
+
 
 </body>
 </html>
