@@ -53,13 +53,32 @@
         }
         button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
 
-        .centang-bulat {
+        /* === TANDA BULAT BISA DIKLIK === */
+        .tanda-keterangan {
+            width: 20px; height: 20px; border-radius: 50%;
             display: inline-flex; align-items: center; justify-content: center;
-            width: 18px; height: 18px; border-radius: 50%;
-            background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
-            color: white; font-size: 10px; font-weight: bold;
-            box-shadow: 0 2px 4px rgba(34,197,94,0.25); flex-shrink: 0;
+            border: none; cursor: pointer; flex-shrink: 0;
+            transition: all 0.2s ease; font-weight: bold; font-size: 11px;
+            padding: 0; line-height: 1;
         }
+        .tanda-keterangan.diterima {
+            background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+            color: white;
+        }
+        .tanda-keterangan.ditolak {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: white;
+        }
+        .tanda-keterangan:hover { transform: scale(1.15); }
+
+        .baris-keterangan {
+            display: flex; align-items: center; gap: 6px; width: 100%;
+        }
+        .teks-keterangan {
+            font-size: 0.75rem; font-weight: 500;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+
         .table-container { width: 100%; overflow: hidden; border-radius: 0.5rem; }
         main { max-width: 100%; margin: 0 auto; padding: 0 10px; }
         input, textarea { 
@@ -84,7 +103,6 @@
         .col-confirm { width: 10%; }
 
         .tag-game { font-size: 0.78rem; white-space: nowrap; }
-        .keterangan-teks { font-size: 0.78rem; }
         .tombol-nominal, .btn-claim {
             font-size: 0.78rem; padding: 6px 4px !important;
         }
@@ -105,6 +123,18 @@
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
+
+        /* === PILIHAN NOMINAL: Rp 0 MERAH === */
+        .btn-nominal {
+            transition: all 0.2s;
+        }
+        .btn-nominal.nol {
+            color: #dc2626; font-weight: 600;
+        }
+        .btn-nominal.nol:hover, .btn-nominal.nol.terpilih {
+            background: #fee2e2; border-color: #fca5a5;
+            color: #991b1b;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -185,7 +215,7 @@
     <div id="popupNominal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
             <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
-            <h3 class="text-base font-bold text-gray-800 mb-1">Pilih Nominal</h3>
+            <h3 class="text-base font-bold text-gray-800 mb-1">Pilih Nominal Jackpot</h3>
             <p class="text-sm text-gray-500 mb-3">Klik nominal yang diinginkan</p>
             <div id="daftarPilihan" class="grid grid-cols-3 gap-2 mb-4"></div>
             <div class="flex gap-2">
@@ -213,7 +243,8 @@
     <script>
         let barisSaatIni = null;
         let nilaiDipilih = null;
-        const daftarNilai = [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
+        // Rp 0 ada di urutan pertama, berwarna merah
+        const daftarNilai = [0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
 
         // === FUNGSI SALIN ===
         async function salinTeks(teks, tombol) {
@@ -255,6 +286,7 @@
         }
 
         function keRupiah(angka) {
+            if (angka === 0) return 'Rp 0';
             if (!angka) return '';
             return 'Rp ' + Number(angka).toLocaleString('id-ID');
         }
@@ -268,11 +300,7 @@
             tombol.dataset.status = berikutnya;
             tombol.className = `tombol-status inline-flex items-center gap-1 px-2 py-1 rounded-full border ${berikutnya}`;
             
-            const label = {
-                pending: 'PENDING',
-                lose: 'LOSE',
-                done: 'DONE'
-            };
+            const label = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' };
             const ikon = {
                 pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
                 lose: '<i class="fa-solid fa-times-circle text-xs"></i>',
@@ -290,28 +318,50 @@
             tombol.dataset.claim = berikutnya;
             tombol.className = `tombol-klaim w-full py-1.5 rounded-lg font-medium ${berikutnya}`;
             
-            const label = {
-                claim: 'CLAIM',
-                lose: 'LOSE',
-                claimed: 'CLAIMED'
-            };
+            const label = { claim: 'CLAIM', lose: 'LOSE', claimed: 'CLAIMED' };
             tombol.textContent = label[berikutnya];
         }
 
+        // === UBAH KETERANGAN: KLIK TANDA BULAT SAJA ===
+        function ubahTandaKeterangan(tombol) {
+            const sekarang = tombol.dataset.ket;
+            const berikutnya = sekarang === 'diterima' ? 'ditolak' : 'diterima';
+            tombol.dataset.ket = berikutnya;
+            
+            tombol.className = `tanda-keterangan ${berikutnya}`;
+            tombol.textContent = berikutnya === 'diterima' ? '✓' : '✗';
+            
+            const baris = tombol.closest('.baris-keterangan');
+            const teksEl = baris.querySelector('.teks-keterangan');
+            teksEl.textContent = berikutnya === 'diterima' 
+                ? 'Kemenangan Pengisian Pertama' 
+                : '✗ Menolak Undangan';
+        }
+
+        // === BUKA PILIHAN NOMINAL — Rp 0 MERAH ===
         function bukaPilihNominal(tombol) {
             barisSaatIni = tombol.closest('tr');
             nilaiDipilih = null;
             const wadah = document.getElementById('daftarPilihan');
             wadah.innerHTML = '';
+            
             daftarNilai.forEach(n => {
                 const btn = document.createElement('button');
-                btn.className = 'px-2 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-green-50 hover:border-green-300 text-gray-700 font-medium text-sm';
+                const isNol = n === 0;
+                btn.className = `btn-nominal px-2 py-2 rounded-lg border border-gray-200 bg-gray-50 hover:bg-green-50 hover:border-green-300 text-gray-700 font-medium text-sm ${isNol ? 'nol' : ''}`;
                 btn.textContent = keRupiah(n);
                 btn.onclick = () => {
                     document.querySelectorAll('#daftarPilihan button').forEach(b => {
-                        b.classList.remove('bg-green-500','text-white','border-green-500');
+                        b.classList.remove('bg-green-500','text-white','border-green-500','terpilih');
+                        if (b.classList.contains('nol')) {
+                            b.classList.remove('bg-red-500','border-red-500');
+                        }
                     });
-                    btn.classList.add('bg-green-500','text-white','border-green-500');
+                    if (isNol) {
+                        btn.classList.add('bg-red-500','border-red-500','text-white','terpilih');
+                    } else {
+                        btn.classList.add('bg-green-500','text-white','border-green-500','terpilih');
+                    }
                     nilaiDipilih = n;
                 };
                 wadah.appendChild(btn);
@@ -326,11 +376,18 @@
         }
 
         function terapkanNominal() {
-            if (!nilaiDipilih) { alert('Pilih nominal dulu!'); return; }
+            if (nilaiDipilih === null) { alert('Pilih nominal dulu!'); return; }
             const tombol = barisSaatIni.querySelector('.tombol-nominal');
-            tombol.innerHTML = `<span class="font-bold text-green-600">${keRupiah(nilaiDipilih)}</span>`;
+            const isNol = nilaiDipilih === 0;
+            
+            tombol.innerHTML = `<span class="font-bold ${isNol ? 'text-red-600' : 'text-green-600'}">${keRupiah(nilaiDipilih)}</span>`;
             tombol.dataset.nilai = nilaiDipilih;
-            tombol.classList.add('bg-green-50','border-green-200');
+            tombol.classList.remove('bg-green-50','border-green-200','bg-red-50','border-red-200');
+            if (isNol) {
+                tombol.classList.add('bg-red-50','border-red-200');
+            } else {
+                tombol.classList.add('bg-green-50','border-green-200');
+            }
             tutupPopupNominal();
         }
 
@@ -341,7 +398,7 @@
             document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
         }
 
-        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim') {
+        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima') {
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-gray-50';
             
@@ -351,9 +408,7 @@
                 </span>
             `;
 
-            const labelStatus = {
-                pending: 'PENDING', lose: 'LOSE', done: 'DONE'
-            }[status];
+            const labelStatus = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' }[status];
             const ikonStatus = {
                 pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
                 lose: '<i class="fa-solid fa-times-circle text-xs"></i>',
@@ -376,6 +431,29 @@
                     ${labelKlaim}
                 </button>
             `;
+
+            const tandaIsi = keterangan === 'diterima' ? '✓' : '✗';
+            const teksKeterangan = keterangan === 'diterima' 
+                ? 'Kemenangan Pengisian Pertama' 
+                : '✗ Menolak Undangan';
+            
+            const tampilKeterangan = `
+                <div class="baris-keterangan">
+                    <button class="tanda-keterangan ${keterangan}" data-ket="${keterangan}" 
+                            onclick="ubahTandaKeterangan(this)">
+                        ${tandaIsi}
+                    </button>
+                    <span class="teks-keterangan text-gray-700 font-medium">${teksKeterangan}</span>
+                </div>
+            `;
+
+            const tampilNominal = nominal !== '' && nominal !== null
+                ? `<span class="font-bold ${Number(nominal) === 0 ? 'text-red-600' : 'text-green-600'}">${keRupiah(Number(nominal))}</span>`
+                : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`;
+            
+            const kelasNominal = nominal !== '' && nominal !== null && Number(nominal) === 0
+                ? 'bg-red-50 border-red-200'
+                : (nominal !== '' && nominal !== null ? 'bg-green-50 border-green-200' : '');
             
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
@@ -398,15 +476,11 @@
                         </div>` : ''}
                     </div>
                 </td>
+                <td>${tampilKeterangan}</td>
                 <td>
-                    <div class="flex items-center gap-2">
-                        <span class="centang-bulat">✓</span>
-                        <span class="keterangan-teks text-gray-700 font-medium">Kemenangan Pengisian Pertama</span>
-                    </div>
-                </td>
-                <td>
-                    <button class="tombol-nominal w-full flex items-center justify-between px-2 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-semibold hover:bg-blue-50" data-nilai="${nominal}" onclick="bukaPilihNominal(this)">
-                        ${nominal ? `<span class="font-bold text-green-600">${keRupiah(nominal)}</span>` : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`}
+                    <button class="tombol-nominal w-full flex items-center justify-between px-2 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-semibold hover:bg-blue-50 ${kelasNominal}" 
+                            data-nilai="${nominal}" onclick="bukaPilihNominal(this)">
+                        ${tampilNominal}
                     </button>
                 </td>
                 <td>${tampilKlaim}</td>
@@ -440,24 +514,28 @@
                 const nomorEl = tr.querySelector('.teks-nomor');
                 const tombolStatus = tr.querySelector('.tombol-status');
                 const tombolKlaim = tr.querySelector('.tombol-klaim');
+                const tombolNominal = tr.querySelector('.tombol-nominal');
+                const tandaKet = tr.querySelector('.tanda-keterangan');
+                
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
                     status: tombolStatus ? tombolStatus.dataset.status : 'pending',
                     nama: namaEl ? namaEl.textContent.trim() : '',
                     nomor: nomorEl ? nomorEl.textContent.trim() : '',
-                    nominal: tr.querySelector('.tombol-nominal').dataset.nilai || '',
-                    klaim: tombolKlaim ? tombolKlaim.dataset.claim : 'claim'
+                    nominal: tombolNominal ? tombolNominal.dataset.nilai : '',
+                    klaim: tombolKlaim ? tombolKlaim.dataset.claim : 'claim',
+                    keterangan: tandaKet ? tandaKet.dataset.ket : 'diterima'
                 });
             });
-            localStorage.setItem('dataJackpotAkhir', JSON.stringify(semua));
+            localStorage.setItem('dataJackpot', JSON.stringify(semua));
             alert('✅ DATA TERSIMPAN!');
         }
 
         function hapusSemuaSekaliKlik() {
-            if (confirm('⚠️ Yakin ingin MENGHAPUS SEMUA BARIS? Tindakan ini tidak bisa dibatalkan!')) {
+            if (confirm('⚠️ YAKIN ingin menghapus SEMUA data? Tindakan ini tidak bisa dibatalkan!')) {
                 document.getElementById('badanTabel').innerHTML = '';
-                localStorage.removeItem('dataJackpotAkhir');
-                alert('✅ SEMUA BARIS TELAH DIHAPUS!');
+                localStorage.removeItem('dataJackpot');
+                alert('✅ SEMUA DATA SUDAH DIHAPUS!');
             }
         }
 
@@ -468,23 +546,25 @@
                 tr.style.display = teksSeluruh.includes(kata) ? '' : 'none';
             });
         }
+
         function resetCari() {
             document.getElementById('kataCari').value = '';
-            filterTabel();
+            document.querySelectorAll('#badanTabel tr').forEach(tr => tr.style.display = '');
         }
 
         function muatSaatMulai() {
-            const simpanan = localStorage.getItem('dataJackpotAkhir');
-            if (simpanan) {
-                JSON.parse(simpanan).forEach(item => {
+            const tersimpan = localStorage.getItem('dataJackpot');
+            if (tersimpan) {
+                JSON.parse(tersimpan).forEach(item => {
                     document.getElementById('badanTabel').appendChild(
                         buatBaris(
-                            item.game, 
-                            item.status || 'pending', 
-                            item.nama || item.database, 
-                            item.nomor || '', 
+                            item.game || 'PG/PRAGMATIC',
+                            item.status || 'pending',
+                            item.nama || '',
+                            item.nomor || '',
                             item.nominal,
-                            item.klaim || 'claim'
+                            item.klaim || 'claim',
+                            item.keterangan || 'diterima'
                         )
                     );
                 });
