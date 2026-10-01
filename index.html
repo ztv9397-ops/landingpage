@@ -9,90 +9,39 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100vh; background: #f8fafc; }
-        table { 
-            border-collapse: separate; border-spacing: 0; width: 100%;
-            table-layout: fixed;
-        }
-        th, td { 
-            border: 1px solid #cbd5e1 !important; 
-            padding: 10px 6px !important;
-            vertical-align: middle; overflow: hidden;
-        }
+        table { border-collapse: separate; border-spacing: 0; width: 100%; table-layout: fixed; }
+        th, td { border: 1px solid #cbd5e1 !important; padding: 10px 6px !important; vertical-align: middle; overflow: hidden; }
         tr:last-child td { border-bottom: 2px solid #cbd5e1 !important; }
-        th { 
-            border-bottom-width: 2px !important; white-space: nowrap; 
-            padding: 10px 3px !important; font-size: 0.78rem; font-weight: 700;
-        }
+        th { border-bottom-width: 2px !important; white-space: nowrap; padding: 10px 3px !important; font-size: 0.78rem; font-weight: 700; }
 
-        .link-wa {
-            color: #25D366; font-weight: 500; text-decoration: none;
-            transition: all 0.2s; font-size: 0.82rem;
-        }
+        .link-wa { color: #25D366; font-weight: 500; text-decoration: none; transition: all 0.2s; font-size: 0.82rem; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 24px; height: 24px; border-radius: 4px; border: none;
-            background: #e5e7eb; color: #6b7280; cursor: pointer;
-            transition: all 0.2s ease; flex-shrink: 0; font-size: 0.75rem;
-        }
+        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 4px; border: none; background: #e5e7eb; color: #6b7280; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.75rem; }
         .btn-salin:hover { background: #d1d5db; color: #374151; }
         .btn-salin.sukses { background: #d1fae5; color: #059669; }
 
         .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; }
         .baris-db { display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; width: 100%; }
-        .teks-nama {
-            font-weight: 500; color: #1f2937; font-size: 0.82rem;
-            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-        }
+        .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .teks-nomor { font-family: monospace; font-size: 0.8rem; }
 
-        button {
-            transition: all 0.12s ease !important; position: relative;
-            overflow: hidden; box-sizing: border-box;
-        }
+        button { transition: all 0.12s ease !important; position: relative; overflow: hidden; box-sizing: border-box; }
         button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
 
-        /* === TANDA BULAT BISA DIKLIK === */
-        .tanda-keterangan {
-            width: 20px; height: 20px; border-radius: 50%;
-            display: inline-flex; align-items: center; justify-content: center;
-            border: none; cursor: pointer; flex-shrink: 0;
-            transition: all 0.2s ease; font-weight: bold; font-size: 11px;
-            padding: 0; line-height: 1;
-        }
-        .tanda-keterangan.diterima {
-            background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
-            color: white;
-        }
-        .tanda-keterangan.ditolak {
-            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            color: white;
-        }
+        /* TANDA BULAT KETERANGAN */
+        .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; font-weight: bold; font-size: 11px; padding: 0; line-height: 1; }
+        .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); color: white; }
+        .tanda-keterangan.ditolak { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; }
         .tanda-keterangan:hover { transform: scale(1.15); }
-
-        .baris-keterangan {
-            display: flex; align-items: center; gap: 6px; width: 100%;
-        }
-        .teks-keterangan {
-            font-size: 0.75rem; font-weight: 500;
-            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-        }
+        .baris-keterangan { display: flex; align-items: center; gap: 6px; width: 100%; }
+        .teks-keterangan { font-size: 0.75rem; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .table-container { width: 100%; overflow: hidden; border-radius: 0.5rem; }
         main { max-width: 100%; margin: 0 auto; padding: 0 10px; }
-        input, textarea { 
-            box-sizing: border-box; max-width: 100%; font-size: 0.9rem !important;
-        }
+        input, textarea { box-sizing: border-box; max-width: 100%; font-size: 0.9rem !important; }
 
-        .toast {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #374151; color: white; padding: 9px 16px;
-            border-radius: 6px; font-size: 12px; opacity: 0;
-            transition: all 0.3s; z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 9px 16px; border-radius: 6px; font-size: 12px; opacity: 0; transition: all 0.3s; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         .col-game { width: 15%; }
@@ -103,38 +52,24 @@
         .col-confirm { width: 10%; }
 
         .tag-game { font-size: 0.78rem; white-space: nowrap; }
-        .tombol-nominal, .btn-claim {
-            font-size: 0.78rem; padding: 6px 4px !important;
-        }
 
-        /* === TOMBOL STATUS BISA DIKLIK === */
-        .tombol-status {
-            cursor: pointer; transition: all 0.2s; font-size: 0.75rem;
-        }
+        /* TOMBOL STATUS */
+        .tombol-status { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
         .tombol-status:hover { filter: brightness(0.95); transform: scale(1.03); }
         .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
         .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
         .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-        /* === TOMBOL KLAIM BISA DIKLIK === */
-        .tombol-klaim {
-            cursor: pointer; transition: all 0.2s; font-size: 0.75rem;
-        }
+        /* TOMBOL KLAIM */
+        .tombol-klaim { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
 
-        /* === PILIHAN NOMINAL: Rp 0 MERAH === */
-        .btn-nominal {
-            transition: all 0.2s;
-        }
-        .btn-nominal.nol {
-            color: #dc2626; font-weight: 600;
-        }
-        .btn-nominal.nol:hover, .btn-nominal.nol.terpilih {
-            background: #fee2e2; border-color: #fca5a5;
-            color: #991b1b;
-        }
+        /* PILIHAN NOMINAL */
+        .btn-nominal { transition: all 0.2s; }
+        .btn-nominal.nol { color: #dc2626; font-weight: 600; }
+        .btn-nominal.nol:hover, .btn-nominal.nol.terpilih { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -225,7 +160,7 @@
         </div>
     </div>
 
-    <!-- Popup Klaim -->
+    <!-- Popup Klaim — TETAP DIPERTAHANKAN ✅ -->
     <div id="popupKlaim" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
             <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
@@ -243,7 +178,6 @@
     <script>
         let barisSaatIni = null;
         let nilaiDipilih = null;
-        // Rp 0 ada di urutan pertama, berwarna merah
         const daftarNilai = [0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
 
         // === FUNGSI SALIN ===
@@ -309,8 +243,14 @@
             tombol.innerHTML = `${ikon[berikutnya]}${label[berikutnya]}`;
         }
 
-        // === UBAH KLAIM: CLAIM → LOSE → CLAIMED → CLAIM ===
+        // === UBAH KLAIM: KLIK → MUNCUL PERINGATAN + UBAH STATUS ===
         function ubahKlaim(tombol) {
+            // HANYA munculkan popup saat status masih "claim"
+            if (tombol.dataset.claim === 'claim') {
+                bukaPopupKlaim();
+            }
+            
+            // Lalu tetap ubah status sesuai urutan
             const urutan = ['claim', 'lose', 'claimed'];
             const sekarang = tombol.dataset.claim;
             const indeks = urutan.indexOf(sekarang);
@@ -338,7 +278,7 @@
                 : '✗ Menolak Undangan';
         }
 
-        // === BUKA PILIHAN NOMINAL — Rp 0 MERAH ===
+        // === PILIH NOMINAL — Rp 0 MERAH ===
         function bukaPilihNominal(tombol) {
             barisSaatIni = tombol.closest('tr');
             nilaiDipilih = null;
@@ -352,10 +292,7 @@
                 btn.textContent = keRupiah(n);
                 btn.onclick = () => {
                     document.querySelectorAll('#daftarPilihan button').forEach(b => {
-                        b.classList.remove('bg-green-500','text-white','border-green-500','terpilih');
-                        if (b.classList.contains('nol')) {
-                            b.classList.remove('bg-red-500','border-red-500');
-                        }
+                        b.classList.remove('bg-green-500','text-white','border-green-500','terpilih','bg-red-500','border-red-500');
                     });
                     if (isNol) {
                         btn.classList.add('bg-red-500','border-red-500','text-white','terpilih');
@@ -383,14 +320,11 @@
             tombol.innerHTML = `<span class="font-bold ${isNol ? 'text-red-600' : 'text-green-600'}">${keRupiah(nilaiDipilih)}</span>`;
             tombol.dataset.nilai = nilaiDipilih;
             tombol.classList.remove('bg-green-50','border-green-200','bg-red-50','border-red-200');
-            if (isNol) {
-                tombol.classList.add('bg-red-50','border-red-200');
-            } else {
-                tombol.classList.add('bg-green-50','border-green-200');
-            }
+            tombol.classList.add(isNol ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200');
             tutupPopupNominal();
         }
 
+        // === POPUP KLAIM — TETAP ADA ✅ ===
         function bukaPopupKlaim() {
             document.getElementById('popupKlaim').classList.remove('opacity-0','invisible');
         }
@@ -451,9 +385,9 @@
                 ? `<span class="font-bold ${Number(nominal) === 0 ? 'text-red-600' : 'text-green-600'}">${keRupiah(Number(nominal))}</span>`
                 : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`;
             
-            const kelasNominal = nominal !== '' && nominal !== null && Number(nominal) === 0
-                ? 'bg-red-50 border-red-200'
-                : (nominal !== '' && nominal !== null ? 'bg-green-50 border-green-200' : '');
+            const kelasNominal = nominal !== '' && nominal !== null
+                ? (Number(nominal) === 0 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200')
+                : '';
             
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
