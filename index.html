@@ -22,63 +22,72 @@
         }
         th, td { 
             border: 1px solid #cbd5e1 !important; 
-            padding: 14px 10px !important;
+            padding: 12px 10px !important;
             vertical-align: middle;
             overflow: hidden;
         }
         tr:last-child td { border-bottom: 2px solid #cbd5e1 !important; }
-        th { border-bottom-width: 2px !important; white-space: nowrap; }
+        th { border-bottom-width: 2px !important; white-space: nowrap; padding: 12px 8px !important; }
 
         .link-wa {
             color: #25D366;
-            font-weight: 600;
+            font-weight: 500;
             text-decoration: none;
             transition: all 0.2s;
+            font-size: 0.92rem;
         }
         .link-wa:hover {
             color: #128C7E;
             text-decoration: underline;
         }
+        /* === TOMBOL SALIN — WARNA LEMBUT TIDAK MENCOLOK === */
         .btn-salin {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
             border: none;
-            background: #eef2ff;
-            color: #4f46e5;
+            background: #e5e7eb;
+            color: #6b7280;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             flex-shrink: 0;
+            font-size: 0.8rem;
         }
         .btn-salin:hover {
-            background: #4f46e5;
-            color: white;
+            background: #d1d5db;
+            color: #374151;
         }
         .btn-salin.sukses {
-            background: #22c55e;
-            color: white;
+            background: #d1fae5;
+            color: #059669;
         }
         .db-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
+            width: 100%;
         }
         .baris-db {
             display: flex;
             align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 6px;
+            flex-wrap: nowrap;
+            width: 100%;
         }
         .teks-nama {
             font-weight: 500;
             color: #1f2937;
+            font-size: 0.92rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .teks-nomor {
             font-family: monospace;
-            font-size: 0.95em;
+            font-size: 0.9rem;
         }
 
         button {
@@ -88,31 +97,26 @@
             box-sizing: border-box;
         }
         button:active {
-            transform: translateY(2px) scale(0.97);
-            filter: brightness(0.85);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15) !important;
-        }
-        @keyframes kilatan {
-            0% { opacity: 0.5; transform: scale(1.05); }
-            100% { opacity: 0; }
+            transform: translateY(1px) scale(0.98);
+            filter: brightness(0.9);
         }
         .centang-bulat {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
             color: white;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: bold;
-            box-shadow: 0 2px 4px rgba(34, 197, 94, 0.3);
+            box-shadow: 0 2px 4px rgba(34, 197, 94, 0.25);
             flex-shrink: 0;
         }
-        .table-wrapper {
+        .table-container {
             width: 100%;
-            overflow-x: auto;
+            overflow: hidden;
             border-radius: 0.5rem;
         }
         main {
@@ -126,22 +130,30 @@
         }
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: #1f2937;
+            background: #374151;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0;
             transition: all 0.3s;
             z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .toast.tampil {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
+        /* Lebar kolom presisi agar tidak keluar */
+        .col-game { width: 14%; }
+        .col-status { width: 13%; }
+        .col-db { width: 28%; }
+        .col-ket { width: 23%; }
+        .col-jp { width: 12%; }
+        .col-confirm { width: 10%; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -181,23 +193,21 @@
             </button>
         </div>
 
-        <!-- TABEL -->
-        <div class="bg-white rounded-lg shadow mb-5 overflow-hidden">
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="w-[14%]">GAME</th>
-                            <th class="w-[13%]">STATUS</th>
-                            <th class="w-[28%]">DATABASE</th>
-                            <th class="w-[23%]">KETERANGAN</th>
-                            <th class="w-[12%]">JACKPOT</th>
-                            <th class="w-[10%]">KONFIRMASI</th>
-                        </tr>
-                    </thead>
-                    <tbody id="badanTabel"></tbody>
-                </table>
-            </div>
+        <!-- TABEL DIrapikan — TIDAK ADA YANG KELUAR -->
+        <div class="bg-white rounded-lg shadow mb-5 table-container">
+            <table>
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="col-game">GAME</th>
+                        <th class="col-status">STATUS</th>
+                        <th class="col-db">DATABASE</th>
+                        <th class="col-ket">KETERANGAN</th>
+                        <th class="col-jp">JACKPOT</th>
+                        <th class="col-confirm">KONFIRMASI</th>
+                    </tr>
+                </thead>
+                <tbody id="badanTabel"></tbody>
+            </table>
         </div>
 
         <!-- Tombol Aksi -->
@@ -282,7 +292,6 @@
             if (cocok) {
                 return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
             }
-            // Jika tidak ada pola, cek mana yang angka
             const bagian = teks.trim().split(/\s+/);
             const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
             const nama = bagian.filter(x => x !== nomor).join(' ').trim();
@@ -349,13 +358,13 @@
             tr.className = 'hover:bg-gray-50';
             
             const tampilGame = `
-                <span class="inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1.5 rounded-lg text-sm">
+                <span class="inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1.5 rounded-lg text-sm whitespace-nowrap">
                     ${game}
                 </span>
             `;
             
             const tampilStatus = `
-                <span class="inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full text-sm">
+                <span class="inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full text-sm whitespace-nowrap">
                     <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
                     ${status}
                 </span>
@@ -370,7 +379,7 @@
                     <div class="db-wrapper">
                         ${nama ? `
                         <div class="baris-db">
-                            <span class="teks-nama">${nama}</span>
+                            <span class="teks-nama" title="${nama}">${nama}</span>
                             <button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)" title="Salin Nama">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
@@ -461,15 +470,4 @@
         function muatSaatMulai() {
             const simpanan = localStorage.getItem('dataJackpotAkhir');
             if (simpanan) {
-                JSON.parse(simpanan).forEach(item => {
-                    document.getElementById('badanTabel').appendChild(
-                        buatBaris(item.game, item.status, item.nama || item.database, item.nomor || '', item.nominal)
-                    );
-                });
-            }
-        }
-
-        muatSaatMulai();
-    </script>
-</body>
-</html>
+                JSON.parse(sim
