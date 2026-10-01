@@ -29,6 +29,58 @@
         tr:last-child td { border-bottom: 2px solid #cbd5e1 !important; }
         th { border-bottom-width: 2px !important; white-space: nowrap; }
 
+        .link-wa {
+            color: #25D366;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .link-wa:hover {
+            color: #128C7E;
+            text-decoration: underline;
+        }
+        .btn-salin {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: #eef2ff;
+            color: #4f46e5;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-salin:hover {
+            background: #4f46e5;
+            color: white;
+        }
+        .btn-salin.sukses {
+            background: #22c55e;
+            color: white;
+        }
+        .db-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .baris-db {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .teks-nama {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .teks-nomor {
+            font-family: monospace;
+            font-size: 0.95em;
+        }
+
         button {
             transition: all 0.12s ease !important;
             position: relative;
@@ -40,26 +92,10 @@
             filter: brightness(0.85);
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.15) !important;
         }
-        button:active::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.3);
-            opacity: 0;
-            animation: kilatan 0.2s ease-out;
-        }
         @keyframes kilatan {
             0% { opacity: 0.5; transform: scale(1.05); }
             100% { opacity: 0; }
         }
-        .bg-blue-600, .bg-green-600, .bg-purple-600, .bg-red-600 {
-            box-shadow: 0 4px 0 rgba(0,0,0,0.15), 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .bg-blue-600:active, .bg-green-600:active, 
-        .bg-purple-600:active, .bg-red-600:active {
-            box-shadow: 0 1px 0 rgba(0,0,0,0.15), inset 0 2px 4px rgba(0,0,0,0.15) !important;
-        }
-
         .centang-bulat {
             display: inline-flex;
             align-items: center;
@@ -79,16 +115,6 @@
             overflow-x: auto;
             border-radius: 0.5rem;
         }
-        .tag-game, .tag-status {
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .tombol-nominal, .btn-cell {
-            width: 100%;
-            max-width: 100%;
-        }
         main {
             max-width: 100%;
             margin: 0 auto;
@@ -97,6 +123,24 @@
         input, textarea {
             box-sizing: border-box;
             max-width: 100%;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1f2937;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 9999;
+        }
+        .toast.tampil {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
@@ -115,9 +159,9 @@
 
         <!-- Pencarian -->
         <div class="bg-white p-5 rounded-lg shadow mb-5">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Data</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Nama</label>
             <div class="flex gap-3 flex-wrap">
-                <input type="text" id="kataCari" oninput="filterTabel()" placeholder="Ketik nomor atau nama..." 
+                <input type="text" id="kataCari" oninput="filterTabel()" placeholder="Ketik nama atau nomor..." 
                     class="flex-1 min-w-[180px] p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-base">
                 <button onclick="resetCari()" class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg font-medium">
                     <i class="fa-solid fa-times"></i> Clear
@@ -137,17 +181,17 @@
             </button>
         </div>
 
-        <!-- TABEL RAPI TIDAK ADA YANG LEWAT -->
+        <!-- TABEL -->
         <div class="bg-white rounded-lg shadow mb-5 overflow-hidden">
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="w-[15%]">GAME</th>
-                            <th class="w-[14%]">STATUS</th>
-                            <th class="w-[24%]">DATABASE</th>
+                            <th class="w-[14%]">GAME</th>
+                            <th class="w-[13%]">STATUS</th>
+                            <th class="w-[28%]">DATABASE</th>
                             <th class="w-[23%]">KETERANGAN</th>
-                            <th class="w-[14%]">JACKPOT</th>
+                            <th class="w-[12%]">JACKPOT</th>
                             <th class="w-[10%]">KONFIRMASI</th>
                         </tr>
                     </thead>
@@ -172,6 +216,9 @@
             </button>
         </div>
     </main>
+
+    <!-- Notifikasi Salin -->
+    <div id="toast" class="toast">Berhasil disalin! ✅</div>
 
     <!-- Popup Pilih Nominal -->
     <div id="popupNominal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
@@ -206,6 +253,48 @@
         let barisSaatIni = null;
         let nilaiDipilih = null;
         const daftarNilai = [100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
+
+        // === FUNGSI SALIN ===
+        async function salinTeks(teks, tombol) {
+            try {
+                await navigator.clipboard.writeText(teks);
+                tombol.classList.add('sukses');
+                tombol.innerHTML = '<i class="fa-solid fa-check"></i>';
+                tampilToast('Berhasil disalin!');
+                setTimeout(() => {
+                    tombol.classList.remove('sukses');
+                    tombol.innerHTML = '<i class="fa-solid fa-copy"></i>';
+                }, 2000);
+            } catch (e) {
+                tampilToast('Gagal menyalin');
+            }
+        }
+        function tampilToast(pesan) {
+            const el = document.getElementById('toast');
+            el.textContent = pesan;
+            el.classList.add('tampil');
+            setTimeout(() => el.classList.remove('tampil'), 2000);
+        }
+
+        // === PISAH NAMA & NOMOR OTOMATIS ===
+        function pisahNamaNomor(teks) {
+            const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
+            if (cocok) {
+                return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
+            }
+            // Jika tidak ada pola, cek mana yang angka
+            const bagian = teks.trim().split(/\s+/);
+            const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
+            const nama = bagian.filter(x => x !== nomor).join(' ').trim();
+            return { nama: nama || teks, nomor };
+        }
+
+        // === BUAT LINK WA ===
+        function buatLinkWA(nomor) {
+            if (!nomor) return '';
+            const bersih = nomor.replace(/^0/, '62').replace(/\D/g, '');
+            return `https://wa.me/${bersih}`;
+        }
 
         function keRupiah(angka) {
             if (!angka) return '';
@@ -255,27 +344,46 @@
             document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
         }
 
-        function buatBaris(game='PG/PRAGMATIC', status='PENDING', isiDb='', nominal='') {
+        function buatBaris(game='PG/PRAGMATIC', status='PENDING', nama='', nomor='', nominal='') {
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-gray-50';
             
             const tampilGame = `
-                <span class="tag-game inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1.5 rounded-lg text-sm">
+                <span class="inline-block bg-blue-50 border border-blue-200 text-blue-700 font-semibold px-2 py-1.5 rounded-lg text-sm">
                     ${game}
                 </span>
             `;
             
             const tampilStatus = `
-                <span class="tag-status inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full text-sm">
+                <span class="inline-flex items-center gap-1 bg-yellow-50 border border-yellow-300 text-yellow-700 font-medium px-2 py-1 rounded-full text-sm">
                     <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
                     ${status}
                 </span>
             `;
+
+            const linkWA = buatLinkWA(nomor);
             
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
                 <td>${tampilStatus}</td>
-                <td contenteditable="true" class="text-sm">${isiDb}</td>
+                <td>
+                    <div class="db-wrapper">
+                        ${nama ? `
+                        <div class="baris-db">
+                            <span class="teks-nama">${nama}</span>
+                            <button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)" title="Salin Nama">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>` : ''}
+                        ${nomor ? `
+                        <div class="baris-db">
+                            <a href="${linkWA}" target="_blank" class="link-wa teks-nomor">${nomor}</a>
+                            <button class="btn-salin" onclick="salinTeks('${nomor}', this)" title="Salin Nomor">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                        </div>` : ''}
+                    </div>
+                </td>
                 <td>
                     <div class="flex items-center gap-2">
                         <span class="centang-bulat">✓</span>
@@ -288,7 +396,7 @@
                     </button>
                 </td>
                 <td>
-                    <button onclick="bukaPopupKlaim()" class="btn-cell w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">CLAIM</button>
+                    <button onclick="bukaPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">CLAIM</button>
                 </td>
             `;
             return tr;
@@ -301,23 +409,28 @@
         function tambahDariInput() {
             const teks = document.getElementById('areaInput').value.trim();
             if (!teks) return;
+            let jumlah = 0;
             teks.split('\n').forEach(baris => {
-                const bagian = baris.trim().split(/\s+/);
-                const nomor = bagian.find(x => /^\d+$/.test(x)) || '';
-                const nama = bagian.filter(x => !/^\d+$/.test(x)).join(' ');
-                document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'PENDING', (nama+' '+nomor).trim()));
+                const { nama, nomor } = pisahNamaNomor(baris);
+                if (nama || nomor) {
+                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'PENDING', nama, nomor));
+                    jumlah++;
+                }
             });
-            alert('Data ditambahkan!');
+            alert(`✅ ${jumlah} data ditambahkan! Nama & nomor sudah dipisah otomatis`);
             document.getElementById('areaInput').value = '';
         }
 
         function simpanSemua() {
             const semua = [];
             document.querySelectorAll('#badanTabel tr').forEach(tr => {
+                const namaEl = tr.querySelector('.teks-nama');
+                const nomorEl = tr.querySelector('.teks-nomor');
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
                     status: tr.cells[1].innerText.trim().replace('●','').trim(),
-                    database: tr.cells[2].innerText.trim(),
+                    nama: namaEl ? namaEl.textContent.trim() : '',
+                    nomor: nomorEl ? nomorEl.textContent.trim() : '',
                     nominal: tr.querySelector('.tombol-nominal').dataset.nilai || ''
                 });
             });
@@ -336,7 +449,8 @@
         function filterTabel() {
             const kata = document.getElementById('kataCari').value.toUpperCase();
             document.querySelectorAll('#badanTabel tr').forEach(tr => {
-                tr.style.display = tr.cells[2].innerText.toUpperCase().includes(kata) ? '' : 'none';
+                const teksSeluruh = tr.cells[2].textContent.toUpperCase();
+                tr.style.display = teksSeluruh.includes(kata) ? '' : 'none';
             });
         }
         function resetCari() {
@@ -349,7 +463,7 @@
             if (simpanan) {
                 JSON.parse(simpanan).forEach(item => {
                     document.getElementById('badanTabel').appendChild(
-                        buatBaris(item.game, item.status, item.database, item.nominal)
+                        buatBaris(item.game, item.status, item.nama || item.database, item.nomor || '', item.nominal)
                     );
                 });
             }
