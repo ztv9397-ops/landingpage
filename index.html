@@ -14,22 +14,24 @@
         th { border-bottom-width: 2px; white-space: nowrap; padding: 10px 6px; font-size: 0.8rem; font-weight: 700; background: #f1f5f9; }
         tr:hover td { background: #f9fafb; }
 
-        .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; }
+        /* Kolom DATA di tengah */
+        .col-db { text-align: center; }
+        .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; align-items: center; justify-content: center; }
+        .baris-db { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; width: 100%; justify-content: center; }
+        .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .teks-nomor { font-family: monospace; font-size: 0.78rem; }
+
+        .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
         .btn-salin { 
             display: inline-flex; align-items: center; justify-content: center; 
             width: 18px; height: 18px; border-radius: 3px; border: none; 
             background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s; 
-            font-size: 0.65rem; flex-shrink: 0; margin-left: 4px; 
+            font-size: 0.65rem; flex-shrink: 0;
         }
         .btn-salin:hover { background: #f3f4f6; color: #6b7280; }
         .btn-salin.sukses { background: #f0fdf4; color: #16a34a; }
-
-        .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; overflow: hidden; }
-        .baris-db { display: flex; align-items: center; gap: 3px; flex-wrap: nowrap; width: 100%; }
-        .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .teks-nomor { font-family: monospace; font-size: 0.78rem; }
 
         button { transition: all 0.15s ease; cursor: pointer; border: none; font-family: inherit; }
         button:active { transform: scale(0.97); filter: brightness(0.92); }
@@ -65,7 +67,7 @@
 
         .tag-game { font-size: 0.7rem; white-space: nowrap; display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-weight: 600; padding: 2px 6px; border-radius: 6px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 
-        .sel-waktu { font-size: 0.75rem; min-height: 44px; padding: 6px; border-radius: 6px; cursor: pointer; width: 100%; }
+        .sel-waktu { font-size: 0.75rem; min-height: 44px; padding: 6px; border-radius: 6px; cursor: pointer; width: 100%; text-align: center; }
         .sel-waktu:hover { background: #eff6ff; }
         
         .waktu-mundur { font-weight: 700; letter-spacing: 0.5px; display: block; text-align: center; }
@@ -108,16 +110,24 @@
             cursor: pointer; transition: all 0.2s; white-space: nowrap; overflow: hidden; 
         }
         .tombol-nominal:hover { background: #f0f7ff; border-color: #93c5fd; }
-        .nominal-nol { color: #16a34a; font-weight: 600; }
+        
+        /* Default = MAXWIN abu-abu + panah */
+        .nominal-default { 
+            color: #6b7280; font-weight: 600; display: flex; align-items: center; 
+            justify-content: center; gap: 4px; font-size: 0.8rem;
+        }
+        /* Rp 0 = MERAH */
+        .nominal-nol { color: #dc2626; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        /* Nominal lain = HIJAU */
         .nominal-ada { color: #16a34a; }
-        .nominal-default { color: #6b7280; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.8rem; }
-        .panah-bawah { font-size: 10px; color: #9ca3af; }
+        
+        .panah-bawah { font-size: 10px; color: inherit; }
 
         .popup-overlay { background: rgba(0,0,0,0.5); }
         .daftar-nominal { max-height: 300px; overflow-y: auto; }
         .pilihan-nominal { padding: 10px 6px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.2s; font-size: 0.9rem; }
         .pilihan-nominal:hover { background: #eff6ff; border-color: #93c5fd; }
-        .pilihan-nominal.nol { color: #16a34a; }
+        .pilihan-nominal.nol { color: #dc2626; }
         .pilihan-nominal.ada { color: #16a34a; }
         .peringatan { display: flex; align-items: flex-start; gap: 8px; background: #fef9c3; border: 1px solid #facc15; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
         .ikon-peringatan { color: #eab308; font-size: 18px; flex-shrink: 0; margin-top: 2px; }
@@ -441,7 +451,11 @@
             nilaiDipilih = nilai;
             const btn = barisSaatIni.querySelector('.tombol-nominal');
             btn.dataset.nominal = nilai;
-            btn.innerHTML = `<span class="${nilai === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(nilai)}</span>`;
+            if (nilai === 0) {
+                btn.innerHTML = `<span class="nominal-nol">Rp 0 <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+            } else {
+                btn.innerHTML = `<span class="nominal-ada">${keRupiah(nilai)}</span>`;
+            }
             tutupPopupNominal();
         }
 
@@ -468,9 +482,13 @@
             let tampilNominal;
             if (nominal !== '' && nominal !== null) {
                 const n = Number(nominal);
-                tampilNominal = `<span class="${n === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(n)}</span>`;
+                if (n === 0) {
+                    tampilNominal = `<span class="nominal-nol">Rp 0 <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+                } else {
+                    tampilNominal = `<span class="nominal-ada">${keRupiah(n)}</span>`;
+                }
             } else {
-                tampilNominal = `<span class="nominal-default">Rp 0 <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+                tampilNominal = `<span class="nominal-default">MAXWIN <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
             }
 
             const tombolSalinNama = (nama && nama !== '-') 
