@@ -10,62 +10,62 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100vh; background: #f8fafc; }
         table { border-collapse: separate; border-spacing: 0; width: 100%; table-layout: fixed; }
-        th, td { border: 1px solid #cbd5e1; padding: 10px 8px; vertical-align: middle; position: relative; }
-        th { border-bottom-width: 2px; white-space: nowrap; padding: 12px 8px; font-size: 0.85rem; font-weight: 700; background: #f1f5f9; }
+        th, td { border: 1px solid #cbd5e1; padding: 10px 6px; vertical-align: middle; overflow: hidden; }
+        th { border-bottom-width: 2px; white-space: nowrap; padding: 10px 6px; font-size: 0.8rem; font-weight: 700; background: #f1f5f9; }
         tr:hover td { background: #f9fafb; }
 
-        .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; }
+        .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 4px; border: none; background: #e5e7eb; color: #4b5563; cursor: pointer; transition: all 0.2s; font-size: 0.75rem; flex-shrink: 0; margin-left: 6px; }
-        .btn-salin:hover { background: #d1d5db; color: #1f2937; }
+        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 4px; border: none; background: #e5e7eb; color: #6b7280; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; flex-shrink: 0; margin-left: 4px; }
+        .btn-salin:hover { background: #d1d5db; color: #374151; }
         .btn-salin.sukses { background: #bbf7d0; color: #166534; }
 
-        .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; }
-        .baris-db { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; width: 100%; }
+        .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; overflow: hidden; }
+        .baris-db { display: flex; align-items: center; gap: 3px; flex-wrap: nowrap; width: 100%; }
         .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .teks-nomor { font-family: monospace; font-size: 0.8rem; }
+        .teks-nomor { font-family: monospace; font-size: 0.78rem; }
 
         button { transition: all 0.15s ease; cursor: pointer; border: none; font-family: inherit; }
         button:active { transform: scale(0.97); filter: brightness(0.92); }
 
-        .tanda-keterangan { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-weight: bold; font-size: 12px; color: white; border: none; }
+        .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-weight: bold; font-size: 11px; color: white; border: none; }
         .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); }
         .tanda-keterangan.ditolak { background: #ef4444; }
-        .baris-keterangan { display: flex; align-items: center; gap: 6px; width: 100%; }
-        .teks-keterangan { font-size: 0.75rem; font-weight: 500; }
+        .baris-keterangan { display: flex; align-items: center; gap: 5px; width: 100%; flex-wrap: nowrap; }
+        .teks-keterangan { font-size: 0.7rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .table-container { width: 100%; overflow-x: auto; border-radius: 0.5rem; }
-        main { max-width: 100%; margin: 0 auto; padding: 0 10px; }
+        main { max-width: 100%; margin: 0 auto; padding: 0 8px; }
         input, textarea { font-size: 0.9rem; }
 
-        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 10px 18px; border-radius: 6px; font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 9999; }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         .col-game { width: 14%; }
-        .col-status { width: 14%; }
+        .col-status { width: 13%; }
         .col-waktu { width: 18%; }
         .col-db { width: 24%; }
         .col-ket { width: 16%; }
-        .col-jp { width: 17%; }
-        .col-confirm { width: 15%; }
+        .col-jp { width: 12%; }
+        .col-confirm { width: 13%; }
 
-        .tag-game { font-size: 0.75rem; white-space: nowrap; display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+        .tag-game { font-size: 0.7rem; white-space: nowrap; display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-weight: 600; padding: 2px 6px; border-radius: 6px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
 
-        .sel-waktu { font-size: 0.8rem; min-height: 48px; padding: 8px; border-radius: 6px; cursor: pointer; }
+        .sel-waktu { font-size: 0.75rem; min-height: 44px; padding: 6px; border-radius: 6px; cursor: pointer; width: 100%; }
         .sel-waktu:hover { background: #eff6ff; }
         
-        .waktu-mundur { font-weight: 700; letter-spacing: 0.5px; }
+        .waktu-mundur { font-weight: 700; letter-spacing: 0.5px; display: block; text-align: center; }
         .waktu-mundur.normal { color: #1d4ed8; }
         .waktu-mundur.hampir { color: #d97706; animation: kedip 1s infinite; }
         .waktu-mundur.habis { color: #dc2626; }
         
-        .time-out-wrapper { display: inline-flex; align-items: center; gap: 6px; }
+        .time-out-wrapper { display: flex; align-items: center; justify-content: center; gap: 5px; width: 100%; }
         .lingkaran-merah { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
-        .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.78rem; }
+        .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.75rem; }
         
-        .input-waktu-edit { width: 100%; font-size: 0.78rem; padding: 6px 8px; border: 1px solid #3b82f6; border-radius: 6px; text-align: center; outline: none; margin-bottom: 8px; }
-        .btn-waktu-kontrol { padding: 6px 10px; font-size: 11px; border-radius: 6px; border: none; margin-right: 4px; cursor: pointer; font-weight: 500; }
+        .input-waktu-edit { width: 100%; font-size: 0.75rem; padding: 5px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 6px; }
+        .btn-waktu-kontrol { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; margin-right: 3px; cursor: pointer; font-weight: 500; }
         .btn-ok { background: #3b82f6; color: white; }
         .btn-batal { background: #e5e7eb; color: #374151; }
         .btn-to { background: #ef4444; color: white; }
@@ -75,26 +75,26 @@
             50% { opacity: 0.3; }
         }
 
-        .tombol-status { font-size: 0.7rem; padding: 4px 10px; border-radius: 999px; border: 1px solid; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+        .tombol-status { font-size: 0.7rem; padding: 3px 8px; border-radius: 999px; border: 1px solid; display: inline-flex; align-items: center; gap: 3px; font-weight: 600; white-space: nowrap; }
         .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
         .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
         .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-        .tombol-klaim { font-size: 0.75rem; padding: 10px 6px; border-radius: 8px; font-weight: 700; width: 100%; text-align: center; }
+        .tombol-klaim { font-size: 0.7rem; padding: 8px 4px; border-radius: 6px; font-weight: 700; width: 100%; text-align: center; white-space: nowrap; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
 
-        .tombol-nominal { font-size: 0.9rem; padding: 12px 10px; border-radius: 10px; border: 1px solid #d1d5db; background: #ffffff; width: 100%; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .tombol-nominal { font-size: 0.85rem; padding: 10px 6px; border-radius: 8px; border: 1px solid #d1d5db; background: #ffffff; width: 100%; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; overflow: hidden; }
         .tombol-nominal:hover { background: #f0f7ff; border-color: #93c5fd; }
         .nominal-nol { color: #dc2626; }
         .nominal-ada { color: #16a34a; }
-        .nominal-pilih { color: #6b7280; font-weight: 500; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 4px; }
-        .panah-bawah { font-size: 12px; }
+        .nominal-default { color: #6b7280; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.8rem; }
+        .panah-bawah { font-size: 10px; color: #9ca3af; }
 
         .popup-overlay { background: rgba(0,0,0,0.5); }
-        .daftar-nominal { max-height: 320px; overflow-y: auto; }
-        .pilihan-nominal { padding: 10px 8px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.2s; }
+        .daftar-nominal { max-height: 300px; overflow-y: auto; }
+        .pilihan-nominal { padding: 10px 6px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.2s; font-size: 0.9rem; }
         .pilihan-nominal:hover { background: #eff6ff; border-color: #93c5fd; }
         .pilihan-nominal.nol { color: #dc2626; }
         .pilihan-nominal.ada { color: #16a34a; }
@@ -120,7 +120,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Nama</label>
             <div class="flex gap-3 flex-wrap">
                 <input type="text" id="kataCari" oninput="filterTabel()" placeholder="Ketik nama atau nomor..." 
-                    class="flex-1 min-w-[180px] p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    class="flex-1 min-w-[160px] p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                 <button onclick="resetCari()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                     <i class="fa-solid fa-times"></i> Clear
                 </button>
@@ -284,8 +284,8 @@
             teks.textContent = berikutnya === 'diterima' ? 'Kemenangan Pengisian Pertama' : 'Menolak Undangan';
         }
 
-        // === WAKTU ===
-        function waktuTengahMalam() {
+        // === WAKTU — DIPERBAIKI TOTAL ===
+        function waktuTengahMalamBerikutnya() {
             const t = new Date();
             t.setDate(t.getDate() + 1);
             t.setHours(0, 0, 0, 0);
@@ -293,7 +293,7 @@
         }
 
         function buatWaktuTujuan(jamStr) {
-            if (!jamStr) return waktuTengahMalam();
+            if (!jamStr) return waktuTengahMalamBerikutnya();
             const [h, m] = jamStr.split(':').map(Number);
             const t = new Date();
             t.setHours(h || 0, m || 0, 0, 0);
@@ -313,24 +313,29 @@
         }
 
         function tampilTimeOut(el) {
-            if (el._timer) { clearInterval(el._timer); el._timer = null; }
+            if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
             el._mode = 'timeout';
-            el._jam = '';
+            el._jamTujuan = '';
             el.innerHTML = `<div class="time-out-wrapper"><span class="lingkaran-merah"></span><span class="teks-timeout">Time Out</span></div>`;
         }
 
-        function mulaiHitung(el, jamTujuan = null) {
-            if (el._timer) { clearInterval(el._timer); el._timer = null; }
-            el._mode = 'hitung';
-            el._jam = jamTujuan || '';
-            const akhir = jamTujuan ? buatWaktuTujuan(jamTujuan) : waktuTengahMalam();
+        function mulaiHitungMundur(el, jamTujuan = null) {
+            if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
+            el._mode = 'counting';
+            el._jamTujuan = jamTujuan || '';
+            const akhir = jamTujuan ? buatWaktuTujuan(jamTujuan) : waktuTengahMalamBerikutnya();
             
-            el._timer = setInterval(() => {
-                if (el._mode === 'timeout') { clearInterval(el._timer); return; }
+            el._timerId = setInterval(() => {
+                if (el._mode === 'timeout') {
+                    clearInterval(el._timerId);
+                    el._timerId = null;
+                    return;
+                }
                 const sisa = akhir.getTime() - Date.now();
                 if (sisa <= 0) {
                     el.innerHTML = '<span class="waktu-mundur habis">WAKTU HABIS</span>';
-                    clearInterval(el._timer);
+                    clearInterval(el._timerId);
+                    el._timerId = null;
                     return;
                 }
                 const {teks, kelas} = formatSisaWaktu(sisa);
@@ -341,29 +346,45 @@
         function bukaEditWaktu(el) {
             if (el.querySelector('.input-waktu-edit')) return;
             el.innerHTML = `
-                <input type="text" class="input-waktu-edit" id="inpWaktu" value="${el._jam || ''}" placeholder="HH:MM / ketik TO">
+                <input type="text" class="input-waktu-edit" id="inpWaktuKolom"
+                       value="${el._jamTujuan || ''}" placeholder="HH:MM / ketik TO">
                 <div style="display:flex;gap:4px;">
                     <button class="btn-waktu-kontrol btn-ok" onclick="terapkanWaktu(this.parentElement.parentElement)">OK</button>
                     <button class="btn-waktu-kontrol btn-batal" onclick="batalEditWaktu(this.parentElement.parentElement)">Batal</button>
                     <button class="btn-waktu-kontrol btn-to" onclick="terapkanTimeOut(this.parentElement.parentElement)">Timeout</button>
                 </div>
             `;
-            el.querySelector('#inpWaktu').focus();
+            el.querySelector('#inpWaktuKolom').focus();
         }
 
         function terapkanWaktu(el) {
-            const val = el.querySelector('#inpWaktu').value.trim().toUpperCase();
-            if (!val) { mulaiHitung(el); return; }
-            if (val === 'TO' || val === 'TIMEOUT') { tampilTimeOut(el); return; }
-            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) { mulaiHitung(el, val); return; }
-            alert('Format salah! Contoh: 22:30 atau ketik TO');
+            const input = el.querySelector('#inpWaktuKolom');
+            const val = input.value.trim().toUpperCase();
+            
+            if (!val) {
+                mulaiHitungMundur(el);
+                return;
+            }
+            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') {
+                tampilTimeOut(el);
+                return;
+            }
+            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) {
+                mulaiHitungMundur(el, val);
+                return;
+            }
+            alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
             bukaEditWaktu(el);
         }
 
         function batalEditWaktu(el) {
-            if (el._mode === 'timeout') tampilTimeOut(el);
-            else if (el._jam) mulaiHitung(el, el._jam);
-            else mulaiHitung(el);
+            if (el._mode === 'timeout') {
+                tampilTimeOut(el);
+            } else if (el._jamTujuan) {
+                mulaiHitungMundur(el, el._jamTujuan);
+            } else {
+                mulaiHitungMundur(el);
+            }
         }
 
         function terapkanTimeOut(el) {
@@ -403,7 +424,7 @@
             const btn = barisSaatIni.querySelector('.tombol-nominal');
             btn.dataset.nominal = nilai;
             
-            // HANYA NOMINAL YANG MUNCUL setelah dipilih
+            // HANYA NOMINAL YANG MUNCUL — MAXWIN jika 0
             if (nilai === 0) {
                 btn.innerHTML = `<span class="nominal-nol">MAXWIN</span>`;
             } else {
@@ -436,7 +457,7 @@
 
             const linkWA = buatLinkWA(nomor);
             
-            // Tampilan tombol nominal
+            // Tampilan tombol nominal: MAXWIN sebagai default, bukan "Pilih"
             let tampilNominal;
             if (nominal !== '' && nominal !== null) {
                 const n = Number(nominal);
@@ -446,7 +467,7 @@
                     tampilNominal = `<span class="nominal-ada">${keRupiah(n)}</span>`;
                 }
             } else {
-                tampilNominal = `<span class="nominal-pilih">Pilih <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+                tampilNominal = `<span class="nominal-default">MAXWIN <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
             }
 
             tr.innerHTML = `
@@ -490,9 +511,9 @@
                 if (dataWaktu && dataWaktu.mode === 'timeout') {
                     tampilTimeOut(elWaktu);
                 } else if (dataWaktu && dataWaktu.jam) {
-                    mulaiHitung(elWaktu, dataWaktu.jam);
+                    mulaiHitungMundur(elWaktu, dataWaktu.jam);
                 } else {
-                    mulaiHitung(elWaktu);
+                    mulaiHitungMundur(elWaktu);
                 }
             }, 0);
 
@@ -532,7 +553,7 @@
                     keterangan: tr.querySelector('.tanda-keterangan').dataset.ket,
                     waktu: {
                         mode: elWaktu._mode || '',
-                        jam: elWaktu._jam || ''
+                        jam: elWaktu._jamTujuan || ''
                     }
                 });
             });
