@@ -14,7 +14,6 @@
         th { border-bottom-width: 2px; white-space: nowrap; padding: 10px 6px; font-size: 0.8rem; font-weight: 700; background: #f1f5f9; }
         tr:hover td { background: #f9fafb; }
 
-        /* Kolom DATA di tengah */
         .col-db { text-align: center; }
         .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; align-items: center; justify-content: center; }
         .baris-db { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; width: 100%; justify-content: center; }
@@ -111,14 +110,11 @@
         }
         .tombol-nominal:hover { background: #f0f7ff; border-color: #93c5fd; }
         
-        /* Default = MAXWIN abu-abu + panah */
         .nominal-default { 
             color: #6b7280; font-weight: 600; display: flex; align-items: center; 
             justify-content: center; gap: 4px; font-size: 0.8rem;
         }
-        /* Rp 0 = MERAH */
         .nominal-nol { color: #dc2626; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
-        /* Nominal lain = HIJAU */
         .nominal-ada { color: #16a34a; }
         
         .panah-bawah { font-size: 10px; color: inherit; }
@@ -470,6 +466,11 @@
             p.classList.remove('visible', 'opacity-100');
         }
 
+        function tambahDiAtas(elemen) {
+            const badan = document.getElementById('badanTabel');
+            badan.insertBefore(elemen, badan.firstChild);
+        }
+
         function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima', dataWaktu=null) {
             const tr = document.createElement('tr');
             const ikonStatus = {
@@ -547,21 +548,23 @@
         }
 
         function tambahBarisKosong() {
-            document.getElementById('badanTabel').appendChild(buatBaris());
+            tambahDiAtas(buatBaris());
         }
 
         function tambahDariInput() {
             const teks = document.getElementById('areaInput').value.trim();
             if (!teks) return;
             let n = 0;
+            const daftarBaru = [];
             teks.split('\n').forEach(baris => {
                 const {nama, nomor} = pisahNamaNomor(baris);
                 if (nama || nomor) {
-                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'pending', nama, nomor));
+                    daftarBaru.unshift(buatBaris('PG/PRAGMATIC', 'pending', nama, nomor));
                     n++;
                 }
             });
-            tampilToast(`${n} data berhasil ditambahkan!`);
+            daftarBaru.forEach(tr => tambahDiAtas(tr));
+            if (n > 0) tampilToast(`${n} data berhasil ditambahkan!`);
             document.getElementById('areaInput').value = '';
         }
 
@@ -611,8 +614,8 @@
         function muatSaatBuka() {
             const simpanan = localStorage.getItem('dataJackpot');
             if (!simpanan) return;
-            JSON.parse(simpanan).forEach(item => {
-                document.getElementById('badanTabel').appendChild(buatBaris(
+            JSON.parse(simpanan).reverse().forEach(item => {
+                tambahDiAtas(buatBaris(
                     item.game || 'PG/PRAGMATIC',
                     item.status || 'pending',
                     item.nama || '',
