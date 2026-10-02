@@ -17,7 +17,7 @@
         .link-wa { color: #25D366; font-weight: 500; text-decoration: none; transition: all 0.2s; font-size: 0.82rem; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 3px; border: none; background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.7rem; opacity: 0.55; }
+        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 3px; border: none; background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.7rem; opacity: 0.55; position: relative; z-index: 10; }
         .btn-salin:hover { background: #e5e7eb; color: #6b7280; opacity: 1; }
         .btn-salin.sukses { background: transparent; color: #65a30d; opacity: 0.8; }
 
@@ -26,10 +26,10 @@
         .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .teks-nomor { font-family: monospace; font-size: 0.8rem; }
 
-        button { transition: all 0.12s ease !important; position: relative; overflow: hidden; box-sizing: border-box; }
+        button { transition: all 0.12s ease !important; position: relative; z-index: 10; cursor: pointer; }
         button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
 
-        .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; font-weight: bold; font-size: 11px; padding: 0; line-height: 1; }
+        .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; font-weight: bold; font-size: 11px; padding: 0; line-height: 1; position: relative; z-index: 10; }
         .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); color: white; }
         .tanda-keterangan.ditolak { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; }
         .tanda-keterangan:hover { transform: scale(1.15); }
@@ -53,8 +53,7 @@
 
         .tag-game { font-size: 0.78rem; white-space: nowrap; }
 
-        /* === HITUNGAN MUNDUR — BISA DIEDIT === */
-        .sel-waktu { cursor: pointer; }
+        .sel-waktu { cursor: pointer; position: relative; z-index: 5; }
         .sel-waktu:hover { background: #eff6ff; }
         
         .waktu-mundur { 
@@ -67,7 +66,6 @@
         .waktu-mundur.hampir { color: #d97706; animation: kedip 1s infinite; }
         .waktu-mundur.habis { color: #dc2626; }
         
-        /* === TIME OUT — LINGKARAN MERAH ✅ === */
         .time-out-wrapper { display: inline-flex; align-items: center; gap: 5px; }
         .lingkaran-merah { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
         .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.8rem; }
@@ -75,11 +73,13 @@
         .input-waktu-edit { 
             width: 100%; 
             font-size: 0.8rem; 
-            padding: 3px 5px; 
+            padding: 4px 6px; 
             border: 1px solid #3b82f6; 
             border-radius: 4px; 
             text-align: center;
             outline: none;
+            position: relative;
+            z-index: 20;
         }
         
         @keyframes kedip {
@@ -87,13 +87,13 @@
             50% { opacity: 0.35; }
         }
 
-        .tombol-status { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
+        .tombol-status { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; position: relative; z-index: 10; }
         .tombol-status:hover { filter: brightness(0.95); transform: scale(1.03); }
         .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
         .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
         .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-        .tombol-klaim { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
+        .tombol-klaim { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; position: relative; z-index: 10; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
@@ -101,6 +101,16 @@
         .btn-nominal { transition: all 0.2s; }
         .btn-nominal.nol { color: #dc2626; font-weight: 600; }
         .btn-nominal.nol:hover, .btn-nominal.nol.terpilih { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+        
+        .edit-waktu-kontrol { display: flex; gap: 4px; margin-top: 4px; }
+        .edit-waktu-kontrol button { 
+            padding: 3px 6px; 
+            font-size: 11px; 
+            border-radius: 3px; 
+            border: none;
+            position: relative;
+            z-index: 25;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -289,7 +299,6 @@
                 : '✗ Menolak Undangan';
         }
 
-        // === HITUNGAN MUNDUR OTOMATIS ===
         function waktuTengahMalamBerikutnya() {
             const sekarang = new Date();
             const tengahMalam = new Date(sekarang);
@@ -317,7 +326,6 @@
             return { teks, kelas };
         }
 
-        // === TAMPILKAN TIME OUT ===
         function tampilTimeOut(elWaktu) {
             if (elWaktu.dataset.intervalId) {
                 clearInterval(parseInt(elWaktu.dataset.intervalId));
@@ -332,7 +340,6 @@
             `;
         }
 
-        // === MULAI HITUNGAN MUNDUR ===
         function mulaiHitungMundur(elWaktu, jamTujuan = null) {
             if (elWaktu.dataset.intervalId) {
                 clearInterval(parseInt(elWaktu.dataset.intervalId));
@@ -358,34 +365,28 @@
             elWaktu.dataset.jamTujuan = jamTujuan || '';
         }
 
-        // === KLIK KOLOM WAKTU → BISA DIEDIT ===
         function aktifkanEditWaktu(elWaktu) {
             if (elWaktu.querySelector('input')) return;
             
             const jamSaatIni = elWaktu.dataset.jamTujuan || '';
-            const modeSaatIni = elWaktu.dataset.mode;
-            
             elWaktu.innerHTML = `
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                    <input type="text" class="input-waktu-edit" 
-                           value="${jamSaatIni}" 
-                           placeholder="HH:MM / ketik TO"
-                           id="inputEditWaktu">
-                    <div style="display:flex;gap:4px;">
-                        <button onclick="simpanEditWaktu(this.closest('.sel-waktu'))" 
-                                style="padding:2px 6px;font-size:11px;background:#3b82f6;color:white;border-radius:3px;border:none;">OK</button>
-                        <button onclick="batalkanEditWaktu(this.closest('.sel-waktu'))" 
-                                style="padding:2px 6px;font-size:11px;background:#e5e7eb;color:#374151;border-radius:3px;border:none;">Batal</button>
-                        <button onclick="setTimeOut(this.closest('.sel-waktu'))" 
-                                style="padding:2px 6px;font-size:11px;background:#ef4444;color:white;border-radius:3px;border:none;">Timeout</button>
-                    </div>
+                <input type="text" class="input-waktu-edit" 
+                       value="${jamSaatIni}" 
+                       placeholder="HH:MM / ketik TO">
+                <div class="edit-waktu-kontrol">
+                    <button onclick="simpanEditWaktu(this.closest('.sel-waktu'))" 
+                            style="background:#3b82f6;color:white;">OK</button>
+                    <button onclick="batalkanEditWaktu(this.closest('.sel-waktu'))" 
+                            style="background:#e5e7eb;color:#374151;">Batal</button>
+                    <button onclick="setTimeOut(this.closest('.sel-waktu'))" 
+                            style="background:#ef4444;color:white;">Timeout</button>
                 </div>
             `;
-            document.getElementById('inputEditWaktu').focus();
+            elWaktu.querySelector('input').focus();
         }
 
         function simpanEditWaktu(elWaktu) {
-            const input = elWaktu.querySelector('.input-waktu-edit');
+            const input = elWaktu.querySelector('input');
             const nilai = input.value.trim().toUpperCase();
             
             if (!nilai) {
@@ -400,7 +401,7 @@
                 mulaiHitungMundur(elWaktu, nilai);
                 return;
             }
-            alert('Format salah! Masukkan jam seperti 22:30\nAtau ketik: TO → untuk Time Out');
+            alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
             aktifkanEditWaktu(elWaktu);
         }
 
@@ -525,7 +526,7 @@
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
                 <td>${tampilStatus}</td>
-                <td class="sel-waktu" onclick="aktifkanEditWaktu(this)" title="Klik untuk ubah jam / Time Out"></td>
+                <td class="sel-waktu" title="Klik untuk ubah jam / Time Out"></td>
                 <td>
                     <div class="db-wrapper">
                         ${nama ? `
@@ -556,6 +557,12 @@
 
             setTimeout(() => {
                 const selWaktu = tr.querySelector('.sel-waktu');
+                selWaktu.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                        aktifkanEditWaktu(this);
+                    }
+                });
+                
                 if (waktuData && waktuData.mode === 'timeout') {
                     tampilTimeOut(selWaktu);
                 } else if (waktuData && waktuData.jamTujuan) {
@@ -622,6 +629,16 @@
             if (confirm('⚠️ YAKIN ingin menghapus SEMUA data?')) {
                 document.getElementById('badanTabel').innerHTML = '';
                 localStorage.removeItem('dataJackpot');
-                
+                alert('✅ SEMUA DATA SUDAH DIHAPUS!');
+            }
+        }
+
+        function filterTabel() {
+            const kata = document.getElementById('kataCari').value.toUpperCase();
+            document.querySelectorAll('#badanTabel tr').forEach(tr => {
+                const teksSeluruh = tr.cells[3].textContent.toUpperCase();
+                tr.style.display = teksSeluruh.includes(kata) ? '' : 'none';
+            });
+      
 </body>
 </html>
