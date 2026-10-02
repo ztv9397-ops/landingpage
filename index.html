@@ -10,50 +10,49 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100vh; background: #f8fafc; }
         table { border-collapse: separate; border-spacing: 0; width: 100%; table-layout: fixed; }
-        th, td { border: 1px solid #cbd5e1; padding: 8px 4px; vertical-align: middle; position: relative; }
-        th { border-bottom-width: 2px; white-space: nowrap; padding: 10px 3px; font-size: 0.78rem; font-weight: 700; background: #f3f4f6; }
+        th, td { border: 1px solid #cbd5e1; padding: 10px 8px; vertical-align: middle; position: relative; }
+        th { border-bottom-width: 2px; white-space: nowrap; padding: 12px 8px; font-size: 0.85rem; font-weight: 700; background: #f1f5f9; }
         tr:hover td { background: #f9fafb; }
 
         .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 3px; border: none; background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; flex-shrink: 0; }
-        .btn-salin:hover { background: #e5e7eb; color: #6b7280; }
-        .btn-salin.sukses { color: #65a30d; }
+        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 4px; border: none; background: #e5e7eb; color: #4b5563; cursor: pointer; transition: all 0.2s; font-size: 0.75rem; flex-shrink: 0; margin-left: 6px; }
+        .btn-salin:hover { background: #d1d5db; color: #1f2937; }
+        .btn-salin.sukses { background: #bbf7d0; color: #166534; }
 
-        .db-wrapper { display: flex; flex-direction: column; gap: 2px; width: 100%; }
+        .db-wrapper { display: flex; flex-direction: column; gap: 4px; width: 100%; }
         .baris-db { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; width: 100%; }
         .teks-nama { font-weight: 500; color: #1f2937; font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .teks-nomor { font-family: monospace; font-size: 0.78rem; }
+        .teks-nomor { font-family: monospace; font-size: 0.8rem; }
 
         button { transition: all 0.15s ease; cursor: pointer; border: none; font-family: inherit; }
         button:active { transform: scale(0.97); filter: brightness(0.92); }
 
-        .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-weight: bold; font-size: 11px; color: white; border: none; }
+        .tanda-keterangan { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-weight: bold; font-size: 12px; color: white; border: none; }
         .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); }
-        .tanda-keterangan.ditolak { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); }
-        .tanda-keterangan:hover { transform: scale(1.1); }
-        .baris-keterangan { display: flex; align-items: center; gap: 5px; width: 100%; }
+        .tanda-keterangan.ditolak { background: #ef4444; }
+        .baris-keterangan { display: flex; align-items: center; gap: 6px; width: 100%; }
         .teks-keterangan { font-size: 0.75rem; font-weight: 500; }
 
         .table-container { width: 100%; overflow-x: auto; border-radius: 0.5rem; }
         main { max-width: 100%; margin: 0 auto; padding: 0 10px; }
         input, textarea { font-size: 0.9rem; }
 
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 10px 18px; border-radius: 6px; font-size: 13px; opacity: 0; transition: all 0.3s; z-index: 9999; }
+        .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 12px 20px; border-radius: 8px; font-size: 14px; opacity: 0; transition: all 0.3s; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
         .col-game { width: 14%; }
-        .col-status { width: 13%; }
+        .col-status { width: 14%; }
         .col-waktu { width: 18%; }
         .col-db { width: 24%; }
-        .col-ket { width: 17%; }
-        .col-jp { width: 12%; }
-        .col-confirm { width: 12%; }
+        .col-ket { width: 16%; }
+        .col-jp { width: 17%; }
+        .col-confirm { width: 15%; }
 
         .tag-game { font-size: 0.75rem; white-space: nowrap; display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
 
-        .sel-waktu { font-size: 0.8rem; min-height: 40px; cursor: pointer; padding: 6px; border-radius: 4px; }
+        .sel-waktu { font-size: 0.8rem; min-height: 48px; padding: 8px; border-radius: 6px; cursor: pointer; }
         .sel-waktu:hover { background: #eff6ff; }
         
         .waktu-mundur { font-weight: 700; letter-spacing: 0.5px; }
@@ -61,12 +60,12 @@
         .waktu-mundur.hampir { color: #d97706; animation: kedip 1s infinite; }
         .waktu-mundur.habis { color: #dc2626; }
         
-        .time-out-wrapper { display: inline-flex; align-items: center; gap: 5px; }
+        .time-out-wrapper { display: inline-flex; align-items: center; gap: 6px; }
         .lingkaran-merah { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
         .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.78rem; }
         
-        .input-waktu-edit { width: 100%; font-size: 0.78rem; padding: 5px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 6px; }
-        .btn-waktu-kontrol { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; margin-right: 4px; cursor: pointer; font-weight: 500; }
+        .input-waktu-edit { width: 100%; font-size: 0.78rem; padding: 6px 8px; border: 1px solid #3b82f6; border-radius: 6px; text-align: center; outline: none; margin-bottom: 8px; }
+        .btn-waktu-kontrol { padding: 6px 10px; font-size: 11px; border-radius: 6px; border: none; margin-right: 4px; cursor: pointer; font-weight: 500; }
         .btn-ok { background: #3b82f6; color: white; }
         .btn-batal { background: #e5e7eb; color: #374151; }
         .btn-to { background: #ef4444; color: white; }
@@ -76,24 +75,36 @@
             50% { opacity: 0.3; }
         }
 
-        .tombol-status { font-size: 0.7rem; padding: 3px 8px; border-radius: 12px; border: 1px solid; display: inline-flex; align-items: center; gap: 4px; }
+        .tombol-status { font-size: 0.7rem; padding: 4px 10px; border-radius: 999px; border: 1px solid; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
         .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
         .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
         .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-        .tombol-klaim { font-size: 0.7rem; padding: 6px 4px; border-radius: 6px; font-weight: 600; width: 100%; }
+        .tombol-klaim { font-size: 0.75rem; padding: 10px 6px; border-radius: 8px; font-weight: 700; width: 100%; text-align: center; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
 
-        .tombol-nominal { font-size: 0.75rem; padding: 6px 8px; border-radius: 6px; border: 1px solid #e5e7eb; background: #f9fafb; width: 100%; text-align: right; display: flex; justify-content: space-between; align-items: center; }
-        .tombol-nominal:hover { background: #eff6ff; border-color: #bfdbfe; }
-        .nominal-nol { color: #dc2626; font-weight: 700; }
-        .nominal-ada { color: #16a34a; font-weight: 700; }
+        .tombol-nominal { font-size: 0.9rem; padding: 12px 10px; border-radius: 10px; border: 1px solid #d1d5db; background: #ffffff; width: 100%; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .tombol-nominal:hover { background: #f0f7ff; border-color: #93c5fd; }
+        .nominal-nol { color: #dc2626; }
+        .nominal-ada { color: #16a34a; }
+        .nominal-pilih { color: #6b7280; font-weight: 500; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .panah-bawah { font-size: 12px; }
+
+        .popup-overlay { background: rgba(0,0,0,0.5); }
+        .daftar-nominal { max-height: 320px; overflow-y: auto; }
+        .pilihan-nominal { padding: 10px 8px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.2s; }
+        .pilihan-nominal:hover { background: #eff6ff; border-color: #93c5fd; }
+        .pilihan-nominal.nol { color: #dc2626; }
+        .pilihan-nominal.ada { color: #16a34a; }
+        .peringatan { display: flex; align-items: flex-start; gap: 8px; background: #fef9c3; border: 1px solid #facc15; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+        .ikon-peringatan { color: #eab308; font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+        .teks-peringatan { color: #854d0e; font-size: 0.85rem; line-height: 1.5; }
     </style>
 </head>
 <body class="bg-gray-50">
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-crown text-blue-600 text-lg"></i>
@@ -103,39 +114,39 @@
     </header>
 
     <main class="py-4 pb-10">
-        <h1 class="text-xl font-bold text-gray-900 mb-4">DATABASE JACKPOT PEJUANG KASINO</h1>
+        <h1 class="text-xl font-bold text-gray-900 mb-4 px-2">DATABASE JACKPOT</h1>
 
-        <div class="bg-white p-4 rounded-lg shadow mb-4">
+        <div class="bg-white p-4 rounded-lg shadow mb-4 mx-2">
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Nama</label>
             <div class="flex gap-3 flex-wrap">
                 <input type="text" id="kataCari" oninput="filterTabel()" placeholder="Ketik nama atau nomor..." 
-                    class="flex-1 min-w-[160px] p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                    class="flex-1 min-w-[180px] p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
                 <button onclick="resetCari()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                     <i class="fa-solid fa-times"></i> Clear
                 </button>
             </div>
         </div>
 
-        <div class="bg-white p-4 rounded-lg shadow mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
+        <div class="bg-white p-4 rounded-lg shadow mb-4 mx-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Tambah Data (Format: NAMA Nomor)</label>
             <textarea id="areaInput" rows="3" 
                 class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="ANDI 081234567890&#10;BUDI 089876543210"></textarea>
             <button onclick="tambahDariInput()" 
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
-                <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Database
+                <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Tabel
             </button>
-            <p class="text-xs text-gray-500 mt-2">💡 Klik kolom Batas Waktu untuk ubah jam / set Time Out</p>
+            <p class="text-xs text-gray-500 mt-2">💡 Klik kolom WAKTU untuk ubah jam / set Time Out</p>
         </div>
 
-        <div class="bg-white rounded-lg shadow mb-4 table-container">
+        <div class="bg-white rounded-lg shadow mb-4 table-container mx-2">
             <table>
                 <thead>
                     <tr>
                         <th class="col-game">GAME</th>
                         <th class="col-status">STATUS</th>
-                        <th class="col-waktu">BATAS WAKTU</th>
-                        <th class="col-db">DATABASE</th>
+                        <th class="col-waktu">WAKTU</th>
+                        <th class="col-db">DATA</th>
                         <th class="col-ket">KETERANGAN</th>
                         <th class="col-jp">JACKPOT</th>
                         <th class="col-confirm">KONFIRMASI</th>
@@ -145,7 +156,7 @@
             </table>
         </div>
 
-        <div class="flex flex-wrap gap-2.5">
+        <div class="flex flex-wrap gap-2.5 px-2">
             <button onclick="tambahBarisKosong()" 
                 class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                 <i class="fa-solid fa-plus mr-1.5"></i> Tambah Baris
@@ -161,39 +172,40 @@
         </div>
     </main>
 
-    <div id="toast" class="toast">Berhasil disalin! ✅</div>
+    <div id="toast" class="toast"></div>
 
-    <div id="popupNominal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
+    <div id="popupNominal" class="fixed inset-0 popup-overlay flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
-            <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
-            <h3 class="text-base font-bold text-gray-800 mb-1">Pilih Nominal Jackpot</h3>
-            <p class="text-sm text-gray-500 mb-3">Klik nominal yang diinginkan</p>
-            <div id="daftarPilihan" class="grid grid-cols-3 gap-2 mb-4"></div>
-            <div class="flex gap-2">
-                <button onclick="tutupPopupNominal()" class="flex-1 bg-gray-200 hover:bg-gray-300 py-2 rounded-lg font-medium text-sm">Batal</button>
-                <button onclick="terapkanNominal()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">Simpan</button>
-            </div>
+            <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+            <h3 class="text-base font-bold text-gray-800 mb-1">Pilih Nominal</h3>
+            <p class="text-sm text-gray-500 mb-3">Rp 0 = MAXWIN</p>
+            <div id="daftarPilihanNominal" class="daftar-nominal grid grid-cols-2 gap-2"></div>
         </div>
     </div>
 
-    <div id="popupKlaim" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
+    <div id="popupKlaim" class="fixed inset-0 popup-overlay flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
-            <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
-            <div class="w-14 h-14 mx-auto mb-3 bg-yellow-50 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-exclamation-triangle text-yellow-500 text-2xl"></i>
+            <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+            <div class="peringatan">
+                <i class="fa-solid fa-exclamation-triangle ikon-peringatan"></i>
+                <div>
+                    <p class="font-bold text-amber-800 mb-1">Mohon Maaf</p>
+                    <p class="teks-peringatan">KEMENANGAN (jackpot) tidak dapat diberikan, karena nomor ini belum melakukan DEPOSIT atau belum DAFTAR.</p>
+                </div>
             </div>
-            <p class="text-gray-600 my-4 text-center text-sm">
-                Mohon Maaf, KEMENANGAN tidak dapat diberikan,<br>
-                karena nomor ini belum melakukan DEPOSIT atau belum TERDAFTAR.
-            </p>
-            <button onclick="tutupPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium text-sm">Tutup</button>
+            <button onclick="tutupPopupKlaim()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg font-medium">Mengerti</button>
         </div>
     </div>
 
     <script>
         let barisSaatIni = null;
         let nilaiDipilih = null;
-        const daftarNilai = [0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
+
+        // Daftar lengkap: Rp 0 s/d Rp 10.000.000
+        const daftarNominal = [
+            0, 10000, 20000, 50000, 100000, 150000, 200000, 250000, 300000, 400000, 500000,
+            750000, 1000000, 1500000, 2000000, 3000000, 5000000, 7500000, 10000000
+        ];
 
         async function salinTeks(teks, tombol) {
             try {
@@ -213,7 +225,7 @@
             const el = document.getElementById('toast');
             el.textContent = pesan;
             el.classList.add('tampil');
-            setTimeout(() => el.classList.remove('tampil'), 2000);
+            setTimeout(() => el.classList.remove('tampil'), 2500);
         }
 
         function pisahNamaNomor(teks) {
@@ -221,8 +233,8 @@
             if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
             const bagian = teks.trim().split(/\s+/);
             const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
-            const nama = bagian.filter(x => x !== nomor).join(' ').trim();
-            return { nama: nama || teks, nomor };
+            const nama = nomor ? teks.trim().replace(nomor, '').trim() : teks.trim();
+            return { nama: nama || '-', nomor };
         }
 
         function buatLinkWA(nomor) {
@@ -232,24 +244,22 @@
         }
 
         function keRupiah(angka) {
-            if (angka === 0) return 'Rp 0';
-            if (!angka && angka !== 0) return '';
             return 'Rp ' + Number(angka).toLocaleString('id-ID');
         }
 
-        // === FUNGSI KLIK STATUS & KLAIM ===
+        // === STATUS & KLAIM ===
         function ubahStatus(tombol) {
             const urutan = ['pending', 'lose', 'done'];
-            const sekarang = tombol.dataset.status;
-            const idx = urutan.indexOf(sekarang);
+            const skrg = tombol.dataset.status;
+            const idx = urutan.indexOf(skrg);
             const berikutnya = urutan[(idx + 1) % 3];
             tombol.dataset.status = berikutnya;
             tombol.className = `tombol-status ${berikutnya}`;
             const label = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' };
             const ikon = {
-                pending: '<span style="width:6px;height:6px;background:#facc15;border-radius:50%;display:inline-block;margin-right:4px;"></span>',
-                lose: '<i class="fa-solid fa-times" style="margin-right:4px;font-size:10px;"></i>',
-                done: '<i class="fa-solid fa-check" style="margin-right:4px;font-size:10px;"></i>'
+                pending: '<span class="w-2 h-2 rounded-full bg-yellow-400 inline-block mr-1.5"></span>',
+                lose: '<i class="fa-solid fa-times mr-1.5"></i>',
+                done: '<i class="fa-solid fa-check mr-1.5"></i>'
             };
             tombol.innerHTML = ikon[berikutnya] + label[berikutnya];
         }
@@ -257,43 +267,41 @@
         function ubahKlaim(tombol) {
             if (tombol.dataset.claim === 'claim') bukaPopupKlaim();
             const urutan = ['claim', 'lose', 'claimed'];
-            const sekarang = tombol.dataset.claim;
-            const idx = urutan.indexOf(sekarang);
+            const skrg = tombol.dataset.claim;
+            const idx = urutan.indexOf(skrg);
             const berikutnya = urutan[(idx + 1) % 3];
             tombol.dataset.claim = berikutnya;
             tombol.className = `tombol-klaim ${berikutnya}`;
             tombol.textContent = { claim: 'CLAIM', lose: 'LOSE', claimed: 'CLAIMED' }[berikutnya];
         }
 
-        function ubahTandaKeterangan(tombol) {
+        function ubahKeterangan(tombol) {
             const berikutnya = tombol.dataset.ket === 'diterima' ? 'ditolak' : 'diterima';
             tombol.dataset.ket = berikutnya;
             tombol.className = `tanda-keterangan ${berikutnya}`;
             tombol.textContent = berikutnya === 'diterima' ? '✓' : '✗';
-            const wadah = tombol.closest('.baris-keterangan');
-            wadah.querySelector('.teks-keterangan').textContent = 
-                berikutnya === 'diterima' ? 'Kemenangan Pengisian Pertama' : '✗ Menolak Undangan';
+            const teks = tombol.parentElement.querySelector('.teks-keterangan');
+            teks.textContent = berikutnya === 'diterima' ? 'Kemenangan Pengisian Pertama' : 'Menolak Undangan';
         }
 
-        // === FUNGSI WAKTU — DIPERBAIKI TOMBOL ===
-        function waktuTengahMalamBerikutnya() {
-            const n = new Date();
-            const t = new Date(n);
+        // === WAKTU ===
+        function waktuTengahMalam() {
+            const t = new Date();
             t.setDate(t.getDate() + 1);
             t.setHours(0, 0, 0, 0);
             return t;
         }
 
-        function buatWaktuAkhir(jamStr) {
-            if (!jamStr) return waktuTengahMalamBerikutnya();
+        function buatWaktuTujuan(jamStr) {
+            if (!jamStr) return waktuTengahMalam();
             const [h, m] = jamStr.split(':').map(Number);
-            const n = new Date();
-            const t = new Date(n.getFullYear(), n.getMonth(), n.getDate(), h, m || 0, 0);
-            if (t < n) t.setDate(t.getDate() + 1);
+            const t = new Date();
+            t.setHours(h || 0, m || 0, 0, 0);
+            if (t < new Date()) t.setDate(t.getDate() + 1);
             return t;
         }
 
-        function formatSisa(ms) {
+        function formatSisaWaktu(ms) {
             if (ms <= 0) return { teks: 'WAKTU HABIS', kelas: 'habis' };
             const j = Math.floor(ms / 3600000);
             const m = Math.floor((ms % 3600000) / 60000);
@@ -307,19 +315,15 @@
         function tampilTimeOut(el) {
             if (el._timer) { clearInterval(el._timer); el._timer = null; }
             el._mode = 'timeout';
-            el.innerHTML = `
-                <div class="time-out-wrapper">
-                    <span class="lingkaran-merah"></span>
-                    <span class="teks-timeout">Time Out</span>
-                </div>
-            `;
+            el._jam = '';
+            el.innerHTML = `<div class="time-out-wrapper"><span class="lingkaran-merah"></span><span class="teks-timeout">Time Out</span></div>`;
         }
 
         function mulaiHitung(el, jamTujuan = null) {
-            if (el._timer) clearInterval(el._timer);
-            el._mode = 'counting';
-            el._jamTujuan = jamTujuan || '';
-            const akhir = jamTujuan ? buatWaktuAkhir(jamTujuan) : waktuTengahMalamBerikutnya();
+            if (el._timer) { clearInterval(el._timer); el._timer = null; }
+            el._mode = 'hitung';
+            el._jam = jamTujuan || '';
+            const akhir = jamTujuan ? buatWaktuTujuan(jamTujuan) : waktuTengahMalam();
             
             el._timer = setInterval(() => {
                 if (el._mode === 'timeout') { clearInterval(el._timer); return; }
@@ -329,165 +333,164 @@
                     clearInterval(el._timer);
                     return;
                 }
-                const {teks, kelas} = formatSisa(sisa);
+                const {teks, kelas} = formatSisaWaktu(sisa);
                 el.innerHTML = `<span class="waktu-mundur ${kelas}">${teks}</span>`;
             }, 1000);
         }
 
-        function aktifkanEditWaktu(el) {
-            if (el.querySelector('input')) return;
+        function bukaEditWaktu(el) {
+            if (el.querySelector('.input-waktu-edit')) return;
             el.innerHTML = `
-                <input type="text" class="input-waktu-edit" id="inpWaktu"
-                       value="${el._jamTujuan || ''}" placeholder="HH:MM / ketik TO">
-                <div>
-                    <button class="btn-waktu-kontrol btn-ok" onclick="simpanWaktu(this)">OK</button>
-                    <button class="btn-waktu-kontrol btn-batal" onclick="batalWaktu(this)">Batal</button>
-                    <button class="btn-waktu-kontrol btn-to" onclick="setTimeOut(this)">Timeout</button>
+                <input type="text" class="input-waktu-edit" id="inpWaktu" value="${el._jam || ''}" placeholder="HH:MM / ketik TO">
+                <div style="display:flex;gap:4px;">
+                    <button class="btn-waktu-kontrol btn-ok" onclick="terapkanWaktu(this.parentElement.parentElement)">OK</button>
+                    <button class="btn-waktu-kontrol btn-batal" onclick="batalEditWaktu(this.parentElement.parentElement)">Batal</button>
+                    <button class="btn-waktu-kontrol btn-to" onclick="terapkanTimeOut(this.parentElement.parentElement)">Timeout</button>
                 </div>
             `;
             el.querySelector('#inpWaktu').focus();
         }
 
-        function simpanWaktu(tombol) {
-            const el = tombol.closest('.sel-waktu');
+        function terapkanWaktu(el) {
             const val = el.querySelector('#inpWaktu').value.trim().toUpperCase();
-            
-            if (!val) {
-                mulaiHitung(el);
-                return;
-            }
-            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') {
-                tampilTimeOut(el);
-                return;
-            }
-            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) {
-                mulaiHitung(el, val);
-                return;
-            }
-            alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
-            aktifkanEditWaktu(el);
+            if (!val) { mulaiHitung(el); return; }
+            if (val === 'TO' || val === 'TIMEOUT') { tampilTimeOut(el); return; }
+            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) { mulaiHitung(el, val); return; }
+            alert('Format salah! Contoh: 22:30 atau ketik TO');
+            bukaEditWaktu(el);
         }
 
-        function batalWaktu(tombol) {
-            const el = tombol.closest('.sel-waktu');
-            if (el._mode === 'timeout') {
-                tampilTimeOut(el);
-            } else if (el._jamTujuan) {
-                mulaiHitung(el, el._jamTujuan);
-            } else {
-                mulaiHitung(el);
-            }
+        function batalEditWaktu(el) {
+            if (el._mode === 'timeout') tampilTimeOut(el);
+            else if (el._jam) mulaiHitung(el, el._jam);
+            else mulaiHitung(el);
         }
 
-        function setTimeOut(tombol) {
-            const el = tombol.closest('.sel-waktu');
+        function terapkanTimeOut(el) {
             tampilTimeOut(el);
         }
 
-        // === NOMINAL POPUP ===
-        function bukaPilihNominal(tombol) {
+        // === PILIH NOMINAL ===
+        function bukaPopupNominal(tombol) {
             barisSaatIni = tombol.closest('tr');
             nilaiDipilih = null;
-            const wadah = document.getElementById('daftarPilihan');
+            const wadah = document.getElementById('daftarPilihanNominal');
             wadah.innerHTML = '';
-            daftarNilai.forEach(n => {
+            
+            daftarNominal.forEach(n => {
                 const btn = document.createElement('button');
-                btn.style.cssText = 'padding:10px 6px;border-radius:6px;border:1px solid #e5e7eb;background:#f9fafb;';
-                btn.innerHTML = keRupiah(n);
-                if (n === 0) btn.style.color = '#dc2626';
-                btn.onclick = () => {
-                    document.querySelectorAll('#daftarPilihan button').forEach(b => {
-                        b.style.background = '#f9fafb';
-                        b.style.borderColor = '#e5e7eb';
-                    });
-                    btn.style.background = n === 0 ? '#fee2e2' : '#dcfce7';
-                    btn.style.borderColor = n === 0 ? '#fca5a5' : '#86efac';
-                    nilaiDipilih = n;
-                };
+                btn.className = `pilihan-nominal ${n === 0 ? 'nol' : 'ada'}`;
+                btn.textContent = keRupiah(n);
+                btn.onclick = () => pilihNominal(n);
                 wadah.appendChild(btn);
             });
-            document.getElementById('popupNominal').classList.remove('opacity-0','invisible');
+            
+            const popup = document.getElementById('popupNominal');
+            popup.classList.remove('invisible', 'opacity-0');
+            popup.classList.add('visible', 'opacity-100');
         }
 
         function tutupPopupNominal() {
-            document.getElementById('popupNominal').classList.add('opacity-0','invisible');
-            barisSaatIni = nilaiDipilih = null;
+            const p = document.getElementById('popupNominal');
+            p.classList.add('invisible', 'opacity-0');
+            p.classList.remove('visible', 'opacity-100');
+            barisSaatIni = null;
+            nilaiDipilih = null;
         }
 
-        function terapkanNominal() {
-            if (nilaiDipilih === null) { alert('Pilih nominal dulu!'); return; }
+        function pilihNominal(nilai) {
+            nilaiDipilih = nilai;
             const btn = barisSaatIni.querySelector('.tombol-nominal');
-            btn.dataset.nilai = nilaiDipilih;
-            btn.innerHTML = `<span>${nilaiDipilih === 0 ? 'MAXWIN' : 'JACKPOT'}</span>
-                <span class="${nilaiDipilih === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(nilaiDipilih)}</span>`;
+            btn.dataset.nominal = nilai;
+            
+            // HANYA NOMINAL YANG MUNCUL setelah dipilih
+            if (nilai === 0) {
+                btn.innerHTML = `<span class="nominal-nol">MAXWIN</span>`;
+            } else {
+                btn.innerHTML = `<span class="nominal-ada">${keRupiah(nilai)}</span>`;
+            }
+            
             tutupPopupNominal();
         }
 
         function bukaPopupKlaim() {
-            document.getElementById('popupKlaim').classList.remove('opacity-0','invisible');
+            const p = document.getElementById('popupKlaim');
+            p.classList.remove('invisible', 'opacity-0');
+            p.classList.add('visible', 'opacity-100');
         }
         function tutupPopupKlaim() {
-            document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
+            const p = document.getElementById('popupKlaim');
+            p.classList.add('invisible', 'opacity-0');
+            p.classList.remove('visible', 'opacity-100');
         }
 
-        // === BUAT BARIS ===
-        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima', waktuData=null) {
+        // === BUAT BARIS TABEL ===
+        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima', dataWaktu=null) {
             const tr = document.createElement('tr');
             
             const ikonStatus = {
-                pending: '<span style="width:6px;height:6px;background:#facc15;border-radius:50%;display:inline-block;margin-right:4px;"></span>',
-                lose: '<i class="fa-solid fa-times" style="margin-right:4px;font-size:10px;"></i>',
-                done: '<i class="fa-solid fa-check" style="margin-right:4px;font-size:10px;"></i>'
+                pending: '<span class="w-2 h-2 rounded-full bg-yellow-400 inline-block mr-1.5"></span>PENDING',
+                lose: '<i class="fa-solid fa-times mr-1.5"></i>LOSE',
+                done: '<i class="fa-solid fa-check mr-1.5"></i>DONE'
             };
-            const labelStatus = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' };
-            
+
             const linkWA = buatLinkWA(nomor);
-            const teksKet = keterangan === 'diterima' ? 'Kemenangan Pengisian Pertama' : '✗ Menolak Undangan';
-            const tampilNominal = nominal !== '' && nominal !== null
-                ? `<span>${Number(nominal) === 0 ? 'MAXWIN' : 'JACKPOT'}</span><span class="${Number(nominal) === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(nominal)}</span>`
-                : `<span>MAXWIN</span><i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>`;
+            
+            // Tampilan tombol nominal
+            let tampilNominal;
+            if (nominal !== '' && nominal !== null) {
+                const n = Number(nominal);
+                if (n === 0) {
+                    tampilNominal = `<span class="nominal-nol">MAXWIN</span>`;
+                } else {
+                    tampilNominal = `<span class="nominal-ada">${keRupiah(n)}</span>`;
+                }
+            } else {
+                tampilNominal = `<span class="nominal-pilih">Pilih <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+            }
 
             tr.innerHTML = `
                 <td contenteditable="true"><span class="tag-game">${game}</span></td>
-                <td>
-                    <button class="tombol-status ${status}" data-status="${status}" onclick="ubahStatus(this)">
-                        ${ikonStatus[status]}${labelStatus[status]}
-                    </button>
-                </td>
-                <td class="sel-waktu" onclick="aktifkanEditWaktu(this)"></td>
+                <td><button class="tombol-status ${status}" data-status="${status}" onclick="ubahStatus(this)">${ikonStatus[status]}</button></td>
+                <td class="sel-waktu" onclick="bukaEditWaktu(event.currentTarget)"></td>
                 <td>
                     <div class="db-wrapper">
-                        ${nama ? `<div class="baris-db"><span class="teks-nama">${nama}</span><button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)"><i class="fa-solid fa-copy"></i></button></div>` : ''}
-                        ${nomor ? `<div class="baris-db"><a href="${linkWA}" target="_blank" class="link-wa teks-nomor">${nomor}</a><button class="btn-salin" onclick="salinTeks('${nomor}', this)"><i class="fa-solid fa-copy"></i></button></div>` : ''}
+                        <div class="baris-db">
+                            <span class="teks-nama" title="${nama}">${nama}</span>
+                            <button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)" title="Salin Nama"><i class="fa-solid fa-copy"></i></button>
+                        </div>
+                        <div class="baris-db">
+                            <a href="${linkWA}" target="_blank" class="link-wa teks-nomor">${nomor || '-'}</a>
+                            <button class="btn-salin" onclick="salinTeks('${nomor}', this)" title="Salin Nomor"><i class="fa-solid fa-copy"></i></button>
+                        </div>
                     </div>
                 </td>
                 <td>
                     <div class="baris-keterangan">
-                        <button class="tanda-keterangan ${keterangan}" data-ket="${keterangan}" onclick="ubahTandaKeterangan(this)">
+                        <button class="tanda-keterangan ${keterangan}" data-ket="${keterangan}" onclick="ubahKeterangan(this)">
                             ${keterangan === 'diterima' ? '✓' : '✗'}
                         </button>
-                        <span class="teks-keterangan">${teksKet}</span>
+                        <span class="teks-keterangan">${keterangan === 'diterima' ? 'Kemenangan Pengisian Pertama' : 'Menolak Undangan'}</span>
                     </div>
                 </td>
                 <td>
-                    <button class="tombol-nominal" data-nilai="${nominal}" onclick="bukaPilihNominal(this)">
+                    <button class="tombol-nominal" data-nominal="${nominal}" onclick="bukaPopupNominal(this)">
                         ${tampilNominal}
                     </button>
                 </td>
                 <td>
                     <button class="tombol-klaim ${klaim}" data-claim="${klaim}" onclick="ubahKlaim(this)">
-                        ${{claim:'CLAIM',lose:'LOSE',claimed:'CLAIMED'}[klaim]}
+                        ${klaim.toUpperCase()}
                     </button>
                 </td>
             `;
 
-            // Inisialisasi waktu
             setTimeout(() => {
                 const elWaktu = tr.querySelector('.sel-waktu');
-                if (waktuData && waktuData.mode === 'timeout') {
+                if (dataWaktu && dataWaktu.mode === 'timeout') {
                     tampilTimeOut(elWaktu);
-                } else if (waktuData && waktuData.jamTujuan) {
-                    mulaiHitung(elWaktu, waktuData.jamTujuan);
+                } else if (dataWaktu && dataWaktu.jam) {
+                    mulaiHitung(elWaktu, dataWaktu.jam);
                 } else {
                     mulaiHitung(elWaktu);
                 }
@@ -507,47 +510,49 @@
             teks.split('\n').forEach(baris => {
                 const {nama, nomor} = pisahNamaNomor(baris);
                 if (nama || nomor) {
-                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC','pending',nama,nomor));
+                    document.getElementById('badanTabel').appendChild(buatBaris('PG/PRAGMATIC', 'pending', nama, nomor));
                     n++;
                 }
             });
-            alert(`✅ ${n} data ditambahkan!`);
+            tampilToast(`${n} data berhasil ditambahkan!`);
             document.getElementById('areaInput').value = '';
         }
 
         function simpanSemua() {
             const semua = [];
             document.querySelectorAll('#badanTabel tr').forEach(tr => {
+                const elWaktu = tr.querySelector('.sel-waktu');
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
-                    status: tr.querySelector('.tombol-status')?.dataset.status || 'pending',
-                    nama: tr.querySelector('.teks-nama')?.textContent.trim() || '',
-                    nomor: tr.querySelector('.teks-nomor')?.textContent.trim() || '',
-                    nominal: tr.querySelector('.tombol-nominal')?.dataset.nilai || '',
-                    klaim: tr.querySelector('.tombol-klaim')?.dataset.claim || 'claim',
-                    keterangan: tr.querySelector('.tanda-keterangan')?.dataset.ket || 'diterima',
+                    status: tr.querySelector('.tombol-status').dataset.status,
+                    nama: tr.querySelector('.teks-nama').textContent.trim(),
+                    nomor: tr.querySelector('.teks-nomor').textContent.trim(),
+                    nominal: tr.querySelector('.tombol-nominal').dataset.nominal,
+                    klaim: tr.querySelector('.tombol-klaim').dataset.claim,
+                    keterangan: tr.querySelector('.tanda-keterangan').dataset.ket,
                     waktu: {
-                        mode: tr.querySelector('.sel-waktu')?._mode || '',
-                        jamTujuan: tr.querySelector('.sel-waktu')?._jamTujuan || ''
+                        mode: elWaktu._mode || '',
+                        jam: elWaktu._jam || ''
                     }
                 });
             });
             localStorage.setItem('dataJackpot', JSON.stringify(semua));
-            alert('✅ DATA TERSIMPAN!');
+            tampilToast('✅ Data Tersimpan!');
         }
 
         function hapusSemuaSekaliKlik() {
-            if (confirm('⚠️ YAKIN hapus SEMUA?')) {
+            if (confirm('⚠️ YAKIN hapus SEMUA data? Tidak bisa dikembalikan!')) {
                 document.getElementById('badanTabel').innerHTML = '';
                 localStorage.removeItem('dataJackpot');
-                alert('✅ SUDAH DIHAPUS!');
+                tampilToast('✅ Semua data telah dihapus');
             }
         }
 
         function filterTabel() {
             const kata = document.getElementById('kataCari').value.toUpperCase();
             document.querySelectorAll('#badanTabel tr').forEach(tr => {
-                tr.style.display = tr.cells[3].textContent.toUpperCase().includes(kata) ? '' : 'none';
+                const teks = tr.cells[3].textContent.toUpperCase();
+                tr.style.display = teks.includes(kata) ? '' : 'none';
             });
         }
 
@@ -556,25 +561,24 @@
             document.querySelectorAll('#badanTabel tr').forEach(tr => tr.style.display = '');
         }
 
-        function muatSaatMulai() {
+        function muatSaatBuka() {
             const simpanan = localStorage.getItem('dataJackpot');
-            if (simpanan) {
-                JSON.parse(simpanan).forEach(item => {
-                    document.getElementById('badanTabel').appendChild(buatBaris(
-                        item.game || 'PG/PRAGMATIC',
-                        item.status || 'pending',
-                        item.nama || '',
-                        item.nomor || '',
-                        item.nominal,
-                        item.klaim || 'claim',
-                        item.keterangan || 'diterima',
-                        item.waktu || null
-                    ));
-                });
-            }
+            if (!simpanan) return;
+            JSON.parse(simpanan).forEach(item => {
+                document.getElementById('badanTabel').appendChild(buatBaris(
+                    item.game || 'PG/PRAGMATIC',
+                    item.status || 'pending',
+                    item.nama || '',
+                    item.nomor || '',
+                    item.nominal || '',
+                    item.klaim || 'claim',
+                    item.keterangan || 'diterima',
+                    item.waktu || null
+                ));
+            });
         }
 
-        muatSaatMulai();
+        muatSaatBuka();
     </script>
 
 </body>
