@@ -44,7 +44,7 @@
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 9px 16px; border-radius: 6px; font-size: 12px; opacity: 0; transition: all 0.3s; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* === KOLOM BARU: BATAS WAKTU === */
+        /* === KOLOM BATAS WAKTU === */
         .col-game { width: 13%; }
         .col-status { width: 12%; }
         .col-waktu { width: 15%; }
@@ -64,7 +64,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
-        .input-waktu { width: 100%; font-size: 0.75rem; padding: 3px 5px; border: 1px solid #d1d5db; border-radius: 4px; text-align: center; }
 
         /* TOMBOL STATUS */
         .tombol-status { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
@@ -112,15 +111,15 @@
 
         <!-- Input Data -->
         <div class="bg-white p-4 rounded-lg shadow mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor [Jam Masuk misal: 22:00])</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
             <textarea id="areaInput" rows="3" 
                 class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="ANDI 081234567890 22:00&#10;BUDI 089876543210 14:30"></textarea>
+                placeholder="ANDI 081234567890&#10;BUDI 089876543210"></textarea>
             <button onclick="tambahDariInput()" 
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                 <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Database
             </button>
-            <p class="text-xs text-gray-500 mt-2">💡 Format: NAMA NOMOR JAM → otomatis terhitung mundur 3 jam dari jam tersebut</p>
+            <p class="text-xs text-gray-500 mt-2">💡 Otomatis hitung mundur dari jam masuk sampai 00.00 tengah malam</p>
         </div>
 
         <!-- TABEL -->
@@ -194,7 +193,6 @@
         let barisSaatIni = null;
         let nilaiDipilih = null;
         const daftarNilai = [0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
-        const daftarBarisAktif = []; // Simpan semua baris yang punya hitungan mundur
 
         // === FUNGSI SALIN ===
         async function salinTeks(teks, tombol) {
@@ -218,33 +216,14 @@
             setTimeout(() => el.classList.remove('tampil'), 2000);
         }
 
-        // === PISAH DATA: NAMA, NOMOR, JAM ===
-        function pisahDataInput(teks) {
+        // === PISAH NAMA & NOMOR ===
+        function pisahNamaNomor(teks) {
+            const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
+            if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
             const bagian = teks.trim().split(/\s+/);
-            let jamMasuk = null;
-            let nomor = null;
-            let nama = [];
-
-            for (let i = 0; i < bagian.length; i++) {
-                const b = bagian[i];
-                // Cari format jam: HH:MM
-                if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(b)) {
-                    jamMasuk = b;
-                }
-                // Cari nomor telepon
-                else if (/^\d{8,}$/.test(b)) {
-                    nomor = b;
-                }
-                // Sisanya jadi nama
-                else {
-                    nama.push(b);
-                }
-            }
-            return {
-                nama: nama.join(' ').trim() || teks.trim(),
-                nomor: nomor || '',
-                jamMasuk: jamMasuk
-            };
+            const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
+            const nama = bagian.filter(x => x !== nomor).join(' ').trim();
+            return { nama: nama || teks, nomor };
         }
 
         // === BUAT LINK WA ===
@@ -308,66 +287,40 @@
                 : '✗ Menolak Undangan';
         }
 
-        // === HITUNGAN MUNDUR ===
-        function buatWaktuAkhirDariJam(jamStr) {
-            if (!jamStr) return null;
-            const [jam, menit] = jamStr.split(':').map(Number);
+        // === HITUNGAN MUNDUR OTOMATIS SAMPAI 00.00 ===
+        function waktuTengahMalamBerikutnya() {
             const sekarang = new Date();
-            const waktuAkhir = new Date(sekarang.getFullYear(), sekarang.getMonth(), sekarang.getDate(), jam + 3, menit, 0);
-            // Jika jam sudah lewat hari ini, berarti besok
-            if (waktuAkhir < sekarang) {
-                waktuAkhir.setDate(waktuAkhir.getDate() + 1);
-            }
-            return waktuAkhir;
+            const tengahMalam = new Date(sekarang);
+            tengahMalam.setDate(tengahMalam.getDate() + 1);
+            tengahMalam.setHours(0, 0, 0, 0);
+            return tengahMalam;
         }
 
         function formatSisaWaktu(ms) {
             if (ms <= 0) return { teks: 'WAKTU HABIS', kelas: 'habis' };
-            const d = Math.floor(ms / 86400000);
-            const h = Math.floor((ms % 86400000) / 3600000);
+            const h = Math.floor(ms / 3600000);
             const m = Math.floor((ms % 3600000) / 60000);
             const s = Math.floor((ms % 60000) / 1000);
-            let teks = '';
-            if (d > 0) teks += `${d}h `;
-            teks += `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            const teks = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
             const kelas = ms < 300000 ? 'hampir' : 'normal'; // < 5 menit berkedip
             return { teks, kelas };
         }
 
-        function pasangHitungMundur(elWaktu, jamMasuk) {
-            if (!jamMasuk) {
-                elWaktu.innerHTML = `<input type="text" class="input-waktu" placeholder="HH:MM" onchange="aturUlangWaktu(this, '${jamMasuk || ''}')">`;
-                return;
-            }
-            const waktuAkhir = buatWaktuAkhirDariJam(jamMasuk);
-            if (!waktuAkhir) return;
-
+        function mulaiHitungMundur(elWaktu) {
+            const waktuAkhir = waktuTengahMalamBerikutnya();
+            
             const idInterval = setInterval(() => {
                 const sisa = waktuAkhir.getTime() - Date.now();
+                if (sisa <= 0) {
+                    elWaktu.innerHTML = `<span class="waktu-mundur habis">WAKTU HABIS</span>`;
+                    clearInterval(idInterval);
+                    return;
+                }
                 const { teks, kelas } = formatSisaWaktu(sisa);
                 elWaktu.innerHTML = `<span class="waktu-mundur ${kelas}">${teks}</span>`;
-                if (sisa <= 0) {
-                    clearInterval(idInterval);
-                }
             }, 1000);
-            // Simpan referensi agar bisa dihapus saat simpan/hapus
+            
             elWaktu.dataset.intervalId = idInterval;
-        }
-
-        // Ubah jam langsung di tabel
-        function aturUlangWaktu(input, jamLama) {
-            const jamBaru = input.value.trim();
-            if (!/^([01]?\d|2[0-3]):([0-5]\d)$/.test(jamBaru)) {
-                alert('Format jam salah! Gunakan HH:MM contoh: 22:00');
-                input.value = jamLama || '';
-                return;
-            }
-            const selWaktu = input.closest('.sel-waktu');
-            // Hentikan hitungan lama
-            if (selWaktu.dataset.intervalId) {
-                clearInterval(Number(selWaktu.dataset.intervalId));
-            }
-            pasangHitungMundur(selWaktu, jamBaru);
         }
 
         // === PILIH NOMINAL ===
@@ -422,8 +375,8 @@
             document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
         }
 
-        // === BUAT BARIS LENGKAP ===
-        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', jamMasuk=null, nominal='', klaim='claim', keterangan='diterima') {
+        // === BUAT BARIS ===
+        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima') {
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-gray-50';
             
@@ -480,7 +433,7 @@
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
                 <td>${tampilStatus}</td>
-                <td class="sel-waktu" data-jam-masuk="${jamMasuk || ''}"></td>
+                <td class="sel-waktu"></td>
                 <td>
                     <div class="db-wrapper">
                         ${nama ? `
@@ -509,10 +462,10 @@
                 <td>${tampilKlaim}</td>
             `;
 
-            // Pasang hitungan mundur setelah elemen masuk DOM
+            // JALANKAN HITUNGAN MUNDUR LANGSUNG SAAT DIBUAT ✅
             setTimeout(() => {
                 const selWaktu = tr.querySelector('.sel-waktu');
-                pasangHitungMundur(selWaktu, jamMasuk);
+                mulaiHitungMundur(selWaktu);
             }, 0);
 
             return tr;
@@ -527,15 +480,15 @@
             if (!teks) return;
             let jumlah = 0;
             teks.split('\n').forEach(baris => {
-                const { nama, nomor, jamMasuk } = pisahDataInput(baris);
+                const { nama, nomor } = pisahNamaNomor(baris);
                 if (nama || nomor) {
                     document.getElementById('badanTabel').appendChild(
-                        buatBaris('PG/PRAGMATIC', 'pending', nama, nomor, jamMasuk)
+                        buatBaris('PG/PRAGMATIC', 'pending', nama, nomor)
                     );
                     jumlah++;
                 }
             });
-            alert(`✅ ${jumlah} data ditambahkan!\nJam masuk otomatis dihitung mundur 3 jam ke depan`);
+            alert(`✅ ${jumlah} data ditambahkan!\nHitungan mundur otomatis berjalan sampai 00.00`);
             document.getElementById('areaInput').value = '';
         }
 
@@ -548,14 +501,12 @@
                 const tombolKlaim = tr.querySelector('.tombol-klaim');
                 const tombolNominal = tr.querySelector('.tombol-nominal');
                 const tandaKet = tr.querySelector('.tanda-keterangan');
-                const selWaktu = tr.querySelector('.sel-waktu');
                 
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
                     status: tombolStatus ? tombolStatus.dataset.status : 'pending',
                     nama: namaEl ? namaEl.textContent.trim() : '',
                     nomor: nomorEl ? nomorEl.textContent.trim() : '',
-                    jamMasuk: selWaktu ? selWaktu.dataset.jamMasuk : '',
                     nominal: tombolNominal ? tombolNominal.dataset.nilai : '',
                     klaim: tombolKlaim ? tombolKlaim.dataset.claim : 'claim',
                     keterangan: tandaKet ? tandaKet.dataset.ket : 'diterima'
@@ -596,7 +547,6 @@
                             item.status || 'pending',
                             item.nama || '',
                             item.nomor || '',
-                            item.jamMasuk || null,
                             item.nominal,
                             item.klaim || 'claim',
                             item.keterangan || 'diterima'
