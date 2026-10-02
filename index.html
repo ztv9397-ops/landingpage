@@ -17,9 +17,10 @@
         .link-wa { color: #25D366; font-weight: 500; text-decoration: none; transition: all 0.2s; font-size: 0.82rem; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 4px; border: none; background: #e5e7eb; color: #6b7280; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.75rem; }
-        .btn-salin:hover { background: #d1d5db; color: #374151; }
-        .btn-salin.sukses { background: #d1fae5; color: #059669; }
+        /* === TOMBOL SALIN — LEBIH SAMAR ✅ === */
+        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 3px; border: none; background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.7rem; opacity: 0.55; }
+        .btn-salin:hover { background: #e5e7eb; color: #6b7280; opacity: 1; }
+        .btn-salin.sukses { background: transparent; color: #65a30d; opacity: 0.8; }
 
         .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; }
         .baris-db { display: flex; align-items: center; gap: 5px; flex-wrap: nowrap; width: 100%; }
@@ -55,14 +56,19 @@
 
         .tag-game { font-size: 0.78rem; white-space: nowrap; }
 
-        /* === HITUNGAN MUNDUR === */
-        .waktu-mundur { font-size: 0.75rem; font-weight: 600; font-family: 'Courier New', monospace; }
-        .waktu-mundur.normal { color: #1e40af; }
+        /* === HITUNGAN MUNDUR — FONT LEBIH JELAS ✅ === */
+        .waktu-mundur { 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .waktu-mundur.normal { color: #1d4ed8; }
         .waktu-mundur.hampir { color: #d97706; animation: kedip 1s infinite; }
         .waktu-mundur.habis { color: #dc2626; }
         @keyframes kedip {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.35; }
         }
 
         /* TOMBOL STATUS */
@@ -302,7 +308,7 @@
             const m = Math.floor((ms % 3600000) / 60000);
             const s = Math.floor((ms % 60000) / 1000);
             const teks = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-            const kelas = ms < 300000 ? 'hampir' : 'normal'; // < 5 menit berkedip
+            const kelas = ms < 300000 ? 'hampir' : 'normal';
             return { teks, kelas };
         }
 
@@ -462,7 +468,6 @@
                 <td>${tampilKlaim}</td>
             `;
 
-            // JALANKAN HITUNGAN MUNDUR LANGSUNG SAAT DIBUAT ✅
             setTimeout(() => {
                 const selWaktu = tr.querySelector('.sel-waktu');
                 mulaiHitungMundur(selWaktu);
