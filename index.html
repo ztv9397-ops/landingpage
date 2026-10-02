@@ -17,9 +17,14 @@
         .link-wa { color: #25D366; font-weight: 500; text-decoration: none; font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 4px; border: none; background: #e5e7eb; color: #6b7280; cursor: pointer; transition: all 0.2s; font-size: 0.7rem; flex-shrink: 0; margin-left: 4px; }
-        .btn-salin:hover { background: #d1d5db; color: #374151; }
-        .btn-salin.sukses { background: #bbf7d0; color: #166534; }
+        .btn-salin { 
+            display: inline-flex; align-items: center; justify-content: center; 
+            width: 18px; height: 18px; border-radius: 3px; border: none; 
+            background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s; 
+            font-size: 0.65rem; flex-shrink: 0; margin-left: 4px; 
+        }
+        .btn-salin:hover { background: #f3f4f6; color: #6b7280; }
+        .btn-salin.sukses { background: #f0fdf4; color: #16a34a; }
 
         .db-wrapper { display: flex; flex-direction: column; gap: 3px; width: 100%; overflow: hidden; }
         .baris-db { display: flex; align-items: center; gap: 3px; flex-wrap: nowrap; width: 100%; }
@@ -30,36 +35,17 @@
         button:active { transform: scale(0.97); filter: brightness(0.92); }
 
         .tanda-keterangan { 
-            width: 20px; 
-            height: 20px; 
-            border-radius: 50%; 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            flex-shrink: 0; 
-            font-weight: bold; 
-            font-size: 11px; 
-            color: white; 
-            border: none; 
+            width: 20px; height: 20px; border-radius: 50%; display: inline-flex; 
+            align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; 
+            font-weight: bold; font-size: 11px; color: white; border: none; 
         }
         .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); }
         .tanda-keterangan.ditolak { background: #ef4444; }
 
-        .baris-keterangan { 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            width: 100%; 
-            flex-wrap: nowrap; 
-        }
+        .baris-keterangan { display: flex; align-items: center; gap: 6px; width: 100%; flex-wrap: nowrap; }
         .teks-keterangan { 
-            font-size: 0.7rem; 
-            font-weight: 500; 
-            white-space: normal; 
-            line-height: 1.3;
-            flex: 1;
-            overflow: hidden;
+            font-size: 0.7rem; font-weight: 500; white-space: normal; line-height: 1.3;
+            flex: 1; overflow: hidden; 
         }
 
         .table-container { width: 100%; overflow-x: auto; border-radius: 0.5rem; }
@@ -88,28 +74,12 @@
         .waktu-mundur.habis { color: #dc2626; }
         
         .time-out-wrapper { 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 6px; 
-            width: 100%;
-            padding: 4px 8px;
-            background: #fef2f2;
-            border: 1px solid #fecdd3;
-            border-radius: 999px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; 
+            width: 100%; padding: 4px 8px; background: #fef2f2; 
+            border: 1px solid #fecdd3; border-radius: 999px; 
         }
-        .lingkaran-merah { 
-            width: 10px; 
-            height: 10px; 
-            border-radius: 50%; 
-            background: #ef4444; 
-            flex-shrink: 0; 
-        }
-        .teks-timeout { 
-            color: #991b1b; 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-        }
+        .lingkaran-merah { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
+        .teks-timeout { color: #991b1b; font-weight: 700; font-size: 0.75rem; }
         
         .input-waktu-edit { width: 100%; font-size: 0.75rem; padding: 5px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 6px; }
         .btn-waktu-kontrol { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; margin-right: 3px; cursor: pointer; font-weight: 500; }
@@ -132,9 +102,13 @@
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
 
-        .tombol-nominal { font-size: 0.85rem; padding: 10px 6px; border-radius: 8px; border: 1px solid #d1d5db; background: #ffffff; width: 100%; text-align: center; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; overflow: hidden; }
+        .tombol-nominal { 
+            font-size: 0.85rem; padding: 10px 6px; border-radius: 8px; border: 1px solid #d1d5db; 
+            background: #ffffff; width: 100%; text-align: center; font-weight: 700; 
+            cursor: pointer; transition: all 0.2s; white-space: nowrap; overflow: hidden; 
+        }
         .tombol-nominal:hover { background: #f0f7ff; border-color: #93c5fd; }
-        .nominal-nol { color: #dc2626; }
+        .nominal-nol { color: #16a34a; font-weight: 600; }
         .nominal-ada { color: #16a34a; }
         .nominal-default { color: #6b7280; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.8rem; }
         .panah-bawah { font-size: 10px; color: #9ca3af; }
@@ -143,7 +117,7 @@
         .daftar-nominal { max-height: 300px; overflow-y: auto; }
         .pilihan-nominal { padding: 10px 6px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fafafa; cursor: pointer; text-align: center; font-weight: 600; transition: all 0.2s; font-size: 0.9rem; }
         .pilihan-nominal:hover { background: #eff6ff; border-color: #93c5fd; }
-        .pilihan-nominal.nol { color: #dc2626; }
+        .pilihan-nominal.nol { color: #16a34a; }
         .pilihan-nominal.ada { color: #16a34a; }
         .peringatan { display: flex; align-items: flex-start; gap: 8px; background: #fef9c3; border: 1px solid #facc15; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
         .ikon-peringatan { color: #eab308; font-size: 18px; flex-shrink: 0; margin-top: 2px; }
@@ -175,10 +149,10 @@
         </div>
 
         <div class="bg-white p-4 rounded-lg shadow mb-4 mx-2">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Tambah Data (Format: NAMA Nomor)</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Tambah Data (Format: NAMA Nomor / atau nomor saja)</label>
             <textarea id="areaInput" rows="3" 
                 class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="ANDI 081234567890&#10;BUDI 089876543210"></textarea>
+                placeholder="ANDI 081234567890&#10;281375382447"></textarea>
             <button onclick="tambahDariInput()" 
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                 <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Tabel
@@ -275,12 +249,16 @@
         }
 
         function pisahNamaNomor(teks) {
-            const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
-            if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
-            const bagian = teks.trim().split(/\s+/);
-            const nomor = bagian.find(x => /^\d{8,}$/.test(x)) || '';
-            const nama = nomor ? teks.trim().replace(nomor, '').trim() : teks.trim();
-            return { nama: nama || '-', nomor };
+            const t = teks.trim();
+            if (!t) return { nama: '', nomor: '' };
+            const cocokNomor = t.match(/(\d{8,})$/);
+            if (cocokNomor) {
+                const nomor = cocokNomor[1];
+                const nama = t.substring(0, t.length - nomor.length).trim();
+                return { nama: nama || '-', nomor };
+            }
+            if (/^\d+$/.test(t)) return { nama: '-', nomor: t };
+            return { nama: t, nomor: '' };
         }
 
         function buatLinkWA(nomor) {
@@ -409,31 +387,17 @@
         function terapkanWaktu(el) {
             const input = el.querySelector('#inpWaktuKolom');
             const val = input.value.trim().toUpperCase();
-            
-            if (!val) {
-                mulaiHitungMundur(el);
-                return;
-            }
-            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') {
-                tampilTimeOut(el);
-                return;
-            }
-            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) {
-                mulaiHitungMundur(el, val);
-                return;
-            }
+            if (!val) { mulaiHitungMundur(el); return; }
+            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') { tampilTimeOut(el); return; }
+            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) { mulaiHitungMundur(el, val); return; }
             alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
             bukaEditWaktu(el);
         }
 
         function batalEditWaktu(el) {
-            if (el._mode === 'timeout') {
-                tampilTimeOut(el);
-            } else if (el._jamTujuan) {
-                mulaiHitungMundur(el, el._jamTujuan);
-            } else {
-                mulaiHitungMundur(el);
-            }
+            if (el._mode === 'timeout') tampilTimeOut(el);
+            else if (el._jamTujuan) mulaiHitungMundur(el, el._jamTujuan);
+            else mulaiHitungMundur(el);
         }
 
         function terapkanTimeOut(el) {
@@ -477,11 +441,7 @@
             nilaiDipilih = nilai;
             const btn = barisSaatIni.querySelector('.tombol-nominal');
             btn.dataset.nominal = nilai;
-            if (nilai === 0) {
-                btn.innerHTML = `<span class="nominal-nol">MAXWIN</span>`;
-            } else {
-                btn.innerHTML = `<span class="nominal-ada">${keRupiah(nilai)}</span>`;
-            }
+            btn.innerHTML = `<span class="${nilai === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(nilai)}</span>`;
             tutupPopupNominal();
         }
 
@@ -508,12 +468,19 @@
             let tampilNominal;
             if (nominal !== '' && nominal !== null) {
                 const n = Number(nominal);
-                tampilNominal = n === 0 
-                    ? `<span class="nominal-nol">MAXWIN</span>`
-                    : `<span class="nominal-ada">${keRupiah(n)}</span>`;
+                tampilNominal = `<span class="${n === 0 ? 'nominal-nol' : 'nominal-ada'}">${keRupiah(n)}</span>`;
             } else {
-                tampilNominal = `<span class="nominal-default">MAXWIN <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
+                tampilNominal = `<span class="nominal-default">Rp 0 <i class="fa-solid fa-chevron-down panah-bawah"></i></span>`;
             }
+
+            const tombolSalinNama = (nama && nama !== '-') 
+                ? `<button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)" title="Salin Nama"><i class="fa-solid fa-copy"></i></button>` 
+                : '';
+            const tombolSalinNomor = nomor 
+                ? `<button class="btn-salin" onclick="salinTeks('${nomor}', this)" title="Salin Nomor"><i class="fa-solid fa-copy"></i></button>` 
+                : '';
+            const tampilNama = (nama && nama !== '-') ? nama : '';
+            const tampilNomorTeks = nomor || '-';
 
             tr.innerHTML = `
                 <td contenteditable="true"><span class="tag-game">${game}</span></td>
@@ -522,12 +489,12 @@
                 <td>
                     <div class="db-wrapper">
                         <div class="baris-db">
-                            <span class="teks-nama" title="${nama}">${nama}</span>
-                            <button class="btn-salin" onclick="salinTeks('${nama.replace(/'/g, "\\'")}', this)" title="Salin Nama"><i class="fa-solid fa-copy"></i></button>
+                            <span class="teks-nama" title="${tampilNama}">${tampilNama || '&nbsp;'}</span>
+                            ${tombolSalinNama}
                         </div>
                         <div class="baris-db">
-                            <a href="${linkWA}" target="_blank" class="link-wa teks-nomor">${nomor || '-'}</a>
-                            <button class="btn-salin" onclick="salinTeks('${nomor}', this)" title="Salin Nomor"><i class="fa-solid fa-copy"></i></button>
+                            ${linkWA ? `<a href="${linkWA}" target="_blank" class="link-wa teks-nomor">${tampilNomorTeks}</a>` : `<span class="teks-nomor">${tampilNomorTeks}</span>`}
+                            ${tombolSalinNomor}
                         </div>
                     </div>
                 </td>
@@ -553,13 +520,9 @@
 
             setTimeout(() => {
                 const elWaktu = tr.querySelector('.sel-waktu');
-                if (dataWaktu && dataWaktu.mode === 'timeout') {
-                    tampilTimeOut(elWaktu);
-                } else if (dataWaktu && dataWaktu.jam) {
-                    mulaiHitungMundur(elWaktu, dataWaktu.jam);
-                } else {
-                    mulaiHitungMundur(elWaktu);
-                }
+                if (dataWaktu && dataWaktu.mode === 'timeout') tampilTimeOut(elWaktu);
+                else if (dataWaktu && dataWaktu.jam) mulaiHitungMundur(elWaktu, dataWaktu.jam);
+                else mulaiHitungMundur(elWaktu);
             }, 0);
 
             return tr;
