@@ -17,7 +17,6 @@
         .link-wa { color: #25D366; font-weight: 500; text-decoration: none; transition: all 0.2s; font-size: 0.82rem; }
         .link-wa:hover { color: #128C7E; text-decoration: underline; }
 
-        /* === TOMBOL SALIN — LEBIH SAMAR ✅ === */
         .btn-salin { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 3px; border: none; background: transparent; color: #9ca3af; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; font-size: 0.7rem; opacity: 0.55; }
         .btn-salin:hover { background: #e5e7eb; color: #6b7280; opacity: 1; }
         .btn-salin.sukses { background: transparent; color: #65a30d; opacity: 0.8; }
@@ -30,7 +29,6 @@
         button { transition: all 0.12s ease !important; position: relative; overflow: hidden; box-sizing: border-box; }
         button:active { transform: translateY(1px) scale(0.98); filter: brightness(0.9); }
 
-        /* TANDA BULAT KETERANGAN */
         .tanda-keterangan { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; font-weight: bold; font-size: 11px; padding: 0; line-height: 1; }
         .tanda-keterangan.diterima { background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%); color: white; }
         .tanda-keterangan.ditolak { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); color: white; }
@@ -45,18 +43,20 @@
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #374151; color: white; padding: 9px 16px; border-radius: 6px; font-size: 12px; opacity: 0; transition: all 0.3s; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .toast.tampil { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* === KOLOM BATAS WAKTU === */
         .col-game { width: 13%; }
         .col-status { width: 12%; }
-        .col-waktu { width: 15%; }
-        .col-db { width: 25%; }
+        .col-waktu { width: 18%; }
+        .col-db { width: 23%; }
         .col-ket { width: 18%; }
         .col-jp { width: 12%; }
         .col-confirm { width: 10%; }
 
         .tag-game { font-size: 0.78rem; white-space: nowrap; }
 
-        /* === HITUNGAN MUNDUR — FONT LEBIH JELAS ✅ === */
+        /* === HITUNGAN MUNDUR — BISA DIEDIT === */
+        .sel-waktu { cursor: pointer; }
+        .sel-waktu:hover { background: #eff6ff; }
+        
         .waktu-mundur { 
             font-size: 0.85rem; 
             font-weight: 700; 
@@ -66,25 +66,38 @@
         .waktu-mundur.normal { color: #1d4ed8; }
         .waktu-mundur.hampir { color: #d97706; animation: kedip 1s infinite; }
         .waktu-mundur.habis { color: #dc2626; }
+        
+        /* === TIME OUT — LINGKARAN MERAH ✅ === */
+        .time-out-wrapper { display: inline-flex; align-items: center; gap: 5px; }
+        .lingkaran-merah { width: 12px; height: 12px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
+        .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.8rem; }
+        
+        .input-waktu-edit { 
+            width: 100%; 
+            font-size: 0.8rem; 
+            padding: 3px 5px; 
+            border: 1px solid #3b82f6; 
+            border-radius: 4px; 
+            text-align: center;
+            outline: none;
+        }
+        
         @keyframes kedip {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.35; }
         }
 
-        /* TOMBOL STATUS */
         .tombol-status { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
         .tombol-status:hover { filter: brightness(0.95); transform: scale(1.03); }
         .tombol-status.pending { background: #fef9c3; border-color: #facc15; color: #854d0e; }
         .tombol-status.lose { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
         .tombol-status.done { background: #dcfce7; border-color: #86efac; color: #166534; }
 
-        /* TOMBOL KLAIM */
         .tombol-klaim { cursor: pointer; transition: all 0.2s; font-size: 0.75rem; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
         .tombol-klaim.claimed { background: #10b981; color: white; }
 
-        /* PILIHAN NOMINAL */
         .btn-nominal { transition: all 0.2s; }
         .btn-nominal.nol { color: #dc2626; font-weight: 600; }
         .btn-nominal.nol:hover, .btn-nominal.nol.terpilih { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
@@ -103,7 +116,6 @@
     <main class="py-5 pb-10">
         <h1 class="text-xl font-bold text-gray-900 mb-5">DATABASE JACKPOT PEJUANG KASINO</h1>
 
-        <!-- Pencarian -->
         <div class="bg-white p-4 rounded-lg shadow mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Cari Nomor / Nama</label>
             <div class="flex gap-3 flex-wrap">
@@ -115,7 +127,6 @@
             </div>
         </div>
 
-        <!-- Input Data -->
         <div class="bg-white p-4 rounded-lg shadow mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Masukan Data (Format: NAMA Nomor)</label>
             <textarea id="areaInput" rows="3" 
@@ -125,10 +136,9 @@
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                 <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Database
             </button>
-            <p class="text-xs text-gray-500 mt-2">💡 Otomatis hitung mundur dari jam masuk sampai 00.00 tengah malam</p>
+            <p class="text-xs text-gray-500 mt-2">💡 Klik kolom Batas Waktu untuk ubah jam atau set ke Time Out</p>
         </div>
 
-        <!-- TABEL -->
         <div class="bg-white rounded-lg shadow mb-4 table-container">
             <table>
                 <thead>
@@ -146,7 +156,6 @@
             </table>
         </div>
 
-        <!-- Tombol Aksi -->
         <div class="flex flex-wrap gap-2.5">
             <button onclick="tambahBarisKosong()" 
                 class="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
@@ -163,10 +172,8 @@
         </div>
     </main>
 
-    <!-- Notifikasi -->
     <div id="toast" class="toast">Berhasil disalin! ✅</div>
 
-    <!-- Popup Pilih Nominal -->
     <div id="popupNominal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
             <button onclick="tutupPopupNominal()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
@@ -180,7 +187,6 @@
         </div>
     </div>
 
-    <!-- Popup Klaim -->
     <div id="popupKlaim" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
         <div class="bg-white rounded-xl p-5 w-[92%] max-w-md relative">
             <button onclick="tutupPopupKlaim()" class="absolute top-3 right-4 text-gray-400 hover:text-gray-600 text-lg">&times;</button>
@@ -200,7 +206,6 @@
         let nilaiDipilih = null;
         const daftarNilai = [0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000];
 
-        // === FUNGSI SALIN ===
         async function salinTeks(teks, tombol) {
             try {
                 await navigator.clipboard.writeText(teks);
@@ -222,7 +227,6 @@
             setTimeout(() => el.classList.remove('tampil'), 2000);
         }
 
-        // === PISAH NAMA & NOMOR ===
         function pisahNamaNomor(teks) {
             const cocok = teks.trim().match(/^(.+?)\s*(\d{8,})$/);
             if (cocok) return { nama: cocok[1].trim(), nomor: cocok[2].trim() };
@@ -232,7 +236,6 @@
             return { nama: nama || teks, nomor };
         }
 
-        // === BUAT LINK WA ===
         function buatLinkWA(nomor) {
             if (!nomor) return '';
             const bersih = nomor.replace(/^0/, '62').replace(/\D/g, '');
@@ -245,7 +248,6 @@
             return 'Rp ' + Number(angka).toLocaleString('id-ID');
         }
 
-        // === UBAH STATUS ===
         function ubahStatus(tombol) {
             const urutan = ['pending', 'lose', 'done'];
             const sekarang = tombol.dataset.status;
@@ -253,7 +255,6 @@
             const berikutnya = urutan[(indeks + 1) % urutan.length];
             tombol.dataset.status = berikutnya;
             tombol.className = `tombol-status inline-flex items-center gap-1 px-2 py-1 rounded-full border ${berikutnya}`;
-            
             const label = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' };
             const ikon = {
                 pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
@@ -263,11 +264,8 @@
             tombol.innerHTML = `${ikon[berikutnya]}${label[berikutnya]}`;
         }
 
-        // === UBAH KLAIM + TETAP TAMPILKAN NOTIFIKASI ===
         function ubahKlaim(tombol) {
-            if (tombol.dataset.claim === 'claim') {
-                bukaPopupKlaim();
-            }
+            if (tombol.dataset.claim === 'claim') bukaPopupKlaim();
             const urutan = ['claim', 'lose', 'claimed'];
             const sekarang = tombol.dataset.claim;
             const indeks = urutan.indexOf(sekarang);
@@ -278,14 +276,12 @@
             tombol.textContent = label[berikutnya];
         }
 
-        // === UBAH KETERANGAN ===
         function ubahTandaKeterangan(tombol) {
             const sekarang = tombol.dataset.ket;
             const berikutnya = sekarang === 'diterima' ? 'ditolak' : 'diterima';
             tombol.dataset.ket = berikutnya;
             tombol.className = `tanda-keterangan ${berikutnya}`;
             tombol.textContent = berikutnya === 'diterima' ? '✓' : '✗';
-            
             const baris = tombol.closest('.baris-keterangan');
             const teksEl = baris.querySelector('.teks-keterangan');
             teksEl.textContent = berikutnya === 'diterima' 
@@ -293,13 +289,22 @@
                 : '✗ Menolak Undangan';
         }
 
-        // === HITUNGAN MUNDUR OTOMATIS SAMPAI 00.00 ===
+        // === HITUNGAN MUNDUR OTOMATIS ===
         function waktuTengahMalamBerikutnya() {
             const sekarang = new Date();
             const tengahMalam = new Date(sekarang);
             tengahMalam.setDate(tengahMalam.getDate() + 1);
             tengahMalam.setHours(0, 0, 0, 0);
             return tengahMalam;
+        }
+
+        function buatWaktuAkhirDariJam(jamStr) {
+            if (!jamStr) return waktuTengahMalamBerikutnya();
+            const [jam, menit] = jamStr.split(':').map(Number);
+            const sekarang = new Date();
+            const waktuAkhir = new Date(sekarang.getFullYear(), sekarang.getMonth(), sekarang.getDate(), jam, menit || 0, 0);
+            if (waktuAkhir < sekarang) waktuAkhir.setDate(waktuAkhir.getDate() + 1);
+            return waktuAkhir;
         }
 
         function formatSisaWaktu(ms) {
@@ -312,10 +317,34 @@
             return { teks, kelas };
         }
 
-        function mulaiHitungMundur(elWaktu) {
-            const waktuAkhir = waktuTengahMalamBerikutnya();
+        // === TAMPILKAN TIME OUT ===
+        function tampilTimeOut(elWaktu) {
+            if (elWaktu.dataset.intervalId) {
+                clearInterval(parseInt(elWaktu.dataset.intervalId));
+                elWaktu.dataset.intervalId = '';
+            }
+            elWaktu.dataset.mode = 'timeout';
+            elWaktu.innerHTML = `
+                <div class="time-out-wrapper">
+                    <span class="lingkaran-merah"></span>
+                    <span class="teks-timeout">Time Out</span>
+                </div>
+            `;
+        }
+
+        // === MULAI HITUNGAN MUNDUR ===
+        function mulaiHitungMundur(elWaktu, jamTujuan = null) {
+            if (elWaktu.dataset.intervalId) {
+                clearInterval(parseInt(elWaktu.dataset.intervalId));
+            }
+            elWaktu.dataset.mode = 'counting';
+            const waktuAkhir = jamTujuan ? buatWaktuAkhirDariJam(jamTujuan) : waktuTengahMalamBerikutnya();
             
             const idInterval = setInterval(() => {
+                if (elWaktu.dataset.mode === 'timeout') {
+                    clearInterval(idInterval);
+                    return;
+                }
                 const sisa = waktuAkhir.getTime() - Date.now();
                 if (sisa <= 0) {
                     elWaktu.innerHTML = `<span class="waktu-mundur habis">WAKTU HABIS</span>`;
@@ -325,17 +354,75 @@
                 const { teks, kelas } = formatSisaWaktu(sisa);
                 elWaktu.innerHTML = `<span class="waktu-mundur ${kelas}">${teks}</span>`;
             }, 1000);
-            
             elWaktu.dataset.intervalId = idInterval;
+            elWaktu.dataset.jamTujuan = jamTujuan || '';
         }
 
-        // === PILIH NOMINAL ===
+        // === KLIK KOLOM WAKTU → BISA DIEDIT ===
+        function aktifkanEditWaktu(elWaktu) {
+            if (elWaktu.querySelector('input')) return;
+            
+            const jamSaatIni = elWaktu.dataset.jamTujuan || '';
+            const modeSaatIni = elWaktu.dataset.mode;
+            
+            elWaktu.innerHTML = `
+                <div style="display:flex;flex-direction:column;gap:4px;">
+                    <input type="text" class="input-waktu-edit" 
+                           value="${jamSaatIni}" 
+                           placeholder="HH:MM / ketik TO"
+                           id="inputEditWaktu">
+                    <div style="display:flex;gap:4px;">
+                        <button onclick="simpanEditWaktu(this.closest('.sel-waktu'))" 
+                                style="padding:2px 6px;font-size:11px;background:#3b82f6;color:white;border-radius:3px;border:none;">OK</button>
+                        <button onclick="batalkanEditWaktu(this.closest('.sel-waktu'))" 
+                                style="padding:2px 6px;font-size:11px;background:#e5e7eb;color:#374151;border-radius:3px;border:none;">Batal</button>
+                        <button onclick="setTimeOut(this.closest('.sel-waktu'))" 
+                                style="padding:2px 6px;font-size:11px;background:#ef4444;color:white;border-radius:3px;border:none;">Timeout</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('inputEditWaktu').focus();
+        }
+
+        function simpanEditWaktu(elWaktu) {
+            const input = elWaktu.querySelector('.input-waktu-edit');
+            const nilai = input.value.trim().toUpperCase();
+            
+            if (!nilai) {
+                mulaiHitungMundur(elWaktu);
+                return;
+            }
+            if (nilai === 'TO' || nilai === 'TIMEOUT' || nilai === 'TIME OUT') {
+                tampilTimeOut(elWaktu);
+                return;
+            }
+            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(nilai)) {
+                mulaiHitungMundur(elWaktu, nilai);
+                return;
+            }
+            alert('Format salah! Masukkan jam seperti 22:30\nAtau ketik: TO → untuk Time Out');
+            aktifkanEditWaktu(elWaktu);
+        }
+
+        function batalkanEditWaktu(elWaktu) {
+            if (elWaktu.dataset.mode === 'timeout') {
+                tampilTimeOut(elWaktu);
+            } else if (elWaktu.dataset.jamTujuan) {
+                mulaiHitungMundur(elWaktu, elWaktu.dataset.jamTujuan);
+            } else {
+                mulaiHitungMundur(elWaktu);
+            }
+        }
+
+        function setTimeOut(elWaktu) {
+            tampilTimeOut(elWaktu);
+        }
+
         function bukaPilihNominal(tombol) {
             barisSaatIni = tombol.closest('tr');
             nilaiDipilih = null;
             const wadah = document.getElementById('daftarPilihan');
             wadah.innerHTML = '';
-            
             daftarNilai.forEach(n => {
                 const btn = document.createElement('button');
                 const isNol = n === 0;
@@ -381,8 +468,7 @@
             document.getElementById('popupKlaim').classList.add('opacity-0','invisible');
         }
 
-        // === BUAT BARIS ===
-        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima') {
+        function buatBaris(game='PG/PRAGMATIC', status='pending', nama='', nomor='', nominal='', klaim='claim', keterangan='diterima', waktuData=null) {
             const tr = document.createElement('tr');
             tr.className = 'hover:bg-gray-50';
             
@@ -397,11 +483,11 @@
                 pending: '<span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>',
                 lose: '<i class="fa-solid fa-times-circle text-xs"></i>',
                 done: '<i class="fa-solid fa-check-circle text-xs"></i>'
-            }[status];
+            };
             const tampilStatus = `
                 <button class="tombol-status inline-flex items-center gap-1 px-2 py-1 rounded-full border ${status}" 
                         data-status="${status}" onclick="ubahStatus(this)">
-                    ${ikonStatus}${labelStatus}
+                    ${ikonStatus[status]}${labelStatus}
                 </button>
             `;
 
@@ -439,7 +525,7 @@
             tr.innerHTML = `
                 <td contenteditable="true">${tampilGame}</td>
                 <td>${tampilStatus}</td>
-                <td class="sel-waktu"></td>
+                <td class="sel-waktu" onclick="aktifkanEditWaktu(this)" title="Klik untuk ubah jam / Time Out"></td>
                 <td>
                     <div class="db-wrapper">
                         ${nama ? `
@@ -470,7 +556,13 @@
 
             setTimeout(() => {
                 const selWaktu = tr.querySelector('.sel-waktu');
-                mulaiHitungMundur(selWaktu);
+                if (waktuData && waktuData.mode === 'timeout') {
+                    tampilTimeOut(selWaktu);
+                } else if (waktuData && waktuData.jamTujuan) {
+                    mulaiHitungMundur(selWaktu, waktuData.jamTujuan);
+                } else {
+                    mulaiHitungMundur(selWaktu);
+                }
             }, 0);
 
             return tr;
@@ -493,7 +585,7 @@
                     jumlah++;
                 }
             });
-            alert(`✅ ${jumlah} data ditambahkan!\nHitungan mundur otomatis berjalan sampai 00.00`);
+            alert(`✅ ${jumlah} data ditambahkan!\nKlik kolom Batas Waktu untuk ubah jam`);
             document.getElementById('areaInput').value = '';
         }
 
@@ -506,6 +598,7 @@
                 const tombolKlaim = tr.querySelector('.tombol-klaim');
                 const tombolNominal = tr.querySelector('.tombol-nominal');
                 const tandaKet = tr.querySelector('.tanda-keterangan');
+                const selWaktu = tr.querySelector('.sel-waktu');
                 
                 semua.push({
                     game: tr.cells[0].innerText.trim(),
@@ -514,7 +607,11 @@
                     nomor: nomorEl ? nomorEl.textContent.trim() : '',
                     nominal: tombolNominal ? tombolNominal.dataset.nilai : '',
                     klaim: tombolKlaim ? tombolKlaim.dataset.claim : 'claim',
-                    keterangan: tandaKet ? tandaKet.dataset.ket : 'diterima'
+                    keterangan: tandaKet ? tandaKet.dataset.ket : 'diterima',
+                    waktu: {
+                        mode: selWaktu ? selWaktu.dataset.mode : '',
+                        jamTujuan: selWaktu ? selWaktu.dataset.jamTujuan : ''
+                    }
                 });
             });
             localStorage.setItem('dataJackpot', JSON.stringify(semua));
@@ -522,47 +619,9 @@
         }
 
         function hapusSemuaSekaliKlik() {
-            if (confirm('⚠️ YAKIN ingin menghapus SEMUA data? Tindakan ini tidak bisa dibatalkan!')) {
+            if (confirm('⚠️ YAKIN ingin menghapus SEMUA data?')) {
                 document.getElementById('badanTabel').innerHTML = '';
                 localStorage.removeItem('dataJackpot');
-                alert('✅ SEMUA DATA SUDAH DIHAPUS!');
-            }
-        }
-
-        function filterTabel() {
-            const kata = document.getElementById('kataCari').value.toUpperCase();
-            document.querySelectorAll('#badanTabel tr').forEach(tr => {
-                const teksSeluruh = tr.cells[3].textContent.toUpperCase();
-                tr.style.display = teksSeluruh.includes(kata) ? '' : 'none';
-            });
-        }
-
-        function resetCari() {
-            document.getElementById('kataCari').value = '';
-            document.querySelectorAll('#badanTabel tr').forEach(tr => tr.style.display = '');
-        }
-
-        function muatSaatMulai() {
-            const tersimpan = localStorage.getItem('dataJackpot');
-            if (tersimpan) {
-                JSON.parse(tersimpan).forEach(item => {
-                    document.getElementById('badanTabel').appendChild(
-                        buatBaris(
-                            item.game || 'PG/PRAGMATIC',
-                            item.status || 'pending',
-                            item.nama || '',
-                            item.nomor || '',
-                            item.nominal,
-                            item.klaim || 'claim',
-                            item.keterangan || 'diterima'
-                        )
-                    );
-                });
-            }
-        }
-
-        muatSaatMulai();
-    </script>
-
+                
 </body>
 </html>
