@@ -10,7 +10,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { min-height: 100vh; background: #f8fafc; }
         table { border-collapse: separate; border-spacing: 0; width: 100%; table-layout: fixed; }
-        th, td { border: 1px solid #cbd5e1; padding: 8px 4px; vertical-align: middle; overflow: hidden; position: relative; }
+        th, td { border: 1px solid #cbd5e1; padding: 8px 4px; vertical-align: middle; position: relative; }
         th { border-bottom-width: 2px; white-space: nowrap; padding: 10px 3px; font-size: 0.78rem; font-weight: 700; background: #f3f4f6; }
         tr:hover td { background: #f9fafb; }
 
@@ -53,7 +53,7 @@
 
         .tag-game { font-size: 0.75rem; white-space: nowrap; display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
 
-        .sel-waktu { font-size: 0.8rem; min-height: 36px; cursor: pointer; padding: 4px; border-radius: 4px; }
+        .sel-waktu { font-size: 0.8rem; min-height: 40px; cursor: pointer; padding: 6px; border-radius: 4px; }
         .sel-waktu:hover { background: #eff6ff; }
         
         .waktu-mundur { font-weight: 700; letter-spacing: 0.5px; }
@@ -65,8 +65,8 @@
         .lingkaran-merah { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
         .teks-timeout { color: #dc2626; font-weight: 700; font-size: 0.78rem; }
         
-        .input-waktu-edit { width: 100%; font-size: 0.78rem; padding: 4px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 4px; }
-        .btn-waktu-kontrol { padding: 3px 6px; font-size: 11px; border-radius: 3px; border: none; margin-right: 3px; }
+        .input-waktu-edit { width: 100%; font-size: 0.78rem; padding: 5px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 6px; }
+        .btn-waktu-kontrol { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; margin-right: 4px; cursor: pointer; font-weight: 500; }
         .btn-ok { background: #3b82f6; color: white; }
         .btn-batal { background: #e5e7eb; color: #374151; }
         .btn-to { background: #ef4444; color: white; }
@@ -237,7 +237,7 @@
             return 'Rp ' + Number(angka).toLocaleString('id-ID');
         }
 
-        // === FUNGSI KLIK — DIPERBAIKI ===
+        // === FUNGSI KLIK STATUS & KLAIM ===
         function ubahStatus(tombol) {
             const urutan = ['pending', 'lose', 'done'];
             const sekarang = tombol.dataset.status;
@@ -275,7 +275,7 @@
                 berikutnya === 'diterima' ? 'Kemenangan Pengisian Pertama' : '✗ Menolak Undangan';
         }
 
-        // === WAKTU ===
+        // === FUNGSI WAKTU — DIPERBAIKI TOMBOL ===
         function waktuTengahMalamBerikutnya() {
             const n = new Date();
             const t = new Date(n);
@@ -318,8 +318,8 @@
         function mulaiHitung(el, jamTujuan = null) {
             if (el._timer) clearInterval(el._timer);
             el._mode = 'counting';
-            const akhir = jamTujuan ? buatWaktuAkhir(jamTujuan) : waktuTengahMalamBerikutnya();
             el._jamTujuan = jamTujuan || '';
+            const akhir = jamTujuan ? buatWaktuAkhir(jamTujuan) : waktuTengahMalamBerikutnya();
             
             el._timer = setInterval(() => {
                 if (el._mode === 'timeout') { clearInterval(el._timer); return; }
@@ -340,30 +340,49 @@
                 <input type="text" class="input-waktu-edit" id="inpWaktu"
                        value="${el._jamTujuan || ''}" placeholder="HH:MM / ketik TO">
                 <div>
-                    <button class="btn-waktu-kontrol btn-ok" onclick="prosesWaktu(this.parentElement.parentElement)">OK</button>
-                    <button class="btn-waktu-kontrol btn-batal" onclick="batalWaktu(this.parentElement.parentElement)">Batal</button>
-                    <button class="btn-waktu-kontrol btn-to" onclick="setTO(this.parentElement.parentElement)">Timeout</button>
+                    <button class="btn-waktu-kontrol btn-ok" onclick="simpanWaktu(this)">OK</button>
+                    <button class="btn-waktu-kontrol btn-batal" onclick="batalWaktu(this)">Batal</button>
+                    <button class="btn-waktu-kontrol btn-to" onclick="setTimeOut(this)">Timeout</button>
                 </div>
             `;
             el.querySelector('#inpWaktu').focus();
         }
 
-        function prosesWaktu(el) {
+        function simpanWaktu(tombol) {
+            const el = tombol.closest('.sel-waktu');
             const val = el.querySelector('#inpWaktu').value.trim().toUpperCase();
-            if (!val) { mulaiHitung(el); return; }
-            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') { tampilTimeOut(el); return; }
-            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) { mulaiHitung(el, val); return; }
-            alert('Format salah! Contoh: 22:30 atau ketik TO');
+            
+            if (!val) {
+                mulaiHitung(el);
+                return;
+            }
+            if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') {
+                tampilTimeOut(el);
+                return;
+            }
+            if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) {
+                mulaiHitung(el, val);
+                return;
+            }
+            alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
             aktifkanEditWaktu(el);
         }
 
-        function batalWaktu(el) {
-            if (el._mode === 'timeout') tampilTimeOut(el);
-            else if (el._jamTujuan) mulaiHitung(el, el._jamTujuan);
-            else mulaiHitung(el);
+        function batalWaktu(tombol) {
+            const el = tombol.closest('.sel-waktu');
+            if (el._mode === 'timeout') {
+                tampilTimeOut(el);
+            } else if (el._jamTujuan) {
+                mulaiHitung(el, el._jamTujuan);
+            } else {
+                mulaiHitung(el);
+            }
         }
 
-        function setTO(el) { tampilTimeOut(el); }
+        function setTimeOut(tombol) {
+            const el = tombol.closest('.sel-waktu');
+            tampilTimeOut(el);
+        }
 
         // === NOMINAL POPUP ===
         function bukaPilihNominal(tombol) {
@@ -373,14 +392,13 @@
             wadah.innerHTML = '';
             daftarNilai.forEach(n => {
                 const btn = document.createElement('button');
-                btn.style.cssText = 'padding:8px 4px;border-radius:6px;border:1px solid #e5e7eb;background:#f9fafb;';
+                btn.style.cssText = 'padding:10px 6px;border-radius:6px;border:1px solid #e5e7eb;background:#f9fafb;';
                 btn.innerHTML = keRupiah(n);
                 if (n === 0) btn.style.color = '#dc2626';
                 btn.onclick = () => {
                     document.querySelectorAll('#daftarPilihan button').forEach(b => {
                         b.style.background = '#f9fafb';
                         b.style.borderColor = '#e5e7eb';
-                        b.style.color = n === 0 ? '#dc2626' : '#374151';
                     });
                     btn.style.background = n === 0 ? '#fee2e2' : '#dcfce7';
                     btn.style.borderColor = n === 0 ? '#fca5a5' : '#86efac';
