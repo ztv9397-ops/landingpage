@@ -81,12 +81,21 @@
         }
         .lingkaran-merah { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; flex-shrink: 0; }
         .teks-timeout { color: #991b1b; font-weight: 700; font-size: 0.75rem; }
+
+        .success-wrapper { 
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; 
+            width: 100%; padding: 4px 8px; background: #f0fdf4; 
+            border: 1px solid #bbf7d0; border-radius: 999px; 
+        }
+        .lingkaran-hijau { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+        .teks-success { color: #166534; font-weight: 700; font-size: 0.75rem; }
         
         .input-waktu-edit { width: 100%; font-size: 0.75rem; padding: 5px 6px; border: 1px solid #3b82f6; border-radius: 4px; text-align: center; outline: none; margin-bottom: 6px; }
-        .btn-waktu-kontrol { padding: 4px 8px; font-size: 11px; border-radius: 4px; border: none; margin-right: 3px; cursor: pointer; font-weight: 500; }
+        .btn-waktu-kontrol { padding: 4px 6px; font-size: 11px; border-radius: 4px; border: none; margin-right: 3px; cursor: pointer; font-weight: 500; }
         .btn-ok { background: #3b82f6; color: white; }
         .btn-batal { background: #e5e7eb; color: #374151; }
         .btn-to { background: #ef4444; color: white; }
+        .btn-success { background: #22c55e; color: white; }
         
         @keyframes kedip {
             0%, 100% { opacity: 1; }
@@ -101,7 +110,7 @@
         .tombol-klaim { font-size: 0.7rem; padding: 8px 4px; border-radius: 6px; font-weight: 700; width: 100%; text-align: center; white-space: nowrap; }
         .tombol-klaim.claim { background: #3b82f6; color: white; }
         .tombol-klaim.lose { background: #ef4444; color: white; }
-        .tombol-klaim.claimed { background: #10b981; color: white; }
+        .tombol-klaim.withdraw { background: #10b981; color: white; }
 
         .tombol-nominal { 
             font-size: 0.85rem; padding: 10px 6px; border-radius: 8px; border: 1px solid #d1d5db; 
@@ -163,7 +172,7 @@
                 class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm">
                 <i class="fa-solid fa-paste mr-1.5"></i> Masukkan ke Tabel
             </button>
-            <p class="text-xs text-gray-500 mt-2">💡 Klik kolom WAKTU untuk ubah jam / set Time Out</p>
+            <p class="text-xs text-gray-500 mt-2">💡 Klik kolom WAKTU untuk ubah jam / Time Out / Success</p>
         </div>
 
         <div class="bg-white rounded-lg shadow mb-4 table-container mx-2">
@@ -286,22 +295,22 @@
             tombol.className = `tombol-status ${berikutnya}`;
             const label = { pending: 'PENDING', lose: 'LOSE', done: 'DONE' };
             const ikon = {
-                pending: '<span class="w-2 h-2 rounded-full bg-yellow-400 inline-block mr-1.5"></span>',
-                lose: '<i class="fa-solid fa-times mr-1.5"></i>',
-                done: '<i class="fa-solid fa-check mr-1.5"></i>'
+                pending: '<span class="w-2 h-2 rounded-full bg-yellow-400 inline-block mr-1.5"></span>PENDING',
+                lose: '<i class="fa-solid fa-times mr-1.5"></i>LOSE',
+                done: '<i class="fa-solid fa-check mr-1.5"></i>DONE'
             };
-            tombol.innerHTML = ikon[berikutnya] + label[berikutnya];
+            tombol.innerHTML = ikon[berikutnya];
         }
 
         function ubahKlaim(tombol) {
             if (tombol.dataset.claim === 'claim') bukaPopupKlaim();
-            const urutan = ['claim', 'lose', 'claimed'];
+            const urutan = ['claim', 'lose', 'withdraw'];
             const skrg = tombol.dataset.claim;
             const idx = urutan.indexOf(skrg);
             const berikutnya = urutan[(idx + 1) % 3];
             tombol.dataset.claim = berikutnya;
             tombol.className = `tombol-klaim ${berikutnya}`;
-            tombol.textContent = { claim: 'CLAIM', lose: 'LOSE', claimed: 'CLAIMED' }[berikutnya];
+            tombol.textContent = { claim: 'CLAIM', lose: 'LOSE', withdraw: 'WITHDRAW' }[berikutnya];
         }
 
         function ubahKeterangan(tombol) {
@@ -352,6 +361,18 @@
             `;
         }
 
+        function tampilSuccess(el) {
+            if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
+            el._mode = 'success';
+            el._jamTujuan = '';
+            el.innerHTML = `
+                <div class="success-wrapper">
+                    <span class="lingkaran-hijau"></span>
+                    <span class="teks-success">SUCCESS</span>
+                </div>
+            `;
+        }
+
         function mulaiHitungMundur(el, jamTujuan = null) {
             if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
             el._mode = 'counting';
@@ -359,7 +380,7 @@
             const akhir = jamTujuan ? buatWaktuTujuan(jamTujuan) : waktuTengahMalamBerikutnya();
             
             el._timerId = setInterval(() => {
-                if (el._mode === 'timeout') {
+                if (el._mode === 'timeout' || el._mode === 'success') {
                     clearInterval(el._timerId);
                     el._timerId = null;
                     return;
@@ -380,11 +401,12 @@
             if (el.querySelector('.input-waktu-edit')) return;
             el.innerHTML = `
                 <input type="text" class="input-waktu-edit" id="inpWaktuKolom"
-                       value="${el._jamTujuan || ''}" placeholder="HH:MM / ketik TO">
-                <div style="display:flex;gap:4px;">
+                       value="${el._jamTujuan || ''}" placeholder="HH:MM / TO / SUCCESS">
+                <div style="display:flex;gap:4px;flex-wrap:wrap;">
                     <button class="btn-waktu-kontrol btn-ok" onclick="terapkanWaktu(this.closest('td'))">OK</button>
                     <button class="btn-waktu-kontrol btn-batal" onclick="batalEditWaktu(this.closest('td'))">Batal</button>
                     <button class="btn-waktu-kontrol btn-to" onclick="terapkanTimeOut(this.closest('td'))">Timeout</button>
+                    <button class="btn-waktu-kontrol btn-success" onclick="terapkanSuccess(this.closest('td'))">Success</button>
                 </div>
             `;
             el.querySelector('#inpWaktuKolom').focus();
@@ -394,28 +416,28 @@
             const input = el.querySelector('#inpWaktuKolom');
             const val = input.value.trim().toUpperCase();
             if (!val) { mulaiHitungMundur(el); return; }
+            if (val === 'SUCCESS' || val === 'SUKSES') { tampilSuccess(el); return; }
             if (val === 'TO' || val === 'TIMEOUT' || val === 'TIME OUT') { tampilTimeOut(el); return; }
             if (/^([01]?\d|2[0-3]):([0-5]\d)$/.test(val)) { mulaiHitungMundur(el, val); return; }
-            alert('Format salah! Contoh: 22:30\nAtau ketik: TO untuk Time Out');
+            alert('Format salah! Contoh:\n• 22:30  → jam hitung mundur\n• TO     → Time Out\n• SUCCESS → Selesai');
             bukaEditWaktu(el);
         }
 
         function batalEditWaktu(el) {
-            if (el._mode === 'timeout') tampilTimeOut(el);
+            if (el._mode === 'success') tampilSuccess(el);
+            else if (el._mode === 'timeout') tampilTimeOut(el);
             else if (el._jamTujuan) mulaiHitungMundur(el, el._jamTujuan);
             else mulaiHitungMundur(el);
         }
 
         function terapkanTimeOut(el) {
             if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
-            el._mode = 'timeout';
-            el._jamTujuan = '';
-            el.innerHTML = `
-                <div class="time-out-wrapper">
-                    <span class="lingkaran-merah"></span>
-                    <span class="teks-timeout">Time Out</span>
-                </div>
-            `;
+            tampilTimeOut(el);
+        }
+
+        function terapkanSuccess(el) {
+            if (el._timerId) { clearInterval(el._timerId); el._timerId = null; }
+            tampilSuccess(el);
         }
 
         function bukaPopupNominal(tombol) {
@@ -532,14 +554,15 @@
                 </td>
                 <td>
                     <button class="tombol-klaim ${klaim}" data-claim="${klaim}" onclick="ubahKlaim(this)">
-                        ${klaim.toUpperCase()}
+                        ${klaim.toUpperCase() === 'CLAIMED' ? 'WITHDRAW' : klaim.toUpperCase()}
                     </button>
                 </td>
             `;
 
             setTimeout(() => {
                 const elWaktu = tr.querySelector('.sel-waktu');
-                if (dataWaktu && dataWaktu.mode === 'timeout') tampilTimeOut(elWaktu);
+                if (dataWaktu && dataWaktu.mode === 'success') tampilSuccess(elWaktu);
+                else if (dataWaktu && dataWaktu.mode === 'timeout') tampilTimeOut(elWaktu);
                 else if (dataWaktu && dataWaktu.jam) mulaiHitungMundur(elWaktu, dataWaktu.jam);
                 else mulaiHitungMundur(elWaktu);
             }, 0);
@@ -621,7 +644,7 @@
                     item.nama || '',
                     item.nomor || '',
                     item.nominal || '',
-                    item.klaim || 'claim',
+                    item.klaim === 'claimed' ? 'withdraw' : (item.klaim || 'claim'),
                     item.keterangan || 'diterima',
                     item.waktu || null
                 ));
